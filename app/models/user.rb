@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
 
   # Validation
-
+  has_one_attached :avatar
   validates :first_name, presence: true, length: { maximum: 50 }, format: { without: /\s/ }
   validates :last_name, presence: true, length: { maximum: 50 }, format: { without: /\s/ }
   validates :phone, presence: true, length: { maximum: 20 }

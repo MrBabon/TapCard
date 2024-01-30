@@ -14,15 +14,23 @@
   </div>
 
   <div class="w-56 mb-4 h-auto bg-TapCard-clair mx-auto rounded-xl shadow-sm">
-    <div class="h-10 pt-2 flex justify-center items-center">
-      <h1><%= current_user.first_name %> <%= current_user.last_name %></h1>
-    </div>
-        <hr class="border-t border-TapCard-gray/50">
-        <div class="py-3 px-3 text-sm font-light space-y-3">
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= f.error_notification %>
+        <div class=" pt-2 flex flex-col justify-center items-center relative bottom-8">
+            <% if current_user.avatar.attached? %>
+                <%= cl_image_tag current_user.avatar.key, alt: "Avatar to #{current_user.first_name}", class: "rounded-full object-cover object-center w-16 h-16 shadow-md", id: "user-avatar" %>
+            <% else %>
+                <%= image_tag("avatar.svg", class: "rounded-full w-16 h-16 bg-cover bg-center shadow-md") %>
+            <% end %>
+            <label for="<%= f.object_name %>_avatar" class="cursor-pointer w-5 h-5 bg-TapCard-teal rounded-full relative bottom-5 left-5 flex items-center justify-center">
+                <%= image_tag("pen-solid.svg", class: "h-2 fill-TapCard-yellow") %>
+                <%= f.input :avatar, as: :file, label: false, wrapper: false, input_html: { class: "hidden", data: { controller: "preview-image", action: "change->preview-image#previewImage" } } %>
+            </label>
+      <div id="image-preview-container"></div>
+        </div>
+        <div class="pb-3 px-3 text-sm font-light">
             <p class=" text-TapCard-silver">Personal informations</p>
         </div>
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-      <%= f.error_notification %>
       <div class="form-inputs">
         <%= f.input :first_name,
                 required: true,
