@@ -1,2 +1,14 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="bg-banner-home bg-center bg-cover h-[80vh]">
+    <h1 class="flex items-center justify-center text-TapCard-charcoal text-3xl h-[80vh] uppercase">Tapcard</h1>
+</div>
+<div class="h-[15vh] mt-5">
+    <ul class="text-center font-semibold space-y-2">
+        <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "text-TapCard-charcoal" %>
+        </li>
+        <li class="pb-5">
+            <%= link_to "Sign up", new_user_registration_path, class: "text-TapCard-blue" %>
+        </li>
+    </ul>
+<div class=" bg-TapCard-yellow py-2"></div>
+</div>

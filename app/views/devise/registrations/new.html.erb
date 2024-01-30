@@ -1,25 +1,69 @@
-<h2>Sign up</h2>
+<div class="flex w-full justify-between items-center pt-8 pb-3 pl-3  bg-TapCard-charcoal">
+  <%= link_to :back do %>
+    <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+  <% end %>
+  <div class="flex-1 text-center mr-3">
+    <h2 class="mx-auto text-TapCard-lightGray uppercase">Sign in</h2>
+  </div>
+  <div class="w-5"></div>
+</div>
+<div class="flex items-center justify-center my-20">
+  <h1 class=" text-TapCard-charcoal text-3xl uppercase">TapCard</h1>
+</div>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
+    <div class="text-center">
+      <%= f.input :first_name,
+                  required: true,
+                  input_html: { autocomplete: "first name", class: "rounded w-[85%]" },
+                  label: "First Name",
+                  label_html: { class: "block text-left ml-5" } %>
+    </div>
+    <div class="text-center">
+      <%= f.input :last_name,
+                  required: true,
+                  input_html: { autocomplete: "last name", class: "rounded w-[85%]" },
+                  label: "Last Name",
+                  label_html: { class: "block text-left ml-5" } %>
+    </div>
+    <div class="text-center">
+      <%= f.input :email,
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: "email", class: "rounded w-[85%]" },
+                  label_html: { class: "block text-left ml-5" } %>
+    </div>
+    <div class="text-center">
+      <%= f.input :phone,
+                  required: true,
+                  input_html: { autocomplete: "phone", class: "rounded w-[85%]" },
+                  label: "Phone Number",
+                  label_html: { class: "block text-left ml-5" } %>
+    </div>
+    <div class="text-center">
+      <%= f.input :password,
+                  required: true,
+                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                  input_html: { autocomplete: "new-password", class: "rounded w-[85%]" },
+                  label_html: { class: "block text-left ml-5" } %>
+
+    </div>
+    <div class="text-center">
+      <%= f.input :password_confirmation,
+                  required: true,
+                  input_html: { autocomplete: "new-password", class: "rounded w-[85%]" },
+                  label: "Confirm Password",
+                  label_html: { class: "block text-left ml-5" } %>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+  <div class="form-actions flex items-center justify-center">
+    <%= f.button :submit, "Sign up", class: "my-6 py-1 px-5 bg-TapCard-blue rounded-full text-TapCard-lightGray" %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+<div class="p-4">
+  <%= render "devise/shared/links" %>
+</div>

@@ -1,0 +1,52 @@
+<div class="flex w-full justify-between font-jost font-semibold items-center pt-8 pb-16 pl-3 bg-TapCard-teal">
+  <%= link_to settings_user_path(current_user), method: :get do %>
+    <i class="fa-sharp fa-solid fa-gear text-TapCard-lightGray/50"></i>
+  <% end %>
+  <div class="flex-1 text-center mr-3">
+    <h2 class="mx-auto text-TapCard-lightGray uppercase">Your account</h2>
+  </div>
+  <div class="w-5"></div>
+</div>
+<div class="flex justify-center relative bottom-12">
+    <%= image_tag "avatar.svg", class: "rounded-full w-24 h-24 bg-cover bg-center border shadow-md" %>
+</div>
+<div class="flex justify-center relative bottom-10">
+    <div class="block justify-center">
+        <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= current_user.first_name %> <%= current_user.last_name %></h2>
+        <div class="flex items-center space-x-2 text-xs justify-center mb-1">
+            <i class="fa-solid fa-phone text-TapCard-blue"></i>
+            <span class=" font-light"><%= current_user.phone %></span>
+        </div>
+        <div class="flex items-center space-x-2 text-xs justify-center mb-1">
+            <i class="fa-regular fa-envelope text-TapCard-blue"></i>
+            <span class=" font-light"><%= current_user.email %></span>
+        </div>
+        <% if current_user.website.present? %>
+            <div class="flex items-center space-x-2 text-xs justify-center">
+                <i class="fa-solid fa-globe text-TapCard-blue"></i>            
+                <span class=" font-light"><%= current_user.website %></span>
+            </div>
+        <% end %>
+        <div class="flex justify-evenly items-center">
+            <% if current_user.twitter.present? %>
+                <a href="<%= current_user.twitter %>"><i class="fa-brands fa-x-twitter"></i></a>
+            <% end %>
+            <% if current_user.linkedin.present? %>
+                <a href="<%= current_user.linkedin %>"><i class="fa-brands fa-linkedin"></i></a>               
+            <% end %>
+            <% if current_user.facebook.present? %>
+                <a href="<%= current_user.facebook %>"><i class="fa-brands fa-facebook"></i></a>                
+            <% end %>
+            <% if current_user.instagram.present? %>
+                <a href="<%= current_user.instagram %>"><i class="fa-brands fa-instagram"></i></a>   
+            <% end %>
+        </div>
+    </div>
+</div>
+<div class="border-2 border-TapCard-yellow"></div>
+<div>
+    <h5><%= current_user.job %></h5>
+    <p><%= current_user.biography %></p>
+</div>
+
+  <%= link_to "Déconnexion", destroy_user_session_path, data: {turbo_method: :delete} %>

@@ -1,35 +1,113 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+<div class="bg-TapCard-teal h-full pb-6">
+  <div class="flex w-full justify-between font-jost font-semibold items-center pt-8 pb-8 px-3">
+    <%= link_to :back do %>
+        <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
     <% end %>
+    <div class="flex-1 text-center mr-3">
+        <h2 class="mx-auto text-TapCard-lightGray uppercase">Edit profil</h2>
+    </div>
+    <div class="">
+        <%= link_to settings_user_path(current_user), method: :get do %>
+            <i class="fa-sharp fa-solid fa-gear text-TapCard-lightGray/50"></i>
+        <% end %>
+    </div>
+  </div>
 
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
+  <div class="w-56 mb-4 h-auto bg-TapCard-clair mx-auto rounded-xl shadow-sm">
+    <div class="h-10 pt-2 flex justify-center items-center">
+      <h1><%= current_user.first_name %> <%= current_user.last_name %></h1>
+    </div>
+        <hr class="border-t border-TapCard-gray/50">
+        <div class="py-3 px-3 text-sm font-light space-y-3">
+            <p class=" text-TapCard-silver">Personal informations</p>
+        </div>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.error_notification %>
+      <div class="form-inputs">
+        <%= f.input :first_name,
                 required: true,
-                input_html: { autocomplete: "current-password" } %>
+                input_html: { autocomplete: "first name", class: "rounded w-[89%] mx-3" },
+                label: "First Name",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <%= f.input :last_name,
+                required: true,
+                input_html: { autocomplete: "last name", class: "rounded w-[89%] mx-3" },
+                label: "Last Name",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <%= f.input :phone,
+                required: true,
+                input_html: { autocomplete: "phone", class: "rounded w-[89%] mx-3" },
+                label: "Phone Number",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <%= f.input :email, 
+                required: true,
+                input_html: { autocomplete: "email", class: "rounded w-[89%] mx-3" },
+                label: "Email",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <%= f.input :job, 
+                required: false,
+                input_html: { autocomplete: "job", class: "rounded w-[89%] mx-3" },
+                label: "Job Title",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <%= f.input :biography, 
+                required: false,
+                input_html: { autocomplete: "biography", rows: 5, class: "rounded w-[89%] mx-3" },
+                label: "Biography",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <%= f.input :industry, 
+                required: false,
+                input_html: { autocomplete: "industry", class: "rounded w-[89%] mx-3" },
+                label: "Industry",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <div class="py-3 px-3 text-sm font-light space-y-3">
+            <p class=" text-TapCard-silver">Links</p>
+        </div>
+        <%= f.input :website, 
+                required: false,
+                input_html: { autocomplete: "website", class: "rounded w-[89%] mx-3" },
+                label: "Website",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <%= f.input :linkedin, 
+                required: false,
+                input_html: { autocomplete: "linkedin", class: "rounded w-[89%] mx-3" },
+                label: "Linkedin",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <%= f.input :instagram, 
+                required: false,
+                input_html: { autocomplete: "instagram", class: "rounded w-[89%] mx-3" },
+                label: "Instagram",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <%= f.input :facebook, 
+                required: false,
+                input_html: { autocomplete: "facebook", class: "rounded w-[89%] mx-3" },
+                label: "Facebook",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <%= f.input :twitter, 
+                required: false,
+                input_html: { autocomplete: "twitter", class: "rounded w-[89%] mx-3" },
+                label: "X",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <% end %>
+        <div>
+          <%= f.input :current_password,
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: "current-password", class: "rounded w-[89%] mx-3" },
+                  label: "Current password",
+                  label_html: { class: "block text-left mx-3 mt-1" } %>
+          <p class="mx-3 text-xs">we need your current password to confirm your changes</p>
+        </div>
+      </div>
+
+      <div class="form-actions flex items-center justify-center">
+        <%= f.button :submit, "Update", class: "my-6 py-1 px-5 bg-TapCard-blue rounded-full text-TapCard-lightGray" %>
+      </div>
+    <% end %>
+    <%# <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete</div> %>
+
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
+</div>
 
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>

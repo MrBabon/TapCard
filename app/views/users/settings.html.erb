@@ -1,0 +1,43 @@
+<div class="bg-TapCard-teal h-[100vh]">
+    <div class="flex w-full justify-between font-jost font-semibold items-center pt-8 pb-8 px-3">
+        <%= link_to :back do %>
+            <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+        <% end %>
+        <div class="flex-1 text-center mr-3">
+            <h2 class="mx-auto text-TapCard-lightGray uppercase">Settings</h2>
+        </div>
+        <div class="">
+            <%= link_to settings_user_path(current_user), method: :get do %>
+                <i class="fa-sharp fa-solid fa-gear text-TapCard-lightGray/50"></i>
+            <% end %>
+        </div>
+    </div>
+    <div class="w-56 h-auto bg-TapCard-clair mx-auto rounded-xl shadow-sm">
+        <div class="h-10 pt-2 flex justify-center items-center">
+            <h1><%= current_user.first_name %> <%= current_user.last_name %></h1>
+        </div>
+        <hr class="border-t border-TapCard-gray/50">
+        <ul class="py-3 px-2 text-sm font-light space-y-3">
+            <li class=" text-TapCard-silver">Account Settings</li>
+            <li>
+                <%= link_to edit_user_registration_path, class: "flex justify-between items-center" do %>
+                    <p>Edit profile</p>
+                    <i class="fa-solid fa-chevron-right"></i>
+                <% end %>
+            </li>
+            <li>Change password</li>
+            <li>Add a payment method</li>
+            <li>Push notifications</li>
+            <li>Messages from contacts</li>
+            <li>Messages from everyone</li>
+            <li>Allow others to see me on map</li>
+        </ul>
+        <hr class="border-t border-TapCard-gray/50">
+        <ul class="py-3 px-2 text-sm space-y-3">
+            <li class=" text-TapCard-silver">More</li>
+            <li>About us</li>
+            <li>Privacy policy</li>
+            <li>Terms and conditions</li>
+        </ul>
+    </div>
+</div>
