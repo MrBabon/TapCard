@@ -1,0 +1,21 @@
+<h1>INDEX EVENTS</h1>
+
+<% @events.each do |event| %>
+    <div>
+        <%= link_to event_path do %>
+            <p>En savoir +</p>
+        <% end %>
+        <%= simple_form_for([@event], url: participations_path(@event), method: :post) do |f| %>
+            <%= f.hidden_field :event_id, value: @event.id %>
+            <div class="form-actions">
+            <%= f.button :submit, value: "S'inscrire à l'évènement", class: "bouton-ac" %>
+            </div>
+        <% end %>
+    </div>
+<% end %>
+<div>
+    <p>En savoir +</p>
+    <img src="" alt="">
+    <p>S'inscrire</p>
+
+</div>

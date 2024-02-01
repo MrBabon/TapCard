@@ -7,7 +7,7 @@
         <h2 class="mx-auto text-TapCard-lightGray uppercase">Edit profil</h2>
     </div>
     <div class="">
-        <%= link_to settings_user_path(current_user), method: :get do %>
+        <%= link_to settings_user_path(current_user) do %>
             <i class="fa-sharp fa-solid fa-gear text-TapCard-lightGray/50"></i>
         <% end %>
     </div>
@@ -18,15 +18,15 @@
         <%= f.error_notification %>
         <div class=" pt-2 flex flex-col justify-center items-center relative bottom-8">
             <% if current_user.avatar.attached? %>
-                <%= cl_image_tag current_user.avatar.key, alt: "Avatar to #{current_user.first_name}", class: "rounded-full object-cover object-center w-16 h-16 shadow-md", id: "user-avatar" %>
+                <%= cl_image_tag current_user.avatar.key, alt: "Avatar to #{current_user.first_name}", class: "rounded-full object-cover object-center w-20 h-20 shadow-md", id: "user-avatar" %>
             <% else %>
-                <%= image_tag("avatar.svg", class: "rounded-full w-16 h-16 bg-cover bg-center shadow-md") %>
+                <%= image_tag("avatar.svg", class: "rounded-full w-20 h-20 object-cover object-center shadow-md", id: "user-avatar") %>
             <% end %>
-            <label for="<%= f.object_name %>_avatar" class="cursor-pointer w-5 h-5 bg-TapCard-teal rounded-full relative bottom-5 left-5 flex items-center justify-center">
-                <%= image_tag("pen-solid.svg", class: "h-2 fill-TapCard-yellow") %>
+            <label for="<%= f.object_name %>_avatar" class="cursor-pointer w-5 h-5 bg-TapCard-teal rounded-full relative bottom-6 left-7 flex items-center justify-center">
+                <%= image_tag("pen-solid.svg", class: "h-3 fill-TapCard-yellow") %>
                 <%= f.input :avatar, as: :file, label: false, wrapper: false, input_html: { class: "hidden", data: { controller: "preview-image", action: "change->preview-image#previewImage" } } %>
             </label>
-      <div id="image-preview-container"></div>
+            <div id="image-preview-container"></div>
         </div>
         <div class="pb-3 px-3 text-sm font-light">
             <p class=" text-TapCard-silver">Personal informations</p>
@@ -99,6 +99,18 @@
           <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
         <% end %>
         <div>
+          <div class="py-3 px-3 text-sm font-light space-y-3">
+              <p class=" text-TapCard-silver">Change your password</p>
+          </div>
+          <%= f.input :password,
+                  required: false,
+                  input_html: { autocomplete: "new-password", class: "rounded w-[89%] mx-3" },
+                  label_html: { class: "block text-left mx-3 mt-1" } %>
+                
+          <%= f.input :password_confirmation,
+                  required: false,
+                  input_html: { autocomplete: "new-password", class: "rounded w-[89%] mx-3" },
+                  label_html: { class: "block text-left mx-3 mt-1" } %>
           <%= f.input :current_password,
                   required: true,
                   autofocus: true,

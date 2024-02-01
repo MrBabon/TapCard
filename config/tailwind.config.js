@@ -14,7 +14,7 @@ module.exports = {
         jost: ['"Jost"', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        'TapCard-yellow': '#FAD065',
+        'TapCard-yellow': '#FFD115',
         'TapCard-teal': '#19A9AA',
         'TapCard-clair': '#d1eeee',
         'TapCard-blue': '#368FE6',

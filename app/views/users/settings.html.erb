@@ -1,13 +1,13 @@
 <div class="bg-TapCard-teal h-[100vh]">
     <div class="flex w-full justify-between font-jost font-semibold items-center pt-8 pb-8 px-3">
-        <%= link_to :back do %>
+        <%= link_to user_path(current_user) do %>
             <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
         <% end %>
         <div class="flex-1 text-center mr-3">
             <h2 class="mx-auto text-TapCard-lightGray uppercase">Settings</h2>
         </div>
         <div class="">
-            <%= link_to settings_user_path(current_user), method: :get do %>
+            <%= link_to settings_user_path(current_user) do %>
                 <i class="fa-sharp fa-solid fa-gear text-TapCard-lightGray/50"></i>
             <% end %>
         </div>
@@ -25,7 +25,6 @@
                     <i class="fa-solid fa-chevron-right"></i>
                 <% end %>
             </li>
-            <li>Change password</li>
             <li>Add a payment method</li>
             <li>Push notifications</li>
             <li>Messages from contacts</li>
