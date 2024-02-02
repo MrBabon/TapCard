@@ -42,6 +42,11 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+## GEM INSTALLÉ
+gem "cloudinary"
+gem "tailwindcss-rails", "~> 2.3"
+gem "rails_admin", "3.1"
+
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -51,7 +56,6 @@ gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
-gem "cloudinary"
 
 group :development, :test do
   gem "dotenv-rails"
@@ -77,4 +81,4 @@ group :test do
 
 end
 
-gem "tailwindcss-rails", "~> 2.3"
+gem "sassc-rails"
