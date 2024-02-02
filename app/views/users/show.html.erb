@@ -16,7 +16,7 @@
 </div>
 <div class="flex justify-center relative bottom-10">
     <div class="block justify-center">
-        <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= current_user.first_name %> <%= current_user.last_name %></h2>
+        <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %></h2>
         <div class="flex items-center space-x-2 text-xs justify-center mb-1">
             <i class="fa-solid fa-phone text-TapCard-blue"></i>
             <span class=" font-light"><%= current_user.phone %></span>

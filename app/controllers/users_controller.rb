@@ -9,6 +9,11 @@ class UsersController < ApplicationController
         @user = current_user
     end
 
+    def my_events
+        @user = current_user
+        @participating_events = @user.events
+    end
+
     private
 
     def user_params
