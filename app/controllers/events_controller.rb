@@ -2,11 +2,15 @@ class EventsController < ApplicationController
 
     def index
         @events = Event.all
-        @participation = Participation.participation_for(current_user, @event)
+        @participations = {}
+        @events.each do |event|
+          @participations[event.id] = Participation.participation_for(current_user, event)
+        end
     end
 
     def show
         @event = Event.find(params[:id])
+        @participation = Participation.participation_for(current_user, @event)
     end
 
     private

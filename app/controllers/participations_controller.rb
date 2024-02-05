@@ -3,9 +3,9 @@ class ParticipationsController < ApplicationController
     before_action :set_participation, only: [:destroy]
 
     def create
-        @participation = Participation.new(participation_params)
-        @participation.user = current_user
-        unless @event.valid_registration_code?(@participation.registration_code)
+        @participation = @event.participations.new(user: current_user)
+        # @participation.user = current_user
+        unless @event.valid_registration_code?(params[:event]['registration_code'])
             flash[:alert] = "Code de participation incorrect."
             redirect_to event_path(@event) and return
         end
@@ -13,6 +13,7 @@ class ParticipationsController < ApplicationController
         if @participation.save
             redirect_to event_path(@event), notice: "Inscription réussie."
         else
+            flash[:alert] = "Erreur lors de l'enregistrement de la participation."
             render 'new'
         end
         # authorize @participation
@@ -29,7 +30,7 @@ class ParticipationsController < ApplicationController
     private
 
     def participation_params
-        params.require(:participation).permit(:event_id, :registration_code)
+        params.require(:event).permit(:registration_code)
     end
     
     def event_params
@@ -41,13 +42,7 @@ class ParticipationsController < ApplicationController
     end
 
     def set_event
-        if params[:participation] && params[:participation][:event_id]
-            @event = Event.find(params[:participation][:event_id])
-          else
-            # Gérer le cas où les paramètres nécessaires ne sont pas définis
-            flash[:alert] = "Paramètres invalides pour l'événement."
-            redirect_to events_path # ou une autre redirection
-          end
+        @event = Event.find(event_params[:event_id])
     end
       
 end

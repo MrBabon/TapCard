@@ -51,8 +51,13 @@
     </div>
 </div>
 <p class="text-xs mx-3 my-4"><%= @event.description %></p>
-<div data-controller="overlay" class="">
-    <button data-action="click->overlay#toggle" class="flex items-center justify-center px-2 text-xs my-4 mx-auto rounded outline outline-2 outline-TapCard-blue text-TapCard-blue font-semibold">S'inscrire</button>
+<% if @participation %>
+    <div class="flex flex-col items-start justify-start">
+        <%= link_to "Inscrit", event_path(@event), class: "flex items-center justify-center my-4 mx-auto px-2 text-xs rounded outline outline-2 outline-green-500 text-green-500 font-semibold" %>
+    </div>
+<% else %>
+    <div data-controller="overlay" class="flex flex-col items-start justify-start">
+        <button data-action="click->overlay#toggle" class="flex items-center justify-center px-2 text-xs my-4 mx-auto rounded outline outline-2 outline-TapCard-blue text-TapCard-blue font-semibold">S'inscrire</button>
         <div data-overlay-target="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-rgba justify-center items-center text-white z-50">
             <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-64 bg-TapCard-charcoal py-5 px-4 text-center rounded-xl content-between">
                 <div class="flex justify-between">
@@ -64,41 +69,41 @@
                     <% else %>    
                         <%= image_tag("logo_event.svg", class: " w-14 h-14 bg-cover bg-center border shadow-md") %>
                     <% end %>
-                            <div class="w-5"></div>
-                        </div>
-                        <div class="">
-                            <p class="text-xs">Veuillez confirmer votre présence lors du <%= @event.title.capitalize %>.</p>
-                        </div>
-                        <div class="flex justify-center items-center h-full">
-                            <div class="space-y-1 flex flex-col justify-start text-left">
-                                <div class="flex items-center space-x-2">
-                                    <div class="flex items-center text-xs font-light space-x-2">
-                                        <i class="fa-solid fa-map-pin text-TapCard-yellow"></i>
-                                        <p class="text-left"><%= @event.city.capitalize %>, <%= @event.country.capitalize %></p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center text-xs font-light space-x-2">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="fa-solid fa-calendar-days text-TapCard-yellow"></i>
-                                        <p class="text-left">Du <%= @event.start_time.day %> au <%= l(@event.end_time, format:'%d %b', locale: :fr) %></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <%# Ajouter un input pour la validation du code + faire un checkbox pour donner l'accord d'apparition ( ajouter une colonne sur la table participation 'accord' en boolean) %>
-                        <%= simple_form_for([@event], url: event_participations_path(@event), method: :post) do |f| %>
-                            <%= f.hidden_field :event_id, value: @event.id %>
-                            <div class="form-actions">
-                                <div class="py-1 px-0 mx-6 bg-TapCard-yellow text-gray-100 font-medium rounded-md transition-all duration-150 ease-in-out hover:text-white hover:scale-105 sm:place-self-center uppercase">
-                                    <%= f.button :submit,
-                                            value: "Confirmer",
-                                            class: "uppercase text-xl font-semibold font-jost",
-                                            data: { action: "click->overlay#closeModal" } %>
-                                </div>
-                            </div>
-                        <% end %>
-
+                    <div class="w-5"></div>
+                    <div class="">
+                        <p class="text-xs">Veuillez confirmer votre présence lors du <%= @event.title.capitalize %>.</p>
                     </div>
+                    <div class="flex justify-center items-center h-full">
+                        <div class="space-y-1 flex flex-col justify-start text-left">
+                            <div class="flex items-center space-x-2">
+                                <div class="flex items-center text-xs font-light space-x-2">
+                                    <i class="fa-solid fa-map-pin text-TapCard-yellow"></i>
+                                    <p class="text-left"><%= @event.city.capitalize %>, <%= @event.country.capitalize %></p>
+                                </div>
+                            </div>
+                            <div class="flex items-center text-xs font-light space-x-2">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-calendar-days text-TapCard-yellow"></i>
+                                    <p class="text-left">Du <%= @event.start_time.day %> au <%= l(@event.end_time, format:'%d %b', locale: :fr) %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%# Ajouter un input pour la validation du code + faire un checkbox pour donner l'accord d'apparition ( ajouter une colonne sur la table participation 'accord' en boolean) %>
+                    <%= simple_form_for([@event], url: event_participations_path(@event), method: :post) do |f| %>
+                        <%= f.hidden_field :event_id, value: @event.id %>
+                        <div class="form-actions">
+                            <div class="py-1 px-0 mx-6 bg-TapCard-yellow text-gray-100 font-medium rounded-md transition-all duration-150 ease-in-out hover:text-white hover:scale-105 sm:place-self-center uppercase">
+                                <%= f.button :submit,
+                                        value: "Confirmer",
+                                        class: "uppercase text-xl font-semibold font-jost",
+                                        data: { action: "click->overlay#closeModal" } %>
+                            </div>
+                        </div>
+                    <% end %>
                 </div>
             </div>
+        </div>
+    </div>
+<% end %>
 
