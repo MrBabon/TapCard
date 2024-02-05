@@ -19,7 +19,10 @@ festival = Organization.create(
 )
 jeux = Event.create(
     title: "Festival des jeux",
-    address: "1 Bd de la Croisette, 06400 Cannes",
+    address: "1 Bd de la Croisette",
+    city: "Cannes",
+    country: "France",
+    link: "www.cannesticket.com",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     start_time: "2024-02-23",
     end_time: "2024-02-25",
