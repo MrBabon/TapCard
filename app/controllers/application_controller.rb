@@ -13,11 +13,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def after_sign_in_path_for(resource)
-    user_path(resource) # Redirige vers la page de profil du user après la connexion
+    profil_user_path(resource) # Redirige vers la page de profil du user après la connexion
   end
 
   def after_sign_up_path_for(resource)
-    user_path(resource) # Redirige vers la page de profil du user après l'inscription
+    profil_user_path(resource) # Redirige vers la page de profil du user après l'inscription
   end
 
 end

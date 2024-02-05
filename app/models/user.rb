@@ -15,4 +15,6 @@ class User < ApplicationRecord
   validates :phone, presence: true, length: { maximum: 20 }
   validates :biography, length: { maximum: 1000 }
 
+
+
 end
