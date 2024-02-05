@@ -14,8 +14,10 @@
   </div>
 
   <div class="w-56 mb-4 h-auto bg-TapCard-clair mx-auto rounded-xl shadow-sm">
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-        <%= f.error_notification %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, data: { controller: "flash" } }) do |f| %>
+        <div data-flash-target="alert">
+                <%= f.error_notification %>
+        </div>
         <div class=" pt-2 flex flex-col justify-center items-center relative bottom-8">
             <% if current_user.avatar.attached? %>
                 <%= cl_image_tag current_user.avatar.key, alt: "Avatar to #{current_user.first_name.capitalize}", class: "rounded-full object-cover object-center w-20 h-20 shadow-md", id: "user-avatar" %>

@@ -1,16 +1,16 @@
 <% if user_signed_in? %>
-  <div class="flex justify-evenly items-center fixed bottom-0 w-full text-2xl z-50 bg-TapCard-yellow py-2" data-controller="button-footer">
+  <div class="flex justify-evenly items-center fixed bottom-0 w-full text-2xl z-40 bg-TapCard-yellow py-2" data-controller="button-footer">
     <%= link_to events_path(current_user) do %>
-        <i class="fa-solid fa-calendar-day" data-button-footer-target="icon"></i>
+        <i class="fa-solid fa-calendar-day text-TapCard-charcoal" data-button-footer-target="icon"></i>
     <% end %>
     <%= link_to user_path(current_user) do %>
-        <i class="fa-solid fa-users-between-lines" data-button-footer-target="icon"></i>
+        <i class="fa-solid fa-users-between-lines text-TapCard-charcoal" data-button-footer-target="icon"></i>
     <% end %>
     <%= link_to user_path(current_user) do %>
-        <i class="fa-regular fa-user" data-button-footer-target="icon"></i>
+        <i class="fa-regular fa-user text-TapCard-charcoal" data-button-footer-target="icon"></i>
     <% end %>
     <%= link_to user_path(current_user) do %>
-        <i class="fa-solid fa-qrcode" data-button-footer-target="icon"></i>
+        <i class="fa-solid fa-qrcode text-TapCard-charcoal" data-button-footer-target="icon"></i>
     <% end %>
   </div>
 <% end %>

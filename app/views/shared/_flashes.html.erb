@@ -1,14 +1,17 @@
 <% if notice %>
-  <div class="alert alert-info alert-dismissible fade show m-1" role="alert">
+  <div data-controller="flash" data-flash-target="alert" class="flex items-center justify-between fixed bottom-0 right-0 mx-4 mb-14 p-2 rounded-full bg-green-100 border-l-4 border-green-500 text-green-700 z-50 text-xs" role="alert">
     <%= notice %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+    <button type="button" data-action="click->flash#closeAlert" aria-label="Close">
+      <i class="fa-solid fa-xmark  w-10"></i>
     </button>
   </div>
 <% end %>
 <% if alert %>
-  <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
+  <div data-controller="flash" data-flash-target="alert" class="flex items-center justify-between fixed bottom-0 right-0 mx-4 mb-14 p-2 rounded-full bg-red-100 border-l-4 border-red-500 text-red-700 z-50 text-xs" role="alert">
     <%= alert %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+    <button type="button" data-action="click->flash#closeAlert" aria-label="Close">
+      <i class="fa-solid fa-xmark  w-10"></i>
     </button>
   </div>
 <% end %>
+
