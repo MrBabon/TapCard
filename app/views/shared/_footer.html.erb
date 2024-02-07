@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <div class="flex justify-evenly items-center fixed bottom-0 w-full text-2xl z-40 bg-TapCard-yellow py-2" data-controller="button-footer">
-    <%= link_to events_path(current_user) do %>
+    <%= link_to events_path do %>
         <i class="fa-solid fa-calendar-day text-TapCard-charcoal" data-button-footer-target="icon"></i>
     <% end %>
     <%= link_to users_path do %>

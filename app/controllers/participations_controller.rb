@@ -19,6 +19,19 @@ class ParticipationsController < ApplicationController
         # authorize @participation
     end
 
+    def update
+        @participation = Participation.find(params[:id])
+        if @participation.update(participation_params)
+            if @participation.previous_changes.present?
+                flash[notice] = "La participation a été mise à jour avec succès."
+            end
+            redirect_to my_events_user_path(current_user)
+        else
+          flash[:alert] = "Erreur lors de la mise à jour de la participation."
+          render :edit
+        end
+    end
+
     def destroy
         @event = Event.find(params[:event_id])
         @participation.destroy
@@ -30,7 +43,7 @@ class ParticipationsController < ApplicationController
     private
 
     def participation_params
-        params.require(:event).permit(:registration_code)
+        params.require(:participation).permit(:event_id, :visible_in_participants)
     end
     
     def event_params

@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
   
   resources :events, only: [:index, :show] do
+    get 'visitor', on: :member
     resources :participations, only: [:create, :destroy]
   end
+  resources :participations, only: [:update]
   
 end

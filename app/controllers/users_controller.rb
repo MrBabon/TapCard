@@ -42,6 +42,18 @@ class UsersController < ApplicationController
     def my_events
         @user = current_user
         @participating_events = @user.events
+        @visible_in_participants = {}
+  
+        # Boucle à travers les événements auxquels l'utilisateur participe pour obtenir la visibilité
+        @participating_events.each do |event|
+            participation = Participation.participation_for(@user, event)
+            if participation
+              @visible_in_participants[event.id] = participation.visible_in_participants
+            else
+              @visible_in_participants[event.id] = false  # Par défaut, l'utilisateur n'est pas visible s'il n'est pas inscrit
+            end
+        end
+        @participation = Participation.find_by(user_id: @user.id)  # Assurez-vous que cela correspond à la logique de récupération de votre participation existante
     end
 
     def my_qr_code
