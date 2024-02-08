@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :check_user_signed_in
 
   def configure_permitted_parameters
     # For additional fields in app/views/devise/registrations/new.html.erb
@@ -18,6 +19,17 @@ class ApplicationController < ActionController::Base
 
   def after_sign_up_path_for(resource)
     profil_user_path(resource) # Redirige vers la page de profil du user après l'inscription
+  end
+
+  def after_inactive_sign_up_path_for(resource)
+    profil_user_path(resource)
+  end
+
+
+  def check_user_signed_in
+    if user_signed_in? && request.original_fullpath == root_path
+      redirect_to profil_user_path(current_user)
+    end
   end
 
 end

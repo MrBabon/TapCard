@@ -19,11 +19,11 @@
         <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></h2>
         <div class="flex items-center space-x-2 text-xs justify-center mb-1">
             <i class="fa-solid fa-phone text-TapCard-blue"></i>
-            <span class=" font-light blur-sm"><%= @user.phone %></span>
+            <span class=" font-light select-none blur-sm"><%= @user.phone %></span>
         </div>
         <div class="flex items-center space-x-2 text-xs justify-center mb-1">
             <i class="fa-regular fa-envelope text-TapCard-blue"></i>
-            <span class=" font-light blur-sm"><%= @user.email %></span>
+            <span class=" font-light select-none blur-sm"><%= @user.email %></span>
         </div>
         <% if @user.website.present? %>
             <div class="flex items-center space-x-2 text-xs justify-center">
