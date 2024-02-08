@@ -1,20 +1,26 @@
-<div class="flex w-full justify-between font-jost font-semibold items-center pt-8 pb-16 pl-3 bg-TapCard-teal">
-    <%= link_to :back do %>
+<div class="w-full fixed">
+    <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
+    <%= link_to :back, class: "ml-2" do %>
             <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
     <% end %>
-  <div class="flex-1 text-center mr-3">
-    <h2 class="mx-auto text-TapCard-lightGray uppercase"><%= @user.first_name %></h2>
-  </div>
-  <div class="w-5"></div>
+    <div class="flex-1 text-center ml-2">
+        <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Meet contacts</h2>
+    </div>
+    <%# Link à changer quand la chatroom sera mis en place %>
+    <%= link_to user_path(current_user) do %>
+        <%= image_tag "send.svg", alt: "avion", class: "w-5" %>
+    <% end %>
+    </div>
 </div>
-<div class="flex justify-center relative bottom-12">
+<div class=" pt-20"></div>
+<div class="flex justify-center ">
     <% if @user.avatar.attached? %>
-        <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-full object-cover object-center w-24 h-24 border shadow-md" %>
+        <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-full object-cover object-center w-20 h-20 border shadow-md" %>
     <% else %>    
-        <%= image_tag("avatar.svg", class: "rounded-full w-24 h-24 bg-cover bg-center border shadow-md") %>
+        <%= image_tag("avatar.svg", class: "rounded-full w-20 h-20 bg-cover bg-center border shadow-md") %>
     <% end %>
 </div>
-<div class="flex justify-center relative bottom-10">
+<div class="flex justify-center">
     <div class="block justify-center">
         <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></h2>
         <div class="flex items-center space-x-2 text-xs justify-center mb-1">
@@ -47,11 +53,10 @@
         </div>
     </div>
 </div>
-<div class="border-2 border-TapCard-yellow"></div>
+<div class="border border-TapCard-teal mt-3"></div>
 <div class="m-3">
     <h5 class=" text-TapCard-charcoal font-semibold"><%= @user.job %></h5>
     <p class="text-TapCard-teal font-light text-sm"><%= @user.industry %></p>
     <p class="text-TapCard-charcoal text-sm font-light"><%= @user.biography %></p>
 </div>
 
-  <%= link_to "Déconnexion", destroy_user_session_path, data: {turbo_method: :delete} %>
