@@ -11,8 +11,8 @@
         <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
     <% end %>
     </div>
-    <div class="flex justify-between bg-TapCard-lightGray border-b border-TapCard-blue px-4 py-3">
-        <%= link_to visitor_event_path(@event) do %>
+    <div class="flex justify-evenly bg-TapCard-lightGray border-b border-TapCard-blue px-4 py-3">
+        <%= link_to exposant_event_path(@event) do %>
             <h6 class="text-xs font-semibold font-jost">Les Exposants</h6>
         <% end %>
         <%= link_to visitor_event_path(@event) do %>
@@ -28,7 +28,7 @@
                 <div class=" leading-5">
                     <h1 class="mb-1"><%= participation.user.first_name %> <%= participation.user.last_name %></h1>
                     <p class=" text-TapCard-silver text-sm font-medium"><%= participation.user.job %></p>
-                    <p class="text-TapCard-teal text-xs"><%= participation.user.industry %></p>
+                    <p class="text-TapCard-teal text-xs capitalize"><%= participation.user.industry %></p>
                 </div>
                 <div>
                     <% if participation.user.avatar.attached? %>
@@ -41,5 +41,5 @@
         <% end %>
     <% end %>
 <% else %>
-    <p>Aucun participant visible pour cet événement.</p>
+    <p class="mx-2">Aucun participant visible pour cet événement.</p>
 <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_06_212224) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_12_161413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,37 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_06_212224) do
     t.index ["user_id"], name: "index_directors_on_user_id"
   end
 
+  create_table "employees", force: :cascade do |t|
+    t.bigint "entreprise_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_employees_on_entreprise_id"
+    t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
+  create_table "entrepreneurs", force: :cascade do |t|
+    t.bigint "entreprise_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_entrepreneurs_on_entreprise_id"
+    t.index ["user_id"], name: "index_entrepreneurs_on_user_id"
+  end
+
+  create_table "entreprises", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "website"
+    t.string "linkdin"
+    t.string "instagram"
+    t.string "facebook"
+    t.string "twiter_x"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.string "address"
@@ -67,6 +98,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_06_212224) do
     t.string "city"
     t.string "country"
     t.index ["organization_id"], name: "index_events_on_organization_id"
+  end
+
+  create_table "exhibitors", force: :cascade do |t|
+    t.bigint "entreprise_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_exhibitors_on_entreprise_id"
+    t.index ["event_id"], name: "index_exhibitors_on_event_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -128,7 +168,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_06_212224) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "directors", "organizations"
   add_foreign_key "directors", "users"
+  add_foreign_key "employees", "entreprises"
+  add_foreign_key "employees", "users"
+  add_foreign_key "entrepreneurs", "entreprises"
+  add_foreign_key "entrepreneurs", "users"
   add_foreign_key "events", "organizations"
+  add_foreign_key "exhibitors", "entreprises"
+  add_foreign_key "exhibitors", "events"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
 end

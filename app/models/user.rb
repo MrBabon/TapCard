@@ -19,6 +19,35 @@ class User < ApplicationRecord
   validates :phone, presence: true, length: { maximum: 20 }
   validates :biography, length: { maximum: 1000 }
 
+  enum industry: {
+    technology: "Technology",
+    engineering: "Engineering",
+    health: "Healthcare",
+    finance: "Finance",
+    education: "Education",
+    retail: "Retail",
+    manufacturing: "Manufacturing",
+    transportation: "Transportation",
+    real_estate: "Real Estate",
+    tourism: "Tourism",
+    agriculture: "Agriculture",
+    media: "Media",
+    professional_services: "Professional Services",
+    energy: "Energy",
+    public_administration: "Public Administration",
+    telecommunications: "Telecommunications",
+    human_resources: "Human Resources",
+    science: "Science",
+    environment: "Environment",
+    art_design: "Art & Design"
+  }
+
+  validates :industry, inclusion: { in: industries.keys, message: "Industry invalid" }, allow_blank: true
+  
+  def industry_form_value
+    industry.presence || "Industry not specified"
+  end
+  
   def follow(user_id)
     following_relationships.create(following_id: user_id)
   end
@@ -31,6 +60,5 @@ class User < ApplicationRecord
     relationship = Follow.find_by(follower_id: id, following_id: user_id)
     return true if relationship
   end
-
 
 end

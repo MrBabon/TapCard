@@ -64,7 +64,9 @@
                 input_html: { autocomplete: "biography", rows: 5, class: "rounded w-[89%] mx-3" },
                 label: "Biography",
                 label_html: { class: "block text-left mx-3 mt-1" } %>
-        <%= f.input :industry, 
+        <%= f.input :industry,
+                collection: User.industries.values,
+                selected: f.object.industry,
                 required: false,
                 input_html: { autocomplete: "industry", class: "rounded w-[89%] mx-3" },
                 label: "Industry",

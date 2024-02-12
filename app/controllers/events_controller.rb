@@ -21,10 +21,23 @@ class EventsController < ApplicationController
         end
     end
 
+    def exposant
+        @event = Event.find(params[:id])
+        @exhibitors = @event.exhibitors
+        @participation = Participation.participation_for(current_user, @event)
+        @visible_in_participants = {}
+
+        if @participation.present?
+            @visible_in_participants[@event.id] = @participation.visible_in_participants
+        else
+            # S'il n'y a pas de participation, définissez la visibilité sur false
+            @visible_in_participants[@event.id] = false
+        end
+    end
+
     def visitor
         @event = Event.find(params[:id])
         @visible_participations = @event.participations.where(visible_in_participants: true)
-        # Si l'utilisateur actuel a choisi de ne pas être visible, excluez sa participation
         if current_user
             user_participation = Participation.find_by(event_id: @event.id, user_id: current_user.id)
             if user_participation.nil? || !user_participation.visible_in_participants

@@ -7,6 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 puts "Cleaning up database..."
 Organization.destroy_all
+Entreprise.destroy_all
 Event.destroy_all
 puts "Database cleaned"
 
@@ -16,6 +17,16 @@ festival = Organization.create(
     email: "festival@canne.fr",
     phone: "0494303030",
     website: "www.canne.fr"
+)
+dannacode = Entreprise.create(
+    name: "DannaCode",
+    email: "christophe.danna@dannacode.com",
+    website: "www.dannacode.com",
+    linkdin: "www.linkdin.com",
+    instagram: "www.instagram.com",
+    facebook: "www.facebook.com",
+    twiter_x: "www.twiter.com",
+    description: "Plus grande entreprise de France, vous souhaitez un site d'exeption ? C'est ici et nul part ailleurs !"
 )
 jeux = Event.create(
     title: "Festival des jeux",
@@ -29,5 +40,7 @@ jeux = Event.create(
     registration_code: "QWERTY",
     organization: festival
 )
+
+Exhibitor.create(entreprise: dannacode, event: jeux)
 
 puts "finish"
