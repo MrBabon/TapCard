@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_12_161413) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_15_085050) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,13 +73,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_12_161413) do
     t.string "name"
     t.string "email"
     t.string "website"
-    t.string "linkdin"
+    t.string "linkedin"
     t.string "instagram"
     t.string "facebook"
-    t.string "twiter_x"
+    t.string "twitter"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "parrainage_code"
   end
 
   create_table "events", force: :cascade do |t|
@@ -139,6 +140,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_12_161413) do
     t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
+  create_table "representatives", force: :cascade do |t|
+    t.bigint "entreprise_id", null: false
+    t.bigint "exhibitor_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_representatives_on_entreprise_id"
+    t.index ["exhibitor_id"], name: "index_representatives_on_exhibitor_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -177,4 +187,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_12_161413) do
   add_foreign_key "exhibitors", "events"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
+  add_foreign_key "representatives", "entreprises"
+  add_foreign_key "representatives", "exhibitors"
 end

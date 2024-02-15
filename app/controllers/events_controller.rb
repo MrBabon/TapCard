@@ -56,7 +56,7 @@ class EventsController < ApplicationController
 
     def user_params
         params.require(:user).permit(:title, :logo, :address, :description, :link, :start_time, :end_time, :registration_code)
-      end
+    end
 
     def map_view(event)
         {

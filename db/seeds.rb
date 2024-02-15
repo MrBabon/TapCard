@@ -22,10 +22,20 @@ dannacode = Entreprise.create(
     name: "DannaCode",
     email: "christophe.danna@dannacode.com",
     website: "www.dannacode.com",
-    linkdin: "www.linkdin.com",
+    linkedin: "www.linkdin.com",
     instagram: "www.instagram.com",
     facebook: "www.facebook.com",
-    twiter_x: "www.twiter.com",
+    twitter: "www.twiter.com",
+    description: "Plus grande entreprise de France, vous souhaitez un site d'exeption ? C'est ici et nul part ailleurs !"
+)
+maelcorp = Entreprise.create(
+    name: "MaelCorp",
+    email: "christophe.danna@dannacode.com",
+    website: "www.maelcorp.com",
+    linkedin: "www.linkdin.com",
+    instagram: "www.instagram.com",
+    facebook: "www.facebook.com",
+    twitter: "www.twiter.com",
     description: "Plus grande entreprise de France, vous souhaitez un site d'exeption ? C'est ici et nul part ailleurs !"
 )
 jeux = Event.create(
@@ -42,5 +52,6 @@ jeux = Event.create(
 )
 
 Exhibitor.create(entreprise: dannacode, event: jeux)
+Exhibitor.create(entreprise: maelcorp, event: jeux)
 
 puts "finish"

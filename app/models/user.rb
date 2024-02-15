@@ -5,6 +5,13 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :participations, dependent: :destroy
+  has_many :directors, dependent: :destroy
+
+  has_many :entrepreneurs, dependent: :destroy
+  has_many :employee_relationships, class_name: 'Employee', dependent: :destroy
+  has_many :entreprises, through: :entrepreneurs
+  has_many :employee_entreprises, through: :employee_relationships, source: :entreprise
+
   has_many :events, through: :participations
   has_many :participating_events, through: :participations, source: :event
   # FOLLOW
@@ -46,6 +53,14 @@ class User < ApplicationRecord
   
   def industry_form_value
     industry.presence || "Industry not specified"
+  end
+
+  def director?
+    directors.exists?(user: self)
+  end
+
+  def entrepreneurs?
+    entrepreneurs.exists?(user: self)
   end
   
   def follow(user_id)

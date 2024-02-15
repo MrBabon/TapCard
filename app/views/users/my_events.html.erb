@@ -54,7 +54,7 @@
                 <%= link_to "Liste des visiteurs inscrits", visitor_event_path(event), class: "px-2 text-[13px] rounded outline outline-2 outline-TapCard-blue text-TapCard-blue font-semibold" %>
             <% else %>
                 <div data-controller="overlay" class="flex flex-col items-start justify-start">
-                    <button data-action="click->overlay#toggle" class="px-2 text-[13px] rounded outline outline-2 outline-TapCard-blue text-TapCard-blue font-semibold">Liste des visiteurs inscrits</button>
+                    <button data-action="click->overlay#toggle" class="px-2 text-[13px] rounded outline outline-2 outline-TapCard-blue text-TapCard-blue font-semibold">Exposants et Visiteurs</button>
                     <div data-overlay-target="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-rgba justify-center items-center text-white z-50">
                         <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-auto bg-TapCard-charcoal py-5 px-4 text-center rounded-xl content-between">
                             <div class="flex justify-between mb-3">

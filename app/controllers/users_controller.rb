@@ -15,6 +15,12 @@ class UsersController < ApplicationController
     
     def profil
         @user = current_user
+        if current_user.director?
+            @organization = current_user.organizations.first
+        end
+        if current_user.entrepreneurs?
+            @entreprise = current_user.entreprises.first
+        end
     end
     
     def settings

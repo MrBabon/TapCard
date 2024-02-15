@@ -1,0 +1,112 @@
+<div class="flex w-full justify-between font-jost font-semibold items-center py-8 pl-3 bg-TapCard-teal">
+    <%= link_to profil_user_path(current_user) do %>
+            <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+    <% end %>
+    <div class="flex-1 text-center mr-3">
+        <h2 class="mx-auto text-TapCard-lightGray uppercase">Your entreprise</h2>
+    </div>
+    <div class="w-5"></div>
+</div>
+<div class="flex justify-around items-start">
+    <div class="my-4">
+        <%= simple_form_for(@entreprise, url: entreprise_path(@entreprise), method: :patch) do |f| %>
+            <div data-flash-target="alert">
+                <%= f.error_notification %>
+            </div>
+            <div class=" pt-2 flex flex-col justify-center items-center relative">
+                <% if @entreprise.logo.attached? %>
+                    <%= cl_image_tag @entreprise.logo.key, alt: "Logo entreprise #{@entreprise.name}", class: "rounded-full object-cover object-center w-28 h-28 shadow-md", id: "user-avatar" %>
+                <% else %>
+                    <%= image_tag("bag-entreprise.svg", class: "rounded-full w-28 h-28 object-cover object-center shadow-md", alt: "Logo par défaut", id: "user-avatar") %>
+                <% end %>
+                <label for="<%= f.object_name %>_logo" class="cursor-pointer w-8 h-8 bg-TapCard-teal rounded-full relative bottom-7 left-10 flex items-center justify-center">
+                    <%= image_tag("pen-solid.svg", class: "h-4 fill-TapCard-yellow") %>
+                    <%= f.input :logo, as: :file, label: false, wrapper: false, input_html: { class: "hidden", data: { controller: "preview-image", action: "change->preview-image#previewImage" } } %>
+                </label>
+                <div id="image-preview-container"></div>
+            </div>
+            <div class="form-inputs">
+                <%= f.input :email, 
+                required: true,
+                input_html: { autocomplete: "email", class: "rounded w-[100%] mx-3" },
+                label: "Email",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+                <%= f.input :website, 
+                required: false,
+                input_html: { autocomplete: "website", class: "rounded w-[100%] mx-3" },
+                label: "Website",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+                <%= f.input :linkedin, 
+                required: false,
+                input_html: { autocomplete: "linkedin", class: "rounded w-[100%] mx-3" },
+                label: "Linkedin",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+                <%= f.input :facebook, 
+                required: false,
+                input_html: { autocomplete: "facebook", class: "rounded w-[100%] mx-3" },
+                label: "Facebook",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+                <%= f.input :twitter, 
+                required: false,
+                input_html: { autocomplete: "twitter", class: "rounded w-[100%] mx-3" },
+                label: "X",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+                <%= f.input :description, 
+                required: false,
+                input_html: { autocomplete: "description", rows: 10, class: "rounded w-[100%] mx-3" },
+                label: "description",
+                label_html: { class: "block text-left mx-3 mt-1" } %>
+            </div>
+            <div class="form-actions flex items-center justify-center">
+                <%= f.button :submit, "Update", class: "my-6 py-1 px-5 bg-TapCard-blue rounded-full text-TapCard-lightGray cursor-pointer" %>
+            </div>
+        <% end %>
+    </div>
+    <div class="block">
+        <div class="flex items-center justify-around mx-7 my-4">   
+            <% if @entreprise.logo.attached? %>
+                <%= cl_image_tag @entreprise.logo.key, alt: "Logo entreprise #{@entreprise.name}", class: "rounder object-cover object-center w-14 h-14" %>
+            <% else %>
+                <%= image_tag("bag-entreprise.svg", class: "rounder object-cover object-center w-14 h-14") %>
+            <% end %>
+            <div class="space-y-3 flex flex-col justify-center">
+                <div class="flex items-center justify-center space-x-2">
+                    <% if @entreprise.twitter.present? %>
+                        <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
+                            <a href="https://<%= @entreprise.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter text-white text-xs"></i></a>
+                        </div>
+                    <% end %>
+                    <% if @entreprise.linkedin.present? %>
+                        <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
+                            <a href="https://<%= @entreprise.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin text-white text-xs"></i></a>               
+                        </div>
+                    <% end %>
+                    <% if @entreprise.facebook.present? %>
+                        <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
+                            <a href="https://<%= @entreprise.facebook %>" target="_blank"><i class="fa-brands fa-facebook text-white text-xs"></i></a>                
+                        </div>
+                    <% end %>
+                    <% if @entreprise.instagram.present? %>
+                        <div class="flex items-end justify-center bg-TapCard-yellow rounded-full w-5 h-5">
+                            <a href="https://<%= @entreprise.instagram %>" target="_blank"><i class="fa-brands fa-instagram text-white text-xs"></i></a>   
+                        </div>
+                    <% end %>
+                </div>
+                <div>
+                    <% if @entreprise.website.present? %>
+                        <div class="flex items-center space-x-2 text-xs justify-center">
+                            <i class="fa-solid fa-globe text-TapCard-yellow"></i>            
+                            <span class="text-[12px] font-light"><%= @entreprise.website %></span>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="m-4">
+            <h1 class="text-center font-semibold font-jost"><%= @entreprise.name %></h1>
+            <p class="text-xs font-light"><%= @entreprise.description %></p>
+        </div>
+    </div>
+
+    </div>
+</div>

@@ -53,8 +53,9 @@
 <p class="text-xs mx-3 my-4"><%= @event.description %></p>
 <% if @participation %>
 
-        <div class="flex flex-col items-start justify-start">
-            <%= link_to "Afficher la liste des exposants présente à l’évènement", exposant_event_path(@event), class: "flex items-center justify-center my-3 mx-3 px-3 py-1 text-[11px] rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md" %>
+        <div class="flex items-start justify-start">
+            <%= link_to "Les Exposants", exposant_event_path(@event), class: "flex items-center justify-center my-3 mx-auto px-3 py-1 text-xs rounded bg-TapCard-yellow text-TapCard-lightGray font-semibold shadow-md" %>
+            <%= link_to "Les Visiteurs Pro", visitor_event_path(@event), class: "flex items-center justify-center my-3 mx-auto px-3 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md" %>
         </div>
 
  
