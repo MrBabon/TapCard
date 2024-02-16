@@ -15,6 +15,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :associations_requests do
+    member do
+      post 'approve_request'
+      delete 'reject_request'
+    end
+  end
+
   
   resources :events, only: [:index, :show] do
     member do

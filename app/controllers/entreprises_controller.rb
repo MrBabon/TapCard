@@ -14,6 +14,8 @@ class EntreprisesController < ApplicationController
 
     def edit
       @entreprise = Entreprise.find(params[:id])
+      @association_requests = @entreprise.association_requests.where(status: 'pending')
+      @employees = Employee.all
     end
     
     def update
@@ -32,7 +34,7 @@ class EntreprisesController < ApplicationController
     end
 
     def verify_ownership
-      unless current_user.entreprises.include?(@entreprise) || current_user.employee_entreprises.include?(@entreprise)
+      unless current_user.entreprises_as_owner.include?(@entreprise) || current_user.entreprises_as_employee.include?(@entreprise)
         redirect_to root_path, alert: "Vous n'avez pas les droits pour modifier cette entreprise."
       end
     end

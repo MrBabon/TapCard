@@ -99,6 +99,13 @@
                 input_html: { autocomplete: "twitter", class: "rounded w-[89%] mx-3" },
                 label: "X",
                 label_html: { class: "block text-left mx-3 mt-1" } %>
+        <% if current_user.entreprises_as_employee.empty? && current_user.association_requests.empty? %>
+                <%= f.input :entreprise_code, 
+                        required: false,
+                        input_html: { autocomplete: "entreprise-code", class: "rounded w-[89%] mx-3" },
+                        label: "Code de Parrainage",
+                        label_html: { class: "block text-left mx-3 mt-1" } %>
+        <% end %>
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
         <% end %>

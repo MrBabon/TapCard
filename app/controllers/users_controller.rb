@@ -19,7 +19,7 @@ class UsersController < ApplicationController
             @organization = current_user.organizations.first
         end
         if current_user.entrepreneurs?
-            @entreprise = current_user.entreprises.first
+            @entreprise = current_user.entreprises_as_owner.first
         end
     end
     

@@ -4,16 +4,20 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # PARTICIPATION
   has_many :participations, dependent: :destroy
-  has_many :directors, dependent: :destroy
-
-  has_many :entrepreneurs, dependent: :destroy
-  has_many :employee_relationships, class_name: 'Employee', dependent: :destroy
-  has_many :entreprises, through: :entrepreneurs
-  has_many :employee_entreprises, through: :employee_relationships, source: :entreprise
-
-  has_many :events, through: :participations
   has_many :participating_events, through: :participations, source: :event
+  has_many :events, through: :participations
+  # DIRECTOR
+  has_many :directors, dependent: :destroy
+  # ENTREPRENEUR
+  has_many :entrepreneurs, dependent: :destroy
+  has_many :entreprises_as_owner, through: :entrepreneurs, source: :entreprise
+  # EMPLOYEE
+  has_many :employee_relationships, class_name: 'Employee', dependent: :destroy
+  has_many :entreprises_as_employee, through: :employee_relationships, source: :entreprise
+  # ASSOCIATION REQUEST
+  has_many :association_requests, dependent: :destroy
   # FOLLOW
   has_many :follower_relationships, foreign_key: :following_id, class_name: 'Follow'
   has_many :followers, through: :follower_relationships, source: :follower
@@ -62,18 +66,47 @@ class User < ApplicationRecord
   def entrepreneurs?
     entrepreneurs.exists?(user: self)
   end
+
+  def associate_with_entreprise(parrainage_code)
+    entreprise = Entreprise.find_by(parrainage_code: parrainage_code)
+    if entreprise
+      # Supposons qu'il est toujours approprié de créer une demande d'association,
+      # indépendamment des demandes précédentes.
+      association_request = AssociationRequest.new(user: self, entreprise: entreprise, status: 'pending')
+      if association_request.save
+        return true
+      else
+        self.errors.add(:base, "Impossible de créer la demande d'association : #{association_request.errors.full_messages.join(', ')}")
+        return false
+      end
+    else
+      self.errors.add(:entreprise_code, "Code de parrainage invalide.")
+      return false
+    end
+  end
   
-  def follow(user_id)
-    following_relationships.create(following_id: user_id)
+  def need_to_process_enterprise_code?(submitted_code)
+    if self.entreprise_code.blank? || self.entreprise_code != submitted_code
+      # Si aucun code n'a été soumis précédemment, ou si le code soumis est différent du dernier code traité,
+      # nous considérons que le code doit être traité.
+      true
+    else
+      # Si le code soumis est le même que le dernier code traité, aucun traitement supplémentaire n'est nécessaire.
+      false
+    end
   end
+  
+  # def follow(user_id)
+  #   following_relationships.create(following_id: user_id)
+  # end
 
-  def unfollow(user_id)
-    following_relationships.find_by(following_id: user_id).destroy
-  end
+  # def unfollow(user_id)
+  #   following_relationships.find_by(following_id: user_id).destroy
+  # end
 
-  def is_following?(user_id)
-    relationship = Follow.find_by(follower_id: id, following_id: user_id)
-    return true if relationship
-  end
+  # def is_following?(user_id)
+  #   relationship = Follow.find_by(follower_id: id, following_id: user_id)
+  #   return true if relationship
+  # end
 
 end
