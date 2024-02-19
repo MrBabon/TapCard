@@ -21,6 +21,9 @@ class UsersController < ApplicationController
         if current_user.entrepreneurs?
             @entreprise = current_user.entreprises_as_owner.first
         end
+        if current_user.employee_relationships?
+            @employee = current_user.entreprises_as_employee.first
+        end
     end
     
     def settings

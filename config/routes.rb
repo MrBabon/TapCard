@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   end
   resources :participations, only: [:update]
   resources :exhibitors, only: [:show]
-  resources :entreprises, only: [:edit, :update]
+  resources :entreprises, only: [:edit, :update] do
+    resources :employees, only: [:destroy]
+  end
   
 end

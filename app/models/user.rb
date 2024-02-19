@@ -67,6 +67,10 @@ class User < ApplicationRecord
     entrepreneurs.exists?(user: self)
   end
 
+  def employee_relationships?
+    employee_relationships.exists?(user: self)
+  end
+
   def associate_with_entreprise(parrainage_code)
     entreprise = Entreprise.find_by(parrainage_code: parrainage_code)
     if entreprise
@@ -96,17 +100,17 @@ class User < ApplicationRecord
     end
   end
   
-  # def follow(user_id)
-  #   following_relationships.create(following_id: user_id)
-  # end
+  def follow(user_id)
+    following_relationships.create(following_id: user_id)
+  end
 
-  # def unfollow(user_id)
-  #   following_relationships.find_by(following_id: user_id).destroy
-  # end
+  def unfollow(user_id)
+    following_relationships.find_by(following_id: user_id).destroy
+  end
 
-  # def is_following?(user_id)
-  #   relationship = Follow.find_by(follower_id: id, following_id: user_id)
-  #   return true if relationship
-  # end
+  def is_following?(user_id)
+    relationship = Follow.find_by(follower_id: id, following_id: user_id)
+    return true if relationship
+  end
 
 end

@@ -22,7 +22,7 @@ class Entreprise < ApplicationRecord
   
     def generate_unique_code
       loop do
-        code = SecureRandom.hex(4).upcase # Vous pouvez ajuster la longueur du code selon vos besoins
+        code = SecureRandom.hex(6).upcase # Vous pouvez ajuster la longueur du code selon vos besoins
         break code unless Entreprise.exists?(parrainage_code: code)
       end
     end

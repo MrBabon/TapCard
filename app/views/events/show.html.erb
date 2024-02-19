@@ -11,7 +11,7 @@
         <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
     <% end %>
     </div>
-    <div class="flex justify-between bg-TapCard-lightGray border-b border-TapCard-blue px-4 py-3">
+    <div class="flex justify-around bg-TapCard-lightGray border-b border-TapCard-blue px-4 py-3">
         <%= link_to events_path do %>
             <h6 class="text-xs font-semibold font-jost">All Upcoming Events</h6>
         <% end %>
@@ -41,25 +41,68 @@
         <div class="flex items-center text-xs font-light space-x-2">
             <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-calendar-days text-TapCard-yellow"></i>
-                <p class="text-left">Du <%= @event.start_time.day %> au <%= l(@event.end_time, format:'%d %b', locale: :fr) %></p>
+                <p class="text-left"><%= @event.start_time.strftime('%B %d') %> to <%= @event.end_time.day %></p>
             </div>
         </div>
         <div class="flex items-center space-x-2 text-xs">
             <i class="fa-solid fa-globe text-TapCard-yellow"></i>            
-            <span class=" font-light"><%= @event.link %></span>
+            <span class=" font-bold"><%= @event.link %></span>
         </div>
     </div>
 </div>
 <p class="text-xs mx-3 my-4"><%= @event.description %></p>
 <% if @participation %>
-        <div class="flex items-start justify-start">
-            <%= link_to "Les Exposants", exposant_event_path(@event), class: "flex items-center justify-center my-3 mx-auto px-3 py-1 text-xs rounded bg-TapCard-yellow text-TapCard-lightGray font-semibold shadow-md" %>
-            <%= link_to "Les Visiteurs Pro", visitor_event_path(@event), class: "flex items-center justify-center my-3 mx-auto px-3 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md" %>
+        <div class="flex items-center justify-center mx-2">
+            <%= link_to "Exhibitors", exposant_event_path(@event), class: "flex items-center justify-center my-3 mx-auto px-7 py-1 text-xs rounded bg-TapCard-yellow text-TapCard-lightGray font-semibold shadow-md" %>
+            <% if @visible_in_participants[@event.id] %>
+                <%= link_to "Professional visitors", visitor_event_path(@event), class: "flex items-center justify-center my-3 mx-auto px-1 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md" %>
+            <% else %>
+                <div data-controller="overlay" class="flex flex-col items-start justify-start">
+                    <button data-action="click->overlay#toggle" class="flex items-center justify-center my-3 mx-auto px-1 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md">Professional Visitors</button>
+                    <div data-overlay-target="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-rgba justify-center items-center text-white z-[9999]">
+                        <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-auto bg-TapCard-charcoal py-5 px-4 text-center rounded-xl content-between">
+                            <div class="flex justify-between mb-3">
+                                <div class="w-5"></div>
+                                <div class="">
+                                    <i class="fa-solid fa-triangle-exclamation text-TapCard-yellow text-5xl animate-pulse"></i>
+                                </div>
+                                <button data-action="click->overlay#closeModal" class="flex justify-start">
+                                    <i class="fa-solid fa-xmark text-TapCard-yellow w-5"></i>
+                                </button>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-xs">You do not have access to the room list <%= @event.title.capitalize %>.</p>
+                            </div>
+                            <%= simple_form_for(@participation, url: participation_path(@participation), method: :patch) do |f| %>
+                                <%= f.hidden_field :event_id, value: @event.id %>
+                                <div class="border-b border-TapCard-yellow w-[75%] mx-auto my-4"></div>
+                                <label for="visible" class="flex items-start mb-5 ">
+                                    <%= f.input :visible_in_participants,
+                                                as: :boolean,
+                                                wrapper_html: { class: "" },
+                                                input_html: { id: "visible", class: "w-3 h-3 mr-2 mb-3" },
+                                                label_html: { class: "hidden"},
+                                                inline_label: true %>
+                                        <span class="text-left text-[12px] leading-3">I agree to appear in the list of people present at the event. If you check this box, you will have access to the list of registered people.</span>
+                                </label>
+                                <div class="form-actions">
+                                    <div class=" mx-6 bg-TapCard-yellow text-gray-100 font-medium rounded-md transition-all duration-150 ease-in-out hover:text-white hover:scale-105 sm:place-self-center uppercase">
+                                        <%= f.button :submit,
+                                                value: "Confirm",
+                                                class: "uppercase text-lg font-semibold font-jost",
+                                                data: { action: "click->overlay#closeModal" } %>
+                                    </div>
+                                </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
         </div>
 <% else %>
     <div></div>
     <div data-controller="overlay" class="flex flex-col items-start justify-start">
-        <button data-action="click->overlay#toggle" class="flex items-center justify-center px-2 text-xs my-4 mx-auto rounded outline outline-2 outline-TapCard-blue text-TapCard-blue font-semibold">S'inscrire</button>
+        <button data-action="click->overlay#toggle" class="flex items-center justify-center px-2 text-xs my-4 mx-auto rounded outline outline-2 outline-TapCard-blue text-TapCard-blue font-semibold">Register</button>
         <div data-overlay-target="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-rgba justify-center items-center text-white z-50">
             <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-auto bg-TapCard-charcoal py-5 px-4  text-center rounded-xl content-between">
                 <div class="flex justify-between mb-3">
@@ -74,14 +117,14 @@
                     </button>
                 </div>
                 <div class="mb-3">
-                    <p class="text-xs">Veuillez confirmer votre présence lors du <%= @event.title.capitalize %>.</p>
+                    <p class="text-xs">Please confirm you attendance at the <%= @event.title.capitalize %>.</p>
                 </div>
                 <div class="flex justify-center items-center h-full">
                     <div class="space-y-1 flex flex-col justify-start text-left">
                         <div class="flex items-center text-xs font-light ">
                             <div class="flex items-center space-x-1">
                                 <i class="fa-solid fa-calendar-days text-TapCard-yellow"></i>
-                                <p class="text-left">Du <%= @event.start_time.day %> au <%= l(@event.end_time, format:'%d %b', locale: :fr) %></p>
+                                <p class="text-left"><%= @event.start_time.strftime('%B %d') %> to <%= @event.end_time.day %></p>
                             </div>
                         </div>
                         <div class="flex items-center">
@@ -98,18 +141,18 @@
                     <%= f.input :registration_code,
                                 required: true,
                                 autofocus: false,
-                                input_html: { autocomplete: "CODE D'INSCRIPTION", value: "", placeholder: "CODE D'INSCRIPTION", class: "rounded w-[70%] h-8 mx-3 mt-3 text-xs text-center placeholder:text-slate-400 text-TapCard-charcoal" },
+                                input_html: { autocomplete: "REGISTRATION CODE", value: "", placeholder: "REGISTRATION CODE", class: "rounded w-[70%] h-8 mx-3 mt-3 text-xs text-center placeholder:text-slate-400 text-TapCard-charcoal" },
                                 label_html: { class: "hidden" }  %>
-                                <p class="text-[11px] tracking-tight leading-3 text-left italic">Votre code d’inscription DigiCard vous est fourni dans votre e-mail de confirmation de l’achat de votre badge/ticket qui vous donne accès à l’évènement.</p>
+                                <p class="text-[11px] tracking-tight leading-3 text-left italic">Your DigiCard registration code is provided to you in the confirmation email with your badge/ticket which gives you access to the event.</p>
                                 <div class="border-b border-TapCard-yellow w-[75%] mx-auto my-4"></div>
                                 <div class="text-left leading-none mb-4">
-                                    <p class="text-[11px] font-semibold italic text-left mt-1">Vous n’avez pas de badge ? </p>
-                                    <a href="https://<%= @event.link %>" target="_blank" class="text-[11px] italic ">Rendez vous <span class=" text-TapCard-yellow">ici</span></a>
+                                    <p class="text-[11px] font-semibold italic text-left mt-1">Don’t have your badge yet ?</p>
+                                    <a href="https://<%= @event.link %>" target="_blank" class="text-[11px] italic ">Get it <span class=" text-TapCard-yellow">here</span></a>
                                 </div>
                     <div class="form-actions">
                         <div class=" mx-6 bg-TapCard-yellow text-gray-100 font-medium rounded-md transition-all duration-150 ease-in-out hover:text-white hover:scale-105 sm:place-self-center uppercase">
                             <%= f.button :submit,
-                                    value: "Confirmer",
+                                    value: "Confirm",
                                     class: "uppercase text-xl font-semibold font-jost",
                                     data: { action: "click->overlay#closeModal" } %>
                         </div>

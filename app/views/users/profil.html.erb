@@ -137,11 +137,14 @@
     <div class="border-2 border-TapCard-yellow"></div>
     <div class="m-3">
         <h5 class=" text-TapCard-charcoal font-semibold"><%= current_user.job %></h5>
+        <% if current_user.employee_relationships? %>
+            <h6><%= @employee.name %></h6>
+        <% end %>
         <p class="text-TapCard-teal font-light text-sm"><%= User.industries[current_user.industry] %></p>
         <p class="text-TapCard-charcoal text-sm font-light"><%= current_user.biography %></p>
     </div>
     <div class="flex justify-start ">
-        <%= link_to "Déconnexion", destroy_user_session_path, data: {turbo_method: :delete}, class: "px-5 py-2 mb-4 text-xs  rounded outline outline-2 outline-red-500 text-red-500 font-semibold hover:bg-red-500 hover:text-TapCard-lightGray" %>
+        <%= link_to "Déconnexion", destroy_user_session_path, data: {turbo_method: :delete}, class: "px-5 py-2 mb-4 mx-auto text-xs  rounded outline outline-2 outline-red-500 text-red-500 font-semibold hover:bg-red-500 hover:text-TapCard-lightGray" %>
     </div>
 </div>
 
