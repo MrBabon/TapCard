@@ -58,7 +58,7 @@
                 label_html: { class: "block text-left mx-3 mt-1" } %>
             </div>
             <div class="form-actions flex items-center justify-center">
-                <%= f.button :submit, "Update", class: "my-6 py-1 px-5 bg-TapCard-blue rounded-full text-TapCard-lightGray cursor-pointer" %>
+                <%= f.button :submit, "Save", class: "my-6 py-1 px-5 bg-TapCard-blue rounded-full text-TapCard-lightGray cursor-pointer" %>
             </div>
         <% end %>
     </div>
@@ -104,44 +104,80 @@
         </div>
         <div class="m-4">
             <h1 class="text-center font-semibold font-jost"><%= @entreprise.name %></h1>
-            <p>Code parrainage: <%= @entreprise.parrainage_code %></p>
+            <p>Sponsorship code: <%= @entreprise.parrainage_code %></p>
             <p class="text-xs font-light"><%= @entreprise.description %></p>
         </div>
-        <div>
-        <% if @entreprise.employee_relationships.present? %>
-            <h2>Mes employés inscrit</h2>
-            <% @entreprise.employee_relationships.each do |employee| %>
-                <div class="flex items-center mt-2 space-x-2">
-                    <% if employee.user.avatar.attached? %>
-                        <%= cl_image_tag employee.user.avatar.key, alt: "Avatar to #{employee.user.first_name}", class: "rounded-full object-cover object-center w-10 h-10 border shadow-md" %>
-                    <% else %>    
-                        <%= image_tag("avatar.svg", class: "rounded-full w-10 h-10 bg-cover bg-center border shadow-md") %>
-                    <% end %>
-                    <p><%= employee.user.first_name %> <%= employee.user.last_name %></p>
-                    <%= link_to 'Supprimer', entreprise_employee_path(@entreprise, employee), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet employé ?"}, class: "flex items-center justify-center my-3 px-3 py-1 text-xs rounded bg-red-600 text-white font-semibold shadow-md cursor-pointer" %>
-
-                </div>
-            <% end %>
-        <% end %>
-        <% if @association_requests.present? %>
-            <h2>Demandes d'Association</h2>
-            <% @association_requests.each do |request| %>
-                <div class="flex items-center space-x-2 p-2">
-                        <% if request.user.avatar.attached? %>
-                            <%= cl_image_tag request.user.avatar.key, alt: "Avatar to #{request.user.first_name}", class: "rounded-full object-cover object-center w-10 h-10 border shadow-md" %>
-                        <% else %>    
-                            <%= image_tag("avatar.svg", class: "rounded-full w-10 h-10 bg-cover bg-center border shadow-md") %>
-                        <% end %>
-                        <h1><%= request.user.first_name %> <%= request.user.last_name %></h1>
-                        <div class="flex space-x-2">
-                            <%= simple_form_for request, url: approve_request_associations_request_path(request), method: :post do |f| %>
-                                <%= f.button :submit, "Approuver", class: "flex items-center justify-center my-3 px-3 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md cursor-pointer" %>
+        <div class="my-8">
+            <div class="my-3">
+                <% if @entreprise.employee_relationships.present? %>
+                    <h2 class="text-lg font-bold">My registered employees</h2>
+                    <% @entreprise.employee_relationships.each do |employee| %>
+                        <div class="flex items-center mt-2 space-x-2">
+                            <% if employee.user.avatar.attached? %>
+                                <%= cl_image_tag employee.user.avatar.key, alt: "Avatar to #{employee.user.first_name}", class: "rounded-full object-cover object-center w-10 h-10 border shadow-md" %>
+                            <% else %>    
+                                <%= image_tag("avatar.svg", class: "rounded-full w-10 h-10 bg-cover bg-center border shadow-md") %>
                             <% end %>
-                            <%= link_to 'Refuser', reject_request_associations_request_path(request), data: {turbo_method: :delete, turbo_confirm: "Vous êtes sûr?"}, class: "flex items-center justify-center my-3 px-3 py-1 text-xs rounded bg-red-600 text-white font-semibold shadow-md cursor-pointer" %>
+                            <p><%= employee.user.first_name %> <%= employee.user.last_name %></p>
+                            <%= link_to 'Delete', entreprise_employee_path(@entreprise, employee), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet employé ?"}, class: "flex items-center justify-center my-3 px-3 py-1 text-xs rounded bg-red-600 text-white font-semibold shadow-md cursor-pointer" %>
                         </div>
-                </div>
-            <% end %>
-        <% end %>
-    </div>
+                    <% end %>
+                <% end %>
+            </div>
+            <div class="my-3">
+                <% if @association_requests.present? %>
+                    <h2 class="text-lg font-bold">New request.</h2>
+                    <% @association_requests.each do |request| %>
+                        <div class="flex items-center space-x-2 p-2">
+                            <% if request.user.avatar.attached? %>
+                                <%= cl_image_tag request.user.avatar.key, alt: "Avatar to #{request.user.first_name}", class: "rounded-full object-cover object-center w-10 h-10 border shadow-md" %>
+                            <% else %>    
+                                <%= image_tag("avatar.svg", class: "rounded-full w-10 h-10 bg-cover bg-center border shadow-md") %>
+                            <% end %>
+                            <h1><%= request.user.first_name %> <%= request.user.last_name %></h1>
+                            <div class="flex space-x-2">
+                                <%= simple_form_for request, url: approve_request_associations_request_path(request), method: :post do |f| %>
+                                    <%= f.button :submit, "Approve", class: "flex items-center justify-center my-3 px-3 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md cursor-pointer" %>
+                                <% end %>
+                                <%= link_to 'Refuse', reject_request_associations_request_path(request), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "flex items-center justify-center my-3 px-3 py-1 text-xs rounded bg-red-600 text-white font-semibold shadow-md cursor-pointer" %>
+                            </div>
+                        </div>
+                    <% end %>
+                <% end %>
+            </div>
+            <div>
+                <h2 class="text-lg font-bold">Scheduled event</h2>
+                <% @entreprise.exhibitors.each do |exhibitor| %>
+                    <div class="flex justify-around items-center">
+                        <% if exhibitor.event.logo.attached? %>
+                            <%= cl_image_tag exhibitor.event.logo.key, alt: "Logo to #{exhibitor.event.title}", class: " object-cover object-center w-14 h-14 shadow-md" %>
+                        <% else %>    
+                            <%= image_tag("logo_event.svg", class: " w-14 h-14 bg-cover bg-center") %>
+                        <% end %>
+                        <h1><%= exhibitor.event.title %></h1>
+                        <% if @employee_options.any? || @entrepreneur_options.any? %>
+                            <%= simple_form_for :representative, url: add_representatives_entreprise_path(@entreprise), method: :post do |f| %>
+                                <%= f.input :exhibitor_id, as: :hidden, input_html: { value: exhibitor.id } %>
+                                <%= f.input :entreprise_id, as: :hidden, input_html: { value: exhibitor.entreprise.id } %>
+                                <%= f.input :employee_ids, as: :check_boxes, collection: @employee_options, label_method: :first, value_method: :second %>
+                                <%= f.input :entrepreneur_ids, as: :check_boxes, collection: @entrepreneur_options, label_method: :first, value_method: :second %>
+                                <%= f.button :submit, "Ajouter des représentants à #{exhibitor.event.title}", class: "flex items-center justify-center my-3 px-3 py-1 text-xs rounded bg-green-600 text-white font-semibold shadow-md cursor-pointer" %>
+                            <% end %>
+                        <% end %>
+                        <div class="space-x-3 flex">
+                            <% exhibitor.representatives.each do |representative| %>
+                                <% employee = Employee.find_by(id: representative.employee_id) %>
+                                <% entrepreneur = Entrepreneur.find_by(id: representative.entrepreneur_id) %>
+                                <% if employee && employee.user.avatar.attached? %>
+                                    <%= cl_image_tag employee.user.avatar.key, alt: "Avatar to #{employee.user.full_name}", class: "rounded-full object-cover object-center w-10 h-10 border shadow-md" %>
+                                <% else %>    
+                                    <%= image_tag("avatar.svg", class: "rounded-full w-10 h-10 bg-cover bg-center border shadow-md") %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
     </div>
 </div>

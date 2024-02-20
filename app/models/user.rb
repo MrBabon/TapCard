@@ -55,6 +55,10 @@ class User < ApplicationRecord
 
   validates :industry, inclusion: { in: industries.keys, message: "Industry invalid" }, allow_blank: true
   
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   def industry_form_value
     industry.presence || "Industry not specified"
   end

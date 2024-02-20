@@ -10,6 +10,10 @@ class Entreprise < ApplicationRecord
     has_many :association_requests, dependent: :destroy
     # EXHIBITOR
     has_many :exhibitors, dependent: :destroy
+    # REPRESENTATIVE
+    has_many :representatives, dependent: :destroy
+    has_many :exhibitor_representatives, through: :exhibitors, source: :representatives
+    
     has_one_attached :logo
 
     before_create :generate_parrainage_code

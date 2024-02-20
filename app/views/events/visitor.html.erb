@@ -13,10 +13,10 @@
     </div>
     <div class="flex justify-evenly bg-TapCard-lightGray border-b border-TapCard-blue px-4 py-3">
         <%= link_to exposant_event_path(@event) do %>
-            <h6 class="text-xs font-semibold font-jost">Les Exposants</h6>
+            <h6 class="text-xs font-semibold font-jost">Exhibitors</h6>
         <% end %>
         <%= link_to visitor_event_path(@event) do %>
-            <h6 class="text-xs font-semibold font-jost relative after:block after:h-0.5 after:w-1/2 after:absolute after:-bottom-1 after:left-1/4 after:origin-bottom-left after:transform after:ease-in-out after:duration-200 after:bg-TapCard-yellow">Visiteurs Pro</h6>
+            <h6 class="text-xs font-semibold font-jost relative after:block after:h-0.5 after:w-1/2 after:absolute after:-bottom-1 after:left-1/4 after:origin-bottom-left after:transform after:ease-in-out after:duration-200 after:bg-TapCard-yellow">Professional Visitors</h6>
         <% end %>
     </div>
 </div>
@@ -41,5 +41,5 @@
         <% end %>
     <% end %>
 <% else %>
-    <p class="mx-2">Aucun participant visible pour cet événement.</p>
+    <p class="mx-2">No visible participants for this event.</p>
 <% end %>
