@@ -4,9 +4,7 @@ class EntreprisesController < ApplicationController
   
     def create
       @entreprise = Entreprise.new(entreprise_params)
-      
       if @entreprise.save
-        # Reste du code de création de l'entreprise...
       else
         render :new
       end
@@ -19,10 +17,10 @@ class EntreprisesController < ApplicationController
       @entrepreneurs = @entreprise.entrepreneurs.includes(:user)
       @existing_representatives = existing_representatives
       @employee_options = @entreprise.employee_relationships.where.not(id: @existing_representatives).map do |employee|
-        [employee.user.full_name, employee.id]
+        ["#{employee.user.first_name}.#{employee.user.last_name[0]}", employee.id]
       end
       @entrepreneur_options = @entreprise.entrepreneurs.where.not(id: @existing_representatives).map do |entrepreneur|
-        [entrepreneur.user.full_name, entrepreneur.id]
+        ["#{entrepreneur.user.first_name}.#{entrepreneur.user.last_name[0]}", entrepreneur.id]
       end
       @representatives = @entreprise.representatives
     end
@@ -45,8 +43,11 @@ class EntreprisesController < ApplicationController
 
       current_representatives = @entreprise.exhibitors.map(&:representatives).flatten
 
-      employee_ids = representatives_params[:employee_ids].reject(&:blank?).map(&:to_i)
-      entrepreneur_ids = representatives_params[:entrepreneur_ids].reject(&:blank?).map(&:to_i)
+      employee_ids = representatives_params[:employee_ids] || []
+      entrepreneur_ids = representatives_params[:entrepreneur_ids] || []
+
+      employee_ids = employee_ids.reject(&:blank?).map(&:to_i)
+      entrepreneur_ids = entrepreneur_ids.reject(&:blank?).map(&:to_i)
       
 
       employee_ids.each do |id|
