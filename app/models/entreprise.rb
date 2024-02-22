@@ -15,6 +15,7 @@ class Entreprise < ApplicationRecord
     has_many :exhibitor_representatives, through: :exhibitors, source: :representatives
     
     has_one_attached :logo
+    has_one_attached :banner
 
     before_create :generate_parrainage_code
 

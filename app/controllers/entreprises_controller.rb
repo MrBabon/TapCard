@@ -10,6 +10,10 @@ class EntreprisesController < ApplicationController
       end
     end
 
+    def show
+      @entreprise = Entreprise.find(params[:id])
+    end
+
     def edit
       @entreprise = Entreprise.find(params[:id])
       @association_requests = @entreprise.association_requests.where(status: 'pending')
@@ -74,7 +78,7 @@ class EntreprisesController < ApplicationController
     end
   
     def entreprise_params
-      params.require(:entreprise).permit(:name, :logo, :email, :website, :linkedin, :instagram, :facebook, :twitter, :description)
+      params.require(:entreprise).permit(:name, :logo, :banner, :email, :website, :linkedin, :instagram, :facebook, :twitter, :description)
     end
 
     def existing_representatives

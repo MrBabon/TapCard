@@ -1,26 +1,26 @@
 <div class="w-full fixed">
     <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
-    <%= link_to :back, class: "ml-2" do %>
-            <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
-    <% end %>
-    <div class="flex-1 text-center ml-2">
-        <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Informations</h2>
+        <%= link_to exposant_event_path(@event), class: "ml-2" do %>
+                <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+        <% end %>
+        <div class="flex-1 text-center ml-2">
+            <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Informations</h2>
+        </div>
+        <%= link_to user_path(current_user) do %>
+            <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
+        <% end %>
     </div>
-    <%= link_to user_path(current_user) do %>
-        <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
-    <% end %>
-    </div>
-    <div class="flex justify-evenly bg-TapCard-lightGray border-b border-TapCard-blue px-4 py-3">
+    <div class="flex justify-around px-4 py-3">
         <%= link_to exposant_event_path(@event) do %>
-            <h6 class="text-xs font-semibold font-jost relative after:block after:h-0.5 after:w-1/2 after:absolute after:-bottom-1 after:left-1/4 after:origin-bottom-left after:transform after:ease-in-out after:duration-200 after:bg-TapCard-yellow">Les Exposants</h6>
+            <h6 class="text-xs font-semibold font-jost relative after:block after:h-0.5 after:w-1/2 after:absolute after:-bottom-1 after:left-1/4 after:origin-bottom-left after:transform after:ease-in-out after:duration-200 after:bg-TapCard-yellow">Exhibitors</h6>
         <% end %>
         <% if @visible_in_participants[@event.id] %>
             <%= link_to visitor_event_path(@event) do %>
-                <h6 class="text-xs font-semibold font-jost">Visiteurs Pro</h6>
+                <h6 class="text-xs font-semibold font-jost">Professional Visitors</h6>
             <% end %>
         <% else %>
             <div data-controller="overlay" class="flex flex-col items-start justify-start">
-                <button data-action="click->overlay#toggle" class="text-xs font-semibold font-jost">Visiteurs Pro</button>
+                <button data-action="click->overlay#toggle" class="text-xs font-semibold font-jost">Professional Visitors</button>
                 <div data-overlay-target="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-rgba justify-center items-center text-white z-50">
                     <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-auto bg-TapCard-charcoal py-5 px-4 text-center rounded-xl content-between">
                         <div class="flex justify-between mb-3">
@@ -102,8 +102,13 @@
         </div>
     </div>
 </div>
-<div class=" bg-TapCard-lightGray">
-    <h4 class="text-center py-2 text-sm">Ils seront présents !</h4>
+<div class="m-4">
+    <h1 class="text-center font-semibold font-jost"><%= @exhibitor.entreprise.name %></h1>
+    <p class="text-xs font-light"><%= @exhibitor.entreprise.description %></p>
+    
+</div>
+<div class=" bg-TapCard-lightGray py-2">
+    <h4 class="text-center pb-2 text-sm">Ils seront présents !</h4>
     <div class="flex items-center justify-evenly">
         <% @exhibitor.entreprise.representatives.each do |representative| %>
             <% employee = Employee.find_by(id: representative.employee_id) %>
@@ -114,14 +119,20 @@
                 <% else %>    
                     <%= image_tag("avatar.svg", class: "rounded-full w-10 h-10 bg-cover bg-center border shadow-md") %>
                 <% end %>
-                <h6><%= employee.user.first_name if employee %></h6>
-                <h6><%= entrepreneur.user.first_name if entrepreneur %></h6>
+                <% if employee %>
+                    <% display_name = employee.user.first_name.length > 5 ? "#{employee.user.first_name[0, 4]}..." : employee.user.first_name %>
+                    <h6><%= display_name %></h6>
+                <% end %>
+                <% if entrepreneur %>
+                    <% display_name = entrepreneur.user.first_name.length > 5 ? "#{entrepreneur.user.first_name[0, 4]}..." : entrepreneur.user.first_name %>
+                    <h6><%= display_name %></h6>
+                <% end %>
             </div>
         <% end %>
     </div>
 </div>
-<div class="m-4">
-    <h1 class="text-center font-semibold font-jost"><%= @exhibitor.entreprise.name %></h1>
-    <p class="text-xs font-light"><%= @exhibitor.entreprise.description %></p>
-    
+<div class="flex justify-center">
+    <%= link_to entreprise_path do %>
+        <p class="px-3 py-1 my-4 rounded shadow-md bg-TapCard-blue text-TapCard-lightGray font-medium text-sm">Our Business Page</p>
+    <% end %>
 </div>

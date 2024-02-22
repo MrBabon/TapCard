@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   resources :participations, only: [:update]
   resources :exhibitors, only: [:show]
   resources :representatives, only: [:destroy]
-  resources :entreprises, only: [:edit, :update] do
+  resources :entreprises, only: [:edit, :update, :show] do
     resources :employees, only: [:destroy]
     member do
       post 'add_representatives'

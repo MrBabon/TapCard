@@ -25,6 +25,18 @@
                 </label>
                 <div id="image-preview-container"></div>
             </div>
+            <div>
+                <% if @entreprise.banner.attached? %>
+                    <%= cl_image_tag @entreprise.banner.key, alt: "banner entreprise #{@entreprise.name}", class: "rounded-full object-cover object-center w-28 h-28 shadow-md", id: "banner" %>
+                <% else %>
+                    <%= image_tag("bag-entreprise.svg", class: "rounded-full w-28 h-28 object-cover object-center shadow-md", alt: "Logo par défaut", id: "banner") %>
+                <% end %>
+                <label for="<%= f.object_name %>_banner" class="cursor-pointer w-8 h-8 bg-TapCard-teal rounded-full relative bottom-7 left-10 flex items-center justify-center">
+                    <%= image_tag("pen-solid.svg", class: "h-4 fill-TapCard-yellow") %>
+                    <%= f.input :banner, as: :file, label: false, wrapper: false, input_html: { class: "hidden", data: { controller: "preview-image", action: "change->preview-image#previewBanner" } } %>
+                </label>
+                <div id="image-preview-banner"></div>
+            </div>
             <div class="form-inputs">
                 <%= f.input :email, 
                 required: true,
