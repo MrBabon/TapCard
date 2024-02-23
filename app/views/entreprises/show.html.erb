@@ -1,4 +1,4 @@
-<div class="flex fixed w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
+<div class="flex fixed w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal z-50">
     <%= link_to :back, class: "ml-2" do %>
             <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
     <% end %>
@@ -9,7 +9,16 @@
         <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
     <% end %>
 </div>
-<div class=" pt-16"></div>
+<div class="pt-16"></div>
 <div>
-    
+    <% if @entreprise.banner.attached? %>
+        <%= cl_image_tag @entreprise.banner.key, alt: "Banner entreprise #{@entreprise.name}", class: "object-cover object-center w-full h-24" %>
+    <% else %>
+        <div class="w-full h-24 bg-TapCard-navy"></div>
+    <% end %>
+</div>
+<div class="relative p-3">
+    <p class="absolute right-0 top-0 pt-1 pb-2 pl-2 pr-1 rounded-bl-lg text-[12px] bg-TapCard-yellow text-TapCard-charcoal font-semilight">Send us your details</p>
+    <h1 class="text-lg font-black"><%= @entreprise.name %></h1>
+    <p class="font-light text-xs"><%= @entreprise.description %></p>
 </div>

@@ -31,7 +31,7 @@ class EntreprisesController < ApplicationController
     
     def update
         if @entreprise.update(entreprise_params)
-          redirect_to @entreprise, notice: "Entreprise mise à jour avec succès."
+          redirect_to edit_entreprise_path(@entreprise), notice: "Entreprise mise à jour avec succès."
         else
           render :edit
         end

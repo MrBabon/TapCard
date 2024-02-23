@@ -39,35 +39,35 @@
             </div>
             <div class="form-inputs">
                 <%= f.input :email, 
-                required: true,
-                input_html: { autocomplete: "email", class: "rounded w-[100%] mx-3" },
-                label: "Email",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
+                            required: true,
+                            input_html: { autocomplete: "email", class: "rounded w-[100%] mx-3" },
+                            label: "Email",
+                            label_html: { class: "block text-left mx-3 mt-1" } %>
                 <%= f.input :website, 
-                required: false,
-                input_html: { autocomplete: "website", class: "rounded w-[100%] mx-3" },
-                label: "Website",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
+                            required: false,
+                            input_html: { autocomplete: "website", class: "rounded w-[100%] mx-3" },
+                            label: "Website",
+                            label_html: { class: "block text-left mx-3 mt-1" } %>
                 <%= f.input :linkedin, 
-                required: false,
-                input_html: { autocomplete: "linkedin", class: "rounded w-[100%] mx-3" },
-                label: "Linkedin",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
+                            required: false,
+                            input_html: { autocomplete: "linkedin", class: "rounded w-[100%] mx-3" },
+                            label: "Linkedin",
+                            label_html: { class: "block text-left mx-3 mt-1" } %>
                 <%= f.input :facebook, 
-                required: false,
-                input_html: { autocomplete: "facebook", class: "rounded w-[100%] mx-3" },
-                label: "Facebook",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
+                            required: false,
+                            input_html: { autocomplete: "facebook", class: "rounded w-[100%] mx-3" },
+                            label: "Facebook",
+                            label_html: { class: "block text-left mx-3 mt-1" } %>
                 <%= f.input :twitter, 
-                required: false,
-                input_html: { autocomplete: "twitter", class: "rounded w-[100%] mx-3" },
-                label: "X",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
+                            required: false,
+                            input_html: { autocomplete: "twitter", class: "rounded w-[100%] mx-3" },
+                            label: "X",
+                            label_html: { class: "block text-left mx-3 mt-1" } %>
                 <%= f.input :description, 
-                required: false,
-                input_html: { autocomplete: "description", rows: 10, class: "rounded w-[100%] mx-3" },
-                label: "description",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
+                            required: false,
+                            input_html: { autocomplete: "description", rows: 10, class: "rounded w-[100%] mx-3" },
+                            label: "description",
+                            label_html: { class: "block text-left mx-3 mt-1" } %>
             </div>
             <div class="form-actions flex items-center justify-center">
                 <%= f.button :submit, "Save", class: "my-6 py-1 px-5 bg-TapCard-blue rounded-full text-TapCard-lightGray cursor-pointer" %>
@@ -117,7 +117,7 @@
         <div class="m-4">
             <h1 class="text-center font-semibold font-jost"><%= @entreprise.name %></h1>
             <p>Sponsorship code: <%= @entreprise.parrainage_code %></p>
-            <p class="text-xs font-light"><%= @entreprise.description %></p>
+            <p class="text-xs font-light w-96"><%= @entreprise.description %></p>
         </div>
         <div class="my-8">
             <div class="my-3">
