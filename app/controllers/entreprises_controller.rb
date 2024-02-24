@@ -12,6 +12,8 @@ class EntreprisesController < ApplicationController
 
     def show
       @entreprise = Entreprise.find(params[:id])
+      @employees = @entreprise.employees
+      @entrepreneurs = @entreprise.entrepreneurs
     end
 
     def edit

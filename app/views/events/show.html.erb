@@ -99,6 +99,10 @@
                 </div>
             <% end %>
         </div>
+        <p class="text-xs text-center font-light italic">You can no longer participate in this event?</p>
+        <div class="flex items-center justify-center">
+            <%= link_to "Unsubscribe", event_participation_path(@event, @participation), data: {turbo_method: :delete, turbo_confirm: "Please, confirm your unsubscription"}, class: "uppercase bg-TapCard-gray text-white text-xs my-3 px-3 py-1 rounded"%>
+        </div>
 <% else %>
     <div></div>
     <div data-controller="overlay" class="flex flex-col items-start justify-start">
