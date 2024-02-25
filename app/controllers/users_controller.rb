@@ -11,6 +11,11 @@ class UsersController < ApplicationController
         if @user == current_user
             redirect_to profil_user_path
         end
+        if @user.entrepreneurs?
+            @entreprise = @user.entreprises_as_owner.first
+        elsif @user.employee_relationships?
+            @employee = @user.entreprises_as_employee.first
+        end
     end
     
     def profil

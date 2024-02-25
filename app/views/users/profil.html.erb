@@ -139,13 +139,17 @@
         <h5 class=" text-TapCard-charcoal font-semibold"><%= current_user.job %></h5>
         <p class="text-TapCard-gray font-light text-sm"><%= User.industries[current_user.industry] %></p>
         <% if current_user.employee_relationships? %>
-            <%= link_to entreprise_path(@employee) do %>
-                <h6 class="text-TapCard-teal"><%= @employee.name %></h6>
-            <% end %>
+            <div class="inline">
+                <%= link_to entreprise_path(@employee) do %>
+                    <h6 class="text-TapCard-teal inline-block"><%= @employee.name %></h6>
+                <% end %>
+            </div>
         <% elsif current_user.entrepreneurs? %>
-            <%= link_to entreprise_path(@entreprise) do %>
-                <h6 class="text-TapCard-teal"><%= @entreprise.name %></h6>
-            <% end %>
+            <div class="inline">
+                <%= link_to entreprise_path(@entreprise) do %>
+                    <h6 class="text-TapCard-teal inline-block"><%= @entreprise.name %></h6>
+                <% end %>
+            </div>
         <% end %>
         <p class="text-TapCard-charcoal text-sm font-light"><%= current_user.biography %></p>
     </div>

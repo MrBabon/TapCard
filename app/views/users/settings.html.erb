@@ -1,4 +1,4 @@
-<div class="bg-TapCard-teal h-[100vh]">
+<div class="bg-TapCard-teal h-full pb-1">
     <div class="flex w-full justify-between font-jost font-semibold items-center pt-8 pb-8 px-3">
         <%= link_to profil_user_path(current_user) do %>
             <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
@@ -12,7 +12,7 @@
             <% end %>
         </div>
     </div>
-    <div class="w-56 h-auto bg-TapCard-clair mx-auto rounded-xl shadow-sm">
+    <div class="w-60 mb-10 h-auto bg-TapCard-clair mx-auto rounded-xl shadow-sm">
         <div class="h-10 pt-2 flex justify-center items-center">
             <h1><%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %></h1>
         </div>
@@ -22,21 +22,75 @@
             <li>
                 <%= link_to edit_user_registration_path, class: "flex justify-between items-center" do %>
                     <p>Edit profile</p>
-                    <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-chevron-right w-3"></i>
                 <% end %>
             </li>
-            <li>Add a payment method</li>
-            <li>Push notifications</li>
-            <li>Messages from contacts</li>
-            <li>Messages from everyone</li>
-            <li>Allow others to see me on map</li>
+            <li class="flex items-center justify-between">
+                <p>Add a payment method</p>
+                <i class="fa-solid fa-plus w-4"></i>
+            </li>
+            <li class="flex items-center justify-between">
+                <p>Push notifications</p>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="group peer ring-0  bg-gradient-to-bl from-neutral-800 via-neutral-700 to-neutral-600  rounded-full outline-none duration-1000 after:duration-300 w-10 h-5 peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:[background:#0D2B39]   peer-checked:after:rotate-180 after:[background:conic-gradient(from_135deg,_#cdcbcb,_#cdc4c4,_#ffffff,_#d7dbd9_,_#ffffff,_#cdc4c4)]  after:outline-none after:h-4 after:w-4 after:top-[2.5px] after:left-[2.5px] peer-checked:after:translate-x-5 peer-hover:after:scale-95 peer-checked:bg-gradient-to-r peer-checked:from-yellow-500 peer-checked:to-TapCard-yellow">
+                    </div>
+                </label>
+            </li>
+            <li class="flex items-center justify-between">
+                <p>Messages from contacts</p>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="group peer ring-0  bg-gradient-to-bl from-neutral-800 via-neutral-700 to-neutral-600  rounded-full outline-none duration-1000 after:duration-300 w-10 h-5 peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:[background:#0D2B39]   peer-checked:after:rotate-180 after:[background:conic-gradient(from_135deg,_#cdcbcb,_#cdc4c4,_#ffffff,_#d7dbd9_,_#ffffff,_#cdc4c4)]  after:outline-none after:h-4 after:w-4 after:top-[2.5px] after:left-[2.5px] peer-checked:after:translate-x-5 peer-hover:after:scale-95 peer-checked:bg-gradient-to-r peer-checked:from-yellow-500 peer-checked:to-TapCard-yellow">
+                    </div>
+                </label>
+            </li>
+            <li class="flex items-center justify-between">
+                <p>Messages from everyone</p>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="group peer ring-0  bg-gradient-to-bl from-neutral-800 via-neutral-700 to-neutral-600  rounded-full outline-none duration-1000 after:duration-300 w-10 h-5 peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:[background:#0D2B39]   peer-checked:after:rotate-180 after:[background:conic-gradient(from_135deg,_#cdcbcb,_#cdc4c4,_#ffffff,_#d7dbd9_,_#ffffff,_#cdc4c4)]  after:outline-none after:h-4 after:w-4 after:top-[2.5px] after:left-[2.5px] peer-checked:after:translate-x-5 peer-hover:after:scale-95 peer-checked:bg-gradient-to-r peer-checked:from-yellow-500 peer-checked:to-TapCard-yellow">
+                    </div>
+                </label>
+            </li>
         </ul>
         <hr class="border-t border-TapCard-gray/50">
-        <ul class="py-3 px-2 text-sm space-y-3">
+        <ul class="py-3 px-2 text-sm font-light space-y-3">
+            <li class="text-TapCard-silver">Events</li>
+            <li class="flex items-center justify-between">
+                <p>Create an event</p>
+                <i class="fa-solid fa-chevron-right w-3"></i>
+            </li>
+        </ul>
+        <hr class="border-t border-TapCard-gray/50">
+        <ul class="py-3 px-2 text-sm font-light space-y-3">
+            <li class="text-TapCard-silver">Company</li>
+            <li class="flex items-center justify-between">
+                <p>Create a business page</p>
+                <i class="fa-solid fa-chevron-right w-3"></i>
+            </li>
+        </ul>
+        <hr class="border-t border-TapCard-gray/50">
+        <ul class="py-3 px-2 text-sm font-light space-y-3">
             <li class=" text-TapCard-silver">More</li>
-            <li>About us</li>
-            <li>Privacy policy</li>
-            <li>Terms and conditions</li>
+            <li class="flex items-center justify-between">
+                <p>About us</p>
+                <i class="fa-solid fa-chevron-right w-3"></i>
+            </li>
+            
+
+            <li class="flex items-center justify-between">
+                <p>Privacy policy</p>
+                <i class="fa-solid fa-chevron-right w-3"></i>
+            </li>
+            <li class="flex items-center justify-between">
+                <p>Terms and conditions</p>
+                <i class="fa-solid fa-chevron-right w-3"></i>
+            </li>
+            <li class="flex items-center justify-between">
+                <%= button_to "Delete your account", registration_path(current_user), data: { confirm: "Are your sure?", turbo_confirm: "Are your sure?" }, method: :delete %>
+                <i class="fa-solid fa-xmark text-red-600 w-4"></i>
+            </li>
         </ul>
     </div>
 </div>
