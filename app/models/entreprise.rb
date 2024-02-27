@@ -16,8 +16,9 @@ class Entreprise < ApplicationRecord
     
     has_one_attached :logo
     has_one_attached :banner
-
     before_create :generate_parrainage_code
+    validates :name, presence: true
+    validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
     private
 

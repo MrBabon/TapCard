@@ -1,0 +1,44 @@
+<div class="flex">
+    <div class="hidden bg-banner-home bg-center bg-cover h-[80vh] md:block md:h-[100vh] md:w-1/2 lg:w-2/3">
+        <h1 class="flex items-center justify-center text-TapCard-charcoal text-3xl h-[80vh] uppercase md:hidden">Digicard</h1>
+    </div>
+    <div class="md:w-1/2 lg:w-1/3">
+        <div class="hidden md:flex md:flex-col justify-center text-TapCard-gray">
+            <h1 class="md:flex md:flex-col md:uppercase md:text-5xl xl:text-7xl md:font-semibold mx-auto mb-8 mt-7 relative space-y-12 tracking-wide">Digicard
+                <span class="font-jost capitalize text-2xl font-medium absolute top-10 left-[3px] tracking-widest xl:text-4xl xl:top-16">Entreprise</span>
+                <span class=" border-b-2 border-TapCard-yellow w-[50%] pt-4"></span>
+                <div class="inline relative">
+                <%= link_to root_path do %>
+                    <p class="inline-block text-xs capitalize absolute tracking-normal text-TapCard-silver font-normal"><i class="fa-solid fa-arrow-left"></i> Back</p>
+                <% end %>
+                </div>
+            </h1>
+            <h1 class="hidden text-center md:block text-2xl my-3 ">Register your entreprise</h1>
+            <%= simple_form_for @entreprise do |f| %>
+                <%= f.error_notification %>
+                <div class="form-inputs md:flex md:flex-col md:justify-center md:space-y-2">
+                    <div class="text-center relative w-[85%] mx-auto">
+                        <%= f.input :name, required: true, label: "".html_safe, label_html: { class: "hidden"}, input_html: { autocomplete: "company-name", class: "rounded w-full mt-8 py-2 px-4 md:bg-TapCard-lightGray md:border-none" } do %>
+                            <%= f.label :name, "Company Name <span class='text-red-500'>*</span>".html_safe, class: "block absolute" %>
+                            <%= f.text_field :name, autocomplete: "company-name", class: "rounded w-full mt-8 py-2 px-4 md:bg-TapCard-lightGray md:border-none" %>
+                        <% end %>
+
+                    </div>
+                    <div class="text-center relative w-[85%] mx-auto">
+                        <%= f.input :email, required: true, label: "".html_safe, label_html: { class: "hidden"}, input_html: { autocomplete: "company-name", class: "rounded w-full mt-8 py-2 px-4 md:bg-TapCard-lightGray md:border-none" } do %>
+                            <%= f.label :email, "Email <span class='text-red-500'>*</span>".html_safe, class: "block absolute" %>
+                            <%= f.text_field :email, autocomplete: "company-name", class: "rounded w-full mt-8 py-2 px-4 md:bg-TapCard-lightGray md:border-none" %>
+                        <% end %>
+                    </div>
+                </div>
+
+                <div class="form-actions flex items-center justify-center">
+                    <%= f.button :submit, 'Create', class: "my-6 py-1 px-5 bg-TapCard-blue rounded-full text-TapCard-lightGray md:bg-TapCard-yellow md:text-TapCard-charcoal md:cursor-pointer" %>
+                </div>
+            <% end %>
+            <div class="flex justify-start ">
+                    <%= link_to "Déconnexion", destroy_user_session_path, data: {turbo_method: :delete}, class: "px-5 py-2 mb-4 mx-auto text-xs  rounded outline outline-2 outline-red-500 text-red-500 font-semibold hover:bg-red-500 hover:text-TapCard-lightGray" %>
+            </div>
+        </div>
+    </div>
+</div>

@@ -25,10 +25,11 @@ class User < ApplicationRecord
   has_many :following, through: :following_relationships, source: :following
   # Validation
   has_one_attached :avatar
-  validates :first_name, presence: true, length: { maximum: 50 }, format: { without: /\s/ }
-  validates :last_name, presence: true, length: { maximum: 50 }, format: { without: /\s/ }
+  validates :first_name, presence: true, length: { maximum: 25 }, format: { without: /\s/ }
+  validates :last_name, presence: true, length: { maximum: 20 }, format: { without: /\s/ }
   validates :phone, presence: true, length: { maximum: 20 }
   validates :biography, length: { maximum: 1000 }
+  validate :must_not_be_employee_and_entrepreneur
 
   enum industry: {
     technology: "Technology",
@@ -54,6 +55,8 @@ class User < ApplicationRecord
   }
 
   validates :industry, inclusion: { in: industries.keys, message: "Industry invalid" }, allow_blank: true
+
+ 
   
   def full_name
     "#{first_name} #{last_name}"
@@ -115,6 +118,14 @@ class User < ApplicationRecord
   def is_following?(user_id)
     relationship = Follow.find_by(follower_id: id, following_id: user_id)
     return true if relationship
+  end
+
+  private
+
+  def must_not_be_employee_and_entrepreneur
+    if employee_relationships.exists? && entrepreneurs.exists?
+      errors.add(:base, 'A user cannot be both an employee and an entrepreneur.')
+    end
   end
 
 end

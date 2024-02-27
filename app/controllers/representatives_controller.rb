@@ -5,7 +5,7 @@ class RepresentativesController < ApplicationController
         entreprise = @representative.entreprise
         @representative.destroy
 
-        redirect_to edit_entreprise_path(entreprise), alert: "Representative removed"
+        redirect_to dashboard_entreprise_path(entreprise), alert: "Representative removed"
     end
 
     private

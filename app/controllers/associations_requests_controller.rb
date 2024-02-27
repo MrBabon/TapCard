@@ -13,13 +13,13 @@ class AssociationsRequestsController < ApplicationController
         @association_request.destroy
 
         # Redirigez vers le tableau de bord de l'entreprise avec un message de succès
-        redirect_to edit_entreprise_path(entreprise), notice: "#{user.first_name} a été ajouté à l'entreprise comme employé."
+        redirect_to dashboard_entreprise_path(entreprise), notice: "#{user.first_name} a été ajouté à l'entreprise comme employé."
     end
     def reject_request
         entreprise = @association_request.entreprise
         @association_request.destroy
     
-        redirect_to edit_entreprise_path(entreprise), alert: "La demande d'association a été refusée."
+        redirect_to dashboard_entreprise_path(entreprise), alert: "La demande d'association a été refusée."
     end
 
     private
