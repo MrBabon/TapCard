@@ -2,10 +2,15 @@ class EventsController < ApplicationController
 
     def index
         @events = Event.all
+        @events = @events.search_by_city(params[:city]) if params[:city].present?
+        @events = @events.search_by_country(params[:country]) if params[:country].present?
+        @events = @events.search_by_title(params[:title]) if params[:title].present?
+        @events = @events.search_by_region(params[:region]) if params[:region].present?
         @participations = {}
         @events.each do |event|
           @participations[event.id] = Participation.participation_for(current_user, event)
         end
+          
     end
 
     def show
@@ -65,6 +70,7 @@ class EventsController < ApplicationController
         lng: event.longitude,
         city: event.city,
         country: event.country,
+        region: event.region,
         info_window_html: render_to_string(partial: "info_window", locals: {event: event})
         }
     end

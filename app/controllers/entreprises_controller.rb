@@ -28,17 +28,7 @@ class EntreprisesController < ApplicationController
     end
 
     def dashboard
-      @association_requests = @entreprise.association_requests.where(status: 'pending')
-      @employees = @entreprise.employees
-      @entrepreneurs = @entreprise.entrepreneurs.includes(:user)
-      @existing_representatives = existing_representatives
-      @employee_options = @entreprise.employee_relationships.where.not(id: @existing_representatives).map do |employee|
-        ["#{employee.user.first_name}.#{employee.user.last_name[0]}", employee.id]
-      end
-      @entrepreneur_options = @entreprise.entrepreneurs.where.not(id: @existing_representatives).map do |entrepreneur|
-        ["#{entrepreneur.user.first_name}.#{entrepreneur.user.last_name[0]}", entrepreneur.id]
-      end
-      @representatives = @entreprise.representatives
+      
     end
 
     def edit

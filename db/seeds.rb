@@ -7,6 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 puts "Cleaning up database..."
 Organization.destroy_all
+Exhibitor.destroy_all
 Entreprise.destroy_all
 Event.destroy_all
 puts "Database cleaned"
@@ -51,7 +52,7 @@ jeux = Event.create(
     organization: festival
 )
 
-Exhibitor.create(entreprise: dannacode, event: jeux)
-Exhibitor.create(entreprise: maelcorp, event: jeux)
+Exhibitor.create(id_Entreprises: dannacode, event: jeux)
+Exhibitor.create(id_Entreprises: maelcorp, event: jeux)
 
 puts "finish"

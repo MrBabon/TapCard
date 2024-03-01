@@ -9,7 +9,7 @@ class Entreprise < ApplicationRecord
     # ASSOCIATION REQUEST
     has_many :association_requests, dependent: :destroy
     # EXHIBITOR
-    has_many :exhibitors, dependent: :destroy
+    has_many :exhibitors, dependent: :destroy, foreign_key: "id_Entreprises"
     # REPRESENTATIVE
     has_many :representatives, dependent: :destroy
     has_many :exhibitor_representatives, through: :exhibitors, source: :representatives

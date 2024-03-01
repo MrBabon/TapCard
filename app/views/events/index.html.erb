@@ -65,7 +65,7 @@
                                     <div class="flex items-center">
                                         <div class="flex items-center text-xs font-light space-x-2">
                                             <i class="fa-solid fa-map-pin text-TapCard-yellow"></i>
-                                            <p class="text-left"><%= event.city.capitalize %>, <%= event.country.capitalize %></p>
+                                            <p class="text-left"><%= event.city.capitalize %>, <%= event.country.capitalize %> <%= event.region %></p>
                                         </div>
                                     </div>
                                 </div>
@@ -115,5 +115,34 @@
         </div>
     </div>
 <% end %>
+<div class="fixed bottom-12 bg-TapCard-blue w-full text-TapCard-lightGray">
+    <%= form_with url: events_path, method: :get, class: "flex flex-col" do %>
+      <%= text_field_tag :country,
+            params[:country],
+            class: "form-control text-black",
+            placeholder: "Select Country"
+        %>
+      <%= text_field_tag :region,
+            params[:region],
+            class: "form-control text-black",
+            placeholder: "Select State"
+        %>
+      <%= text_field_tag :city,
+            params[:city],
+            class: "form-control text-black",
+            placeholder: "Select City"
+        %>
+      <%= text_field_tag :title,
+            params[:title],
+            class: "form-control text-black",
+            placeholder: "Type a title"
+        %>
+      <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
+    <% end %>
+    <div class="flex justify-center items-center space-x-2">
+        <p class=" font-light text-sm">Filters</p>
+        <i class="fa-solid fa-chevron-down text-sm"></i>
+    </div>
+</div>
 
 

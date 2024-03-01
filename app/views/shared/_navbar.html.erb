@@ -1,23 +1,23 @@
-<header class="fixed w-full bg-gray-100  ">
+<header class="fixed w-full z-50 bg-white">
   <nav class="flex justify-between mr-10">
-    <div class="flex items-end text-TapCard-gray p-5 border-r-2 border-b">
+    <div class="flex items-end text-TapCard-gray py-5 pl-5 pr-7 border-r-2 border-b">
       <div class=" mb-3">
-        <%= image_tag("logo.svg", class: "w-10 h-10 md:w-12 md:h-12") %>
+        <%= image_tag("logo.svg", class: "w-12 h-12") %>
       </div>
       <div class="inline">
-        <h1 class="inline-block uppercase text-2xl md:text-4xl  font-medium  mb-2 pb-4 relative space-y-1 tracking-wide">Digicard
+        <h1 class="inline-block uppercase text-4xl font-medium  mb-2 pb-4 relative space-y-1 tracking-wide">Digicard
             <span class="font-jost capitalize text-lg font-medium absolute top-8 left-[3px] tracking-widest">Entreprise</span>
             <span class=" absolute top-16 left-1 pb-[3.5px] rounded-full w-[50%] bg-TapCard-yellow"></span>
         </h1>
       </div>
     </div>
-    <div class="flex items-center space-x-4">
+    <div class="flex items-center space-x-8">
       <% if @entreprise.logo.attached? %>
           <%= cl_image_tag @entreprise.logo.key, alt: "Logo entreprise #{@entreprise.name}", class: "rounded-full object-cover object-center w-14 h-14 shadow-md", id: "user-avatar" %>
       <% else %>
           <%= image_tag("bag-entreprise.svg", class: "rounded-full w-14 h-14 object-cover object-center shadow-md", alt: "Logo par défaut", id: "user-avatar") %>
       <% end %>
-      <h2><%= @entreprise.name %></h2>
+      <h2 class="text-xl font-jost"><%= @entreprise.name %></h2>
       
     </div>
   </nav>
