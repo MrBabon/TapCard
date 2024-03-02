@@ -2,6 +2,7 @@ class ExhibitorsController < ApplicationController
     def show
         @exhibitor = Exhibitor.find(params[:id])
         @event = @exhibitor.event
+        @entreprise = @exhibitor.entreprise
         @participation = Participation.participation_for(current_user, @event)
         @visible_in_participants = {}
 

@@ -56,6 +56,10 @@ class UsersController < ApplicationController
     def my_events
         @user = current_user
         @participating_events = @user.events
+        @participating_events = @participating_events.search_by_city(params[:city]) if params[:city].present?
+        @participating_events = @participating_events.search_by_country(params[:country]) if params[:country].present?
+        @participating_events = @participating_events.search_by_title(params[:title]) if params[:title].present?
+        @participating_events = @participating_events.search_by_region(params[:region]) if params[:region].present?
         @visible_in_participants = {}
   
         # Boucle à travers les événements auxquels l'utilisateur participe pour obtenir la visibilité

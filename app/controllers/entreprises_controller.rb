@@ -1,5 +1,5 @@
 class EntreprisesController < ApplicationController
-    before_action :set_entreprise, only: [:edit, :update, :add_representatives, :dashboard]
+    before_action :set_entreprise, only: [:show, :edit, :update, :add_representatives, :dashboard]
     before_action :verify_ownership, only: [:edit, :update, :dashboard]
   
     def create
@@ -22,7 +22,7 @@ class EntreprisesController < ApplicationController
     end
 
     def show
-      @entreprise = Entreprise.find(params[:id])
+      
       @employees = @entreprise.employees
       @entrepreneurs = @entreprise.entrepreneurs
     end

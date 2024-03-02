@@ -57,7 +57,29 @@ class User < ApplicationRecord
   validates :industry, inclusion: { in: industries.keys, message: "Industry invalid" }, allow_blank: true
 
  
-  
+    # PG SEARCH
+    include PgSearch::Model
+    pg_search_scope :search_by_title,
+      against: :title,
+      using: {
+        tsearch: { prefix: true } 
+    }
+    pg_search_scope :search_by_city,
+    against: :city,
+    using: {
+      tsearch: { prefix: true } 
+    }
+    pg_search_scope :search_by_country,
+    against: :country,
+    using: {
+      tsearch: { prefix: true } 
+    }
+    pg_search_scope :search_by_region,
+    against: :region,
+    using: {
+      tsearch: { prefix: true } 
+    }
+
   def full_name
     "#{first_name} #{last_name}"
   end

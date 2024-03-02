@@ -97,4 +97,39 @@
         </div>
     </div>
 <% end %>
+<div class="fixed bottom-0 pb-8  w-full text-TapCard-lightGray" data-controller="filter">
+    <div id="search-form" class="flex-col justify-center items-center bg-TapCard-yellow border-4 border-yellow-500 pt-4 space-y-2 transition-translate duration-150 transform translate-y-full hidden z-20" data-filter-target="form">
+        <%= form_with url: my_events_user_path, method: :get, class: "flex flex-col justify-center space-y-2" do %>
+        <%= text_field_tag :country,
+                params[:country],
+                class: "form-control text-black font-light text-xs mx-9 h-7 rounded border-none shadow-sm",
+                placeholder: "Select Country"
+            %>
+        <%= text_field_tag :region,
+                params[:region],
+                class: "form-control text-black font-light text-xs mx-9 h-7 rounded border-none shadow-sm",
+                placeholder: "Select State"
+            %>
+        <%= text_field_tag :city,
+                params[:city],
+                class: "form-control text-black font-light text-xs mx-9 h-7 rounded border-none shadow-sm",
+                placeholder: "Select City"
+            %>
+        <%= text_field_tag :title,
+                params[:title],
+                class: "form-control text-black font-light text-xs mx-9 h-7 rounded border-none shadow-sm",
+                placeholder: "Type a title"
+            %>
+            <div class="flex justify-center pt-1 pb-2">
+                <%= submit_tag "Search", name: "", class: "bg-TapCard-blue rounded-xl px-4 py-1 text-xs" %>
+            </div>
+        <% end %>
 
+    </div>
+    <div class="flex justify-center items-center bg-TapCard-blue pb-[23px] z-50 lg:hidden relative">
+        <button data-action="click->filter#toggle" class="flex items-center font-light  space-x-2 pt-1">
+            <span>Filter</span>
+            <i class="fa-solid fa-chevron-up text-sm h-3"  data-filter-target="icon"></i>
+        </button>
+    </div>
+</div>
