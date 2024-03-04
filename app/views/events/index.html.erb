@@ -24,7 +24,7 @@
     <div class="p-3 border-y border-TapCard-blue">
         <div class="flex items-start justify-between ">
             <%= link_to event_path(event) do %>
-                <p class="px-2 text-xs rounded outline outline-2 outline-TapCard-yellow text-TapCard-yellow font-semibold">Learn more</p>
+                <p class="px-2 text-xs rounded outline outline-2 outline-TapCard-yellow text-TapCard-yellow font-semibold bg-gray-100">Learn more</p>
             <% end %>
             <% if event.logo.attached? %>
                 <%= cl_image_tag current_user.logo.key, alt: "Logo to #{event.title}", class: " object-cover object-center w-14 h-14 shadow-md" %>
@@ -33,11 +33,11 @@
             <% end %>
             <% if @participations[event.id] %>
                 <div class="flex flex-col items-start justify-start">
-                    <%= link_to "Registered", event_path(event), class: "px-2  text-xs  rounded outline outline-2 outline-green-500 text-green-500 font-semibold" %>
+                    <%= link_to "Registered", event_path(event), class: "px-2  text-xs  rounded outline outline-2 outline-green-500 text-green-500 font-semibold bg-gray-100" %>
                 </div>
             <% else %>
                 <div data-controller="overlay" class="flex flex-col items-start justify-start">
-                    <button data-action="click->overlay#toggle" class="px-2 text-xs rounded outline outline-2 outline-TapCard-blue text-TapCard-blue font-semibold">Register</button>
+                    <button data-action="click->overlay#toggle" class="px-2 text-xs rounded outline outline-2 outline-TapCard-blue text-TapCard-blue font-semibold bg-gray-100">Register</button>
                     <div data-overlay-target="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-rgba justify-center items-center text-white z-50">
                         <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-auto bg-TapCard-charcoal py-5 px-4 text-center rounded-xl content-between">
                             <div class="flex justify-between mb-3">

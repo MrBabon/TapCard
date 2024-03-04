@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :entreprises_as_employee, through: :employee_relationships, source: :entreprise
   # ASSOCIATION REQUEST
   has_many :association_requests, dependent: :destroy
+  # CONTACT ENTREPRISE
+  has_many :contact_entreprises, dependent: :destroy
   # FOLLOW
   has_many :follower_relationships, foreign_key: :following_id, class_name: 'Follow'
   has_many :followers, through: :follower_relationships, source: :follower

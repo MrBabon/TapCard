@@ -8,6 +8,8 @@ class Entreprise < ApplicationRecord
     has_many :employees, through: :employee_relationships, source: :user
     # ASSOCIATION REQUEST
     has_many :association_requests, dependent: :destroy
+    # CONTACT ENTREPRISE
+    has_many :contact_entreprises, dependent: :destroy
     # EXHIBITOR
     has_many :exhibitors, dependent: :destroy, foreign_key: "id_Entreprises"
     # REPRESENTATIVE

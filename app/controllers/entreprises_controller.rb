@@ -22,7 +22,7 @@ class EntreprisesController < ApplicationController
     end
 
     def show
-      
+      @contact_entreprise = ContactEntreprise.new(entreprise: @entreprise)
       @employees = @entreprise.employees
       @entrepreneurs = @entreprise.entrepreneurs
     end

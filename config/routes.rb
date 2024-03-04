@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   resources :representatives, only: [:destroy]
   resources :entreprises, only: [:edit, :update, :show, :new, :create] do
     resources :employees, only: [:destroy]
+    resources :contact_entreprises, only: :create
     member do
       post 'add_representatives'
       get 'dashboard'

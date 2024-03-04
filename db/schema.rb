@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_01_155437) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_02_142556) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_01_155437) do
     t.datetime "updated_at", null: false
     t.index ["entreprise_id"], name: "index_association_requests_on_entreprise_id"
     t.index ["user_id"], name: "index_association_requests_on_user_id"
+  end
+
+  create_table "contact_entreprises", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "entreprise_id", null: false
+    t.bigint "event_id", null: false
+    t.string "category"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_contact_entreprises_on_entreprise_id"
+    t.index ["event_id"], name: "index_contact_entreprises_on_event_id"
+    t.index ["user_id"], name: "index_contact_entreprises_on_user_id"
   end
 
   create_table "directors", force: :cascade do |t|
@@ -204,6 +217,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_01_155437) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "association_requests", "entreprises"
   add_foreign_key "association_requests", "users"
+  add_foreign_key "contact_entreprises", "entreprises"
+  add_foreign_key "contact_entreprises", "events"
+  add_foreign_key "contact_entreprises", "users"
   add_foreign_key "directors", "organizations"
   add_foreign_key "directors", "users"
   add_foreign_key "employees", "entreprises"

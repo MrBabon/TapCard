@@ -21,7 +21,7 @@
     <div data-controller="overlay">
         <button data-action="click->overlay#toggle" class="absolute right-0 top-0 pt-1 pb-2 pl-2 pr-1 rounded-bl-lg text-[12px] bg-TapCard-yellow text-TapCard-charcoal font-semilight">Send us your details</button>
         <div data-overlay-target="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-rgba justify-center items-center text-white z-[9999]">
-            <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-auto bg-TapCard-charcoal py-5 px-4 text-center rounded-xl content-between">
+            <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-auto bg-TapCard-charcoal p-4 text-center rounded-xl content-between">
                 <div class="flex justify-between mb-3">
                     <div class="w-5"></div>
                     <div>
@@ -33,7 +33,31 @@
                     </button>
                 </div>
                 <div class="mb-3 text-left">
-                    <p class="text-xs">What are you interested in ?</p>
+                    <%= simple_form_for [@entreprise, @contact_entreprise], url: entreprise_contact_entreprises_path(@entreprise), method: :post, data: { turbo_frame: "_top" } do |f| %>
+                        <div class="mb-3 text-left">
+                            <p class="text-xs">What are you interested in?</p>
+                            <%= f.input :category, 
+                                        collection: ['Our products and/or Services', 'Our job offers', 'Partnership'],
+                                        input_html: { value: "", class: "text-black text-xs w-full rounded-lg" },
+                                        label_html: { class: "hidden"},
+                                        prompt: "Select" %>
+                            <p class="text-xs">Event</p>
+                            <%= f.input :event_id,
+                                        collection: Event.all,
+                                        input_html: { value: "ici", class: "text-black text-xs w-full rounded-lg" },
+                                        label_html: { class: "hidden"},
+                                        prompt: "Select event we met at" %>
+                            <p class="text-xs">Your message:</p>
+                            <%= f.input :message,
+                                        as: :text,
+                                        input_html: { rows: 4, class:"text-black text-xs w-full rounded-lg" },
+                                        label_html: { class: "hidden"} %>
+                            <div class="flex justify-center items-center">
+                                <%= f.button :submit, "Submit", class: "bg-TapCard-teal text-xs px-6 py-1 rounded-full font-jost uppercase font-bold" %>
+                            </div>
+                        </div>
+                    <% end %>
+                <p class="text-[11px] font-extralight text-center">By submitting, you consent the company TechPop to have access to your profil. </p>
                 </div>
             </div>
         </div>

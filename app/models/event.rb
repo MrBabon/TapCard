@@ -2,6 +2,7 @@ class Event < ApplicationRecord
   belongs_to :organization
   has_many :participations, dependent: :destroy
   has_many :exhibitors, dependent: :destroy
+  has_many :contact_entreprises, dependent: :destroy
   has_one_attached :logo
   validates :registration_code, presence: true
 

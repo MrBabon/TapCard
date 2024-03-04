@@ -52,13 +52,13 @@
 </div>
 <p class="text-xs mx-3 my-4"><%= @event.description %></p>
 <% if @participation %>
-        <div class="flex items-center justify-center mx-2">
-            <%= link_to "Exhibitors", exposant_event_path(@event), class: "flex items-center justify-center my-3 mx-auto px-7 py-1 text-xs rounded bg-TapCard-yellow text-TapCard-lightGray font-semibold shadow-md" %>
+        <div class="flex items-center justify-center mx-2 space-x-4">
+            <%= link_to "Exhibitors", exposant_event_path(@event), class: "flex items-center justify-center my-3 mx-auto py-1 text-xs rounded bg-TapCard-yellow text-TapCard-lightGray font-semibold shadow-md flex-1" %>
             <% if @visible_in_participants[@event.id] %>
-                <%= link_to "Professional visitors", visitor_event_path(@event), class: "flex items-center justify-center my-3 mx-auto px-1 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md" %>
+                <%= link_to "Professional visitors", visitor_event_path(@event), class: "flex items-center justify-center my-3 mx-auto px-1 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md flex-1" %>
             <% else %>
                 <div data-controller="overlay" class="flex flex-col items-start justify-start">
-                    <button data-action="click->overlay#toggle" class="flex items-center justify-center my-3 mx-auto px-1 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md">Professional Visitors</button>
+                    <button data-action="click->overlay#toggle" class="flex items-center justify-center my-3 mx-auto px-1 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md flex-1">Professional Visitors</button>
                     <div data-overlay-target="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-rgba justify-center items-center text-white z-[9999]">
                         <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-auto bg-TapCard-charcoal py-5 px-4 text-center rounded-xl content-between">
                             <div class="flex justify-between mb-3">
