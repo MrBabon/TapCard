@@ -1,9 +1,12 @@
 class User < ApplicationRecord
+  after_create :create_default_repertoire
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # REPERTOIRE
+  has_one :repertoire, dependent: :destroy
   # PARTICIPATION
   has_many :participations, dependent: :destroy
   has_many :participating_events, through: :participations, source: :event
@@ -150,6 +153,10 @@ class User < ApplicationRecord
     if employee_relationships.exists? && entrepreneurs.exists?
       errors.add(:base, 'A user cannot be both an employee and an entrepreneur.')
     end
+  end
+
+  def create_default_repertoire
+    self.repertoire.create!
   end
 
 end

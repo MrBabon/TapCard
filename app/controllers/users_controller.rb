@@ -30,6 +30,13 @@ class UsersController < ApplicationController
             @employee = current_user.entreprises_as_employee.first
         end
     end
+
+    def repertoire
+        # Assurez-vous que l'utilisateur est connecté avant d'accéder à son répertoire
+        @repertoire = current_user.repertoire
+        @contact_groups = @repertoire.contact_groups
+        render 'repertoires/show'
+      end
     
     def settings
         @user = current_user

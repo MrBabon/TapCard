@@ -1,0 +1,30 @@
+<div class="w-full fixed">
+    <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
+    <%= link_to :back, class: "ml-2" do %>
+            <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+    <% end %>
+    <div class="flex-1 text-center ml-2">
+        <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Groups</h2>
+    </div>
+    <%# Link à changer quand la chatroom sera mis en place %>
+    <%= link_to user_path(current_user) do %>
+        <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
+    <% end %>
+    </div>
+    <div class="flex justify-around bg-white px-4 py-3">
+        <%= link_to user_path(current_user) do %>
+            <h6 class="text-xs font-semibold font-jost relative after:block after:h-0.5 after:w-1/2 after:absolute after:-bottom-1 after:left-1/4 after:origin-bottom-left after:transform after:ease-in-out after:duration-200 after:bg-TapCard-yellow">My Cards</h6>
+        <% end %>
+        <%= link_to user_path(current_user) do %>
+            <h6 class="text-xs font-semibold font-jost">Entreprises</h6>
+        <% end %>
+    </div>
+</div>
+<div class=" pt-28"></div>
+<h1>COUCOU <%= current_user.first_name %> <%= current_user.last_name %></h1>
+
+<ul>
+    <% @contact_groups.each do |group| %>
+        <li><%= group.name %></li>
+    <% end %>    
+</ul>

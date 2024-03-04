@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_02_142556) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_04_153425) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_02_142556) do
     t.index ["entreprise_id"], name: "index_contact_entreprises_on_entreprise_id"
     t.index ["event_id"], name: "index_contact_entreprises_on_event_id"
     t.index ["user_id"], name: "index_contact_entreprises_on_user_id"
+  end
+
+  create_table "contact_groups", force: :cascade do |t|
+    t.bigint "repertoire_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.boolean "deletable"
+    t.index ["repertoire_id"], name: "index_contact_groups_on_repertoire_id"
   end
 
   create_table "directors", force: :cascade do |t|
@@ -176,6 +185,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_02_142556) do
     t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
+  create_table "repertoires", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_repertoires_on_user_id"
+  end
+
   create_table "representatives", force: :cascade do |t|
     t.bigint "entreprise_id", null: false
     t.bigint "exhibitor_id", null: false
@@ -220,6 +236,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_02_142556) do
   add_foreign_key "contact_entreprises", "entreprises"
   add_foreign_key "contact_entreprises", "events"
   add_foreign_key "contact_entreprises", "users"
+  add_foreign_key "contact_groups", "repertoires"
   add_foreign_key "directors", "organizations"
   add_foreign_key "directors", "users"
   add_foreign_key "employees", "entreprises"
@@ -231,6 +248,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_02_142556) do
   add_foreign_key "exhibitors", "events"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
+  add_foreign_key "repertoires", "users"
   add_foreign_key "representatives", "entreprises"
   add_foreign_key "representatives", "exhibitors"
 end

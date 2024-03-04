@@ -12,8 +12,10 @@ Rails.application.routes.draw do
       post :follow
       post :unfollow
       get 'qr_code'
+      get 'repertoire'
     end
   end
+
 
   resources :associations_requests do
     member do
