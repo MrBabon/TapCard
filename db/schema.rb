@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_04_153425) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_04_202148) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -229,6 +229,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_04_153425) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "users_contact_groups", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "contact_group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_group_id"], name: "index_users_contact_groups_on_contact_group_id"
+    t.index ["user_id"], name: "index_users_contact_groups_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "association_requests", "entreprises"
@@ -251,4 +260,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_04_153425) do
   add_foreign_key "repertoires", "users"
   add_foreign_key "representatives", "entreprises"
   add_foreign_key "representatives", "exhibitors"
+  add_foreign_key "users_contact_groups", "contact_groups"
+  add_foreign_key "users_contact_groups", "users"
 end

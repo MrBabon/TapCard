@@ -7,6 +7,9 @@ class User < ApplicationRecord
 
   # REPERTOIRE
   has_one :repertoire, dependent: :destroy
+  # USERS_CONTACT_GROUPS
+  has_many :users_contact_groups
+  has_many :contact_groups, through: :users_contact_groups
   # PARTICIPATION
   has_many :participations, dependent: :destroy
   has_many :participating_events, through: :participations, source: :event
@@ -28,6 +31,7 @@ class User < ApplicationRecord
   has_many :followers, through: :follower_relationships, source: :follower
   has_many :following_relationships, foreign_key: :follower_id, class_name: 'Follow'
   has_many :following, through: :following_relationships, source: :following
+
   # Validation
   has_one_attached :avatar
   validates :first_name, presence: true, length: { maximum: 25 }, format: { without: /\s/ }
@@ -108,8 +112,6 @@ class User < ApplicationRecord
   def associate_with_entreprise(parrainage_code)
     entreprise = Entreprise.find_by(parrainage_code: parrainage_code)
     if entreprise
-      # Supposons qu'il est toujours approprié de créer une demande d'association,
-      # indépendamment des demandes précédentes.
       association_request = AssociationRequest.new(user: self, entreprise: entreprise, status: 'pending')
       if association_request.save
         return true
@@ -118,18 +120,15 @@ class User < ApplicationRecord
         return false
       end
     else
-      self.errors.add(:entreprise_code, "Code de parrainage invalide.")
+      self.errors.add(:entreprise_code, "invalide.")
       return false
     end
   end
   
   def need_to_process_enterprise_code?(submitted_code)
     if self.entreprise_code.blank? || self.entreprise_code != submitted_code
-      # Si aucun code n'a été soumis précédemment, ou si le code soumis est différent du dernier code traité,
-      # nous considérons que le code doit être traité.
       true
     else
-      # Si le code soumis est le même que le dernier code traité, aucun traitement supplémentaire n'est nécessaire.
       false
     end
   end
