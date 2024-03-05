@@ -11,7 +11,7 @@ class Entreprise < ApplicationRecord
     # CONTACT ENTREPRISE
     has_many :contact_entreprises, dependent: :destroy
     # EXHIBITOR
-    has_many :exhibitors, dependent: :destroy, foreign_key: "id_Entreprises"
+    has_many :exhibitors, dependent: :destroy
     # REPRESENTATIVE
     has_many :representatives, dependent: :destroy
     has_many :exhibitor_representatives, through: :exhibitors, source: :representatives

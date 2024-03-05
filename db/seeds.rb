@@ -31,7 +31,7 @@ dannacode = Entreprise.create(
 )
 maelcorp = Entreprise.create(
     name: "MaelCorp",
-    email: "christophe.danna@dannacode.com",
+    email: "mael@dannacode.com",
     website: "www.maelcorp.com",
     linkedin: "www.linkdin.com",
     instagram: "www.instagram.com",
@@ -52,7 +52,7 @@ jeux = Event.create(
     organization: festival
 )
 
-Exhibitor.create(id_Entreprises: dannacode, event: jeux)
-Exhibitor.create(id_Entreprises: maelcorp, event: jeux)
+Exhibitor.create(entreprise: dannacode, event: jeux)
+Exhibitor.create(entreprise: maelcorp, event: jeux)
 
 puts "finish"

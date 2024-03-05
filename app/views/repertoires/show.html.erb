@@ -13,18 +13,35 @@
     </div>
     <div class="flex justify-around bg-white px-4 py-3">
         <%= link_to user_path(current_user) do %>
-            <h6 class="text-xs font-semibold font-jost relative after:block after:h-0.5 after:w-1/2 after:absolute after:-bottom-1 after:left-1/4 after:origin-bottom-left after:transform after:ease-in-out after:duration-200 after:bg-TapCard-yellow">My Cards</h6>
+            <h6 class="font-semibold font-jost relative after:block after:h-0.5 after:w-1/2 after:absolute after:-bottom-1 after:left-1/4 after:origin-bottom-left after:transform after:ease-in-out after:duration-200 after:bg-TapCard-yellow">My Cards</h6>
         <% end %>
         <%= link_to user_path(current_user) do %>
-            <h6 class="text-xs font-semibold font-jost">Entreprises</h6>
+            <h6 class="font-semibold font-jost">Entreprises</h6>
         <% end %>
     </div>
 </div>
 <div class=" pt-28"></div>
 <h1>Mettre un search bar ici</h1>
+<%= form_with url: repertoire_user_path, method: :get, class: "flex flex-col justify-center space-y-2" do %>
+        <%= text_field_tag :first_name,
+                params[:first_name],
+                class: "form-control text-black font-light text-xs mx-9 h-7 rounded border-none shadow-sm",
+                placeholder: "Select Country"
+            %>
+        <%= text_field_tag :last_name,
+                params[:last_name],
+                class: "form-control text-black font-light text-xs mx-9 h-7 rounded border-none shadow-sm",
+                placeholder: "Select State"
+            %>
+            <div class="flex justify-center pt-1 pb-2">
+                <%= submit_tag "Search", name: "", class: "bg-TapCard-blue rounded-xl px-4 py-1 text-xs" %>
+            </div>
+        <% end %>
 
-<ul>
+<ul class="capitalize border-y px-6 py-4 text-lg">
     <% @contact_groups.each do |group| %>
-        <li><%= group.name %></li>
+        <li>
+            <p><%= group.name %></p>
+        </li>
     <% end %>    
 </ul>

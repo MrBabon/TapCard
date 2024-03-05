@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_04_202148) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_05_082153) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -147,12 +147,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_04_202148) do
   end
 
   create_table "exhibitors", force: :cascade do |t|
-    t.bigint "id_Entreprises", null: false
+    t.bigint "entreprise_id", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["entreprise_id"], name: "index_exhibitors_on_entreprise_id"
     t.index ["event_id"], name: "index_exhibitors_on_event_id"
-    t.index ["id_Entreprises"], name: "index_exhibitors_on_id_Entreprises"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -253,7 +253,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_04_202148) do
   add_foreign_key "entrepreneurs", "entreprises"
   add_foreign_key "entrepreneurs", "users"
   add_foreign_key "events", "organizations"
-  add_foreign_key "exhibitors", "entreprises", column: "id_Entreprises"
+  add_foreign_key "exhibitors", "entreprises"
   add_foreign_key "exhibitors", "events"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"

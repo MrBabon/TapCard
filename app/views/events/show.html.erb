@@ -57,8 +57,8 @@
             <% if @visible_in_participants[@event.id] %>
                 <%= link_to "Professional visitors", visitor_event_path(@event), class: "flex items-center justify-center my-3 mx-auto px-1 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md flex-1" %>
             <% else %>
-                <div data-controller="overlay" class="flex flex-col items-start justify-start">
-                    <button data-action="click->overlay#toggle" class="flex items-center justify-center my-3 mx-auto px-1 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md flex-1">Professional Visitors</button>
+                <div data-controller="overlay" class="flex flex-col items-start justify-start flex-1">
+                    <button data-action="click->overlay#toggle" class="flex items-center justify-center my-3 mx-auto px-1 py-1 text-xs rounded bg-TapCard-blue text-TapCard-lightGray font-semibold shadow-md w-full">Professional Visitors</button>
                     <div data-overlay-target="overlay" class="hidden fixed top-0 left-0 w-full h-full bg-rgba justify-center items-center text-white z-[9999]">
                         <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-auto bg-TapCard-charcoal py-5 px-4 text-center rounded-xl content-between">
                             <div class="flex justify-between mb-3">

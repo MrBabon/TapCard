@@ -155,7 +155,7 @@ class User < ApplicationRecord
   end
 
   def create_default_repertoire
-    self.repertoire.create!
+    create_repertoire!
   end
 
 end
