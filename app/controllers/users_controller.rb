@@ -35,11 +35,35 @@ class UsersController < ApplicationController
         # Assurez-vous que l'utilisateur est connecté avant d'accéder à son répertoire
         @repertoire = current_user.repertoire
         @contact_groups = @repertoire.contact_groups
+        @groups = @repertoire.contact_groups.includes(:users)
+        if params[:search].present?
+          @everyone_group = @groups.find_by(name: "Everyone")
+          search = "%#{params[:search]}%"
+          @users = @everyone_group.users.where("first_name ILIKE ? OR last_name ILIKE ?", search, search)
+          @search_active = true
+        else
+          @users = []
+          @search_active = false
+        end
         render 'repertoires/show'
       end
     
     def settings
         @user = current_user
+    end
+
+    def add_to_directory
+        # Trouver l'utilisateur à ajouter
+        user_to_add = User.find(params[:id])
+        everyone_group = current_user.repertoire.contact_groups.find_by(name: 'Everyone')
+        unless UsersContactGroup.exists?(user: user_to_add, contact_group: everyone_group)
+            UsersContactGroup.create(user: user_to_add, contact_group: everyone_group)
+        end    
+        if everyone_group.save
+            redirect_to user_path(user_to_add), notice: 'User was successfully added to the Everyone group.'
+        else
+            redirect_to user_path(user_to_add), alert: 'There was a problem adding the user to the Everyone group.'
+        end
     end
     
     def follow

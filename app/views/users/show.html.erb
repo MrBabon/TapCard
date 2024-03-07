@@ -51,6 +51,13 @@
                 <a href="https://<%= @user.instagram %>" target="_blank"><i class="fa-brands fa-instagram"></i></a>   
             <% end %>
         </div>
+        <div class="flex justify-start">
+            <% if UsersContactGroup.exists? %>
+                <p class="px-5 py-2 mb-4 mx-auto text-xs  rounded outline outline-2 outline-green-500 text-green-500 font-semibold hover:bg-green-500 hover:text-TapCard-lightGray">Already added</p>
+            <% else %>
+                <%= button_to "Add to directory", add_to_directory_user_path(@user), class: "px-5 py-2 mb-4 mx-auto text-xs  rounded outline outline-2 outline-blue-500 text-blue-500 font-semibold hover:bg-blue-500 hover:text-TapCard-lightGray" %>
+            <% end %>
+        </div>
     </div>
 </div>
 <div class="border border-TapCard-teal mt-3"></div>

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       post :unfollow
       get 'qr_code'
       get 'repertoire'
+      post 'add_to_directory'
     end
   end
 

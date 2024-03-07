@@ -68,26 +68,18 @@ class User < ApplicationRecord
  
     # PG SEARCH
     include PgSearch::Model
-    pg_search_scope :search_by_title,
-      against: :title,
+    pg_search_scope :search_by_first_name,
+      against: :first_name,
       using: {
         tsearch: { prefix: true } 
     }
-    pg_search_scope :search_by_city,
-    against: :city,
+    
+    pg_search_scope :search_by_last_name,
+    against: :last_name,
     using: {
       tsearch: { prefix: true } 
     }
-    pg_search_scope :search_by_country,
-    against: :country,
-    using: {
-      tsearch: { prefix: true } 
-    }
-    pg_search_scope :search_by_region,
-    against: :region,
-    using: {
-      tsearch: { prefix: true } 
-    }
+   
 
   def full_name
     "#{first_name} #{last_name}"
@@ -131,6 +123,11 @@ class User < ApplicationRecord
     else
       false
     end
+  end
+
+  def add_to_everyone_group
+    everyone_group = ContactGroup.find_by(name: 'Everyone')
+    UsersContactGroup.find_or_create_by(user: self, contact_group: everyone_group)
   end
   
   def follow(user_id)
