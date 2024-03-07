@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'contact_groups/show'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   root to: "pages#home"
@@ -16,6 +17,8 @@ Rails.application.routes.draw do
       post 'add_to_directory'
     end
   end
+  resources :contact_groups, only: [:show]
+
 
 
   resources :associations_requests do

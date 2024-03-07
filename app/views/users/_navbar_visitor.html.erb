@@ -1,0 +1,15 @@
+<div class="w-full fixed">
+    <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
+        <%= link_to :back, class: "ml-2" do %>
+                <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+        <% end %>
+        <div class="flex-1 text-center ml-2">
+            <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Meet contacts</h2>
+        </div>
+        <%# Link à changer quand la chatroom sera mis en place %>
+        <%= link_to user_path(current_user) do %>
+            <%= image_tag "send.svg", alt: "avion", class: "w-5" %>
+        <% end %>
+        </div>
+    </div>
+</div>

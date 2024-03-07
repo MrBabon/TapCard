@@ -35,9 +35,16 @@
     <% if @users.any? %>
         <ul class="capitalize border-y px-6 py-4 text-lg">
             <% @users.each do |user| %>
-                <li class="flex justify-between">
+                <li class="flex justify-between items-center">
                     <p><%= user.first_name %> <%= user.last_name %></p>
-                    <!-- Vous pouvez ajouter plus de détails sur l'utilisateur ici -->
+                    <div>
+                        <% if user.avatar.attached? %>
+                            <%= cl_image_tag user.avatar.key, alt: "Avatar to #{user.first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
+                        <% else %>    
+                            <%= image_tag("avatar.svg", class: "rounded-full w-12 h-12 bg-cover bg-center border shadow-md") %>
+                        <% end %>
+                    </div>
+                    
                 </li>
             <% end %>
         </ul>
@@ -47,10 +54,12 @@
 <% else %>
     <ul class="capitalize border-y px-6 py-4 text-lg">
         <% @contact_groups.each do |group| %>
-            <li class="flex justify-between">
-                <p><%= group.name %></p>
-                <p><%= group.users_contact_groups.count %></p>
-            </li>
+            <%= link_to contact_group_path(group) do %>
+                <li class="flex justify-between">
+                    <p><%= group.name %></p>
+                    <p><%= group.users_contact_groups.count %></p>
+                </li>
+            <% end %>
         <% end %>    
     </ul>
 <% end %>

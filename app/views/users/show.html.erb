@@ -1,78 +1,92 @@
-<div class="w-full fixed">
-    <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
-    <%= link_to :back, class: "ml-2" do %>
-            <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
-    <% end %>
-    <div class="flex-1 text-center ml-2">
-        <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Meet contacts</h2>
-    </div>
-    <%# Link à changer quand la chatroom sera mis en place %>
-    <%= link_to user_path(current_user) do %>
-        <%= image_tag "send.svg", alt: "avion", class: "w-5" %>
-    <% end %>
-    </div>
-</div>
-<div class=" pt-20"></div>
-<div class="flex justify-center ">
-    <% if @user.avatar.attached? %>
-        <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-full object-cover object-center w-20 h-20 border shadow-md" %>
-    <% else %>    
-        <%= image_tag("avatar.svg", class: "rounded-full w-20 h-20 bg-cover bg-center border shadow-md") %>
-    <% end %>
-</div>
-<div class="flex justify-center">
-    <div class="block justify-center">
-        <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></h2>
-        <div class="flex items-center space-x-2 text-xs justify-center mb-1">
-            <i class="fa-solid fa-phone text-TapCard-blue"></i>
-            <span class=" font-light select-none blur-sm"><%= @user.phone %></span>
+<% if @from_contact_group %>
+    <div class="w-full fixed">
+        <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
+        <%= link_to :back, class: "ml-2" do %>
+                <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+        <% end %>
+        <div class="flex-1 text-center ml-2">
+            <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Contact</h2>
         </div>
-        <div class="flex items-center space-x-2 text-xs justify-center mb-1">
-            <i class="fa-regular fa-envelope text-TapCard-blue"></i>
-            <span class=" font-light select-none blur-sm"><%= @user.email %></span>
+        <%# Link à changer quand la chatroom sera mis en place %>
+        <%= link_to user_path(current_user) do %>
+            <%= image_tag "send.svg", alt: "avion", class: "w-5" %>
+        <% end %>
         </div>
-        <% if @user.website.present? %>
-            <div class="flex items-center space-x-2 text-xs justify-center">
-                <i class="fa-solid fa-globe text-TapCard-blue"></i>            
-                <span class=" font-light"><%= @user.website %></span>
+    </div>
+    <div class=" pt-20"></div>
+    <div class="flex justify-center ">
+        <% if @user.avatar.attached? %>
+            <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-full object-cover object-center w-20 h-20 border shadow-md" %>
+        <% else %>    
+            <%= image_tag("avatar.svg", class: "rounded-full w-20 h-20 bg-cover bg-center border shadow-md") %>
+        <% end %>
+    </div>
+<% else %>
+    <%= render 'navbar_visitor' %> 
+    <div class=" pt-20"></div>
+    <div class="flex justify-center ">
+        <% if @user.avatar.attached? %>
+            <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-full object-cover object-center w-20 h-20 border shadow-md" %>
+        <% else %>    
+            <%= image_tag("avatar.svg", class: "rounded-full w-20 h-20 bg-cover bg-center border shadow-md") %>
+        <% end %>
+    </div>
+    <div class="flex justify-center">
+        <div class="block justify-center">
+            <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></h2>
+            <div class="flex items-center space-x-2 text-xs justify-center mb-1">
+                <i class="fa-solid fa-phone text-TapCard-blue"></i>
+                <span class=" font-light select-none blur-sm"><%= @user.phone %></span>
             </div>
-        <% end %>
-        <div class="flex justify-evenly items-center mt-1">
-            <% if @user.twitter.present? %>
-                <a href="https://<%= @user.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            <div class="flex items-center space-x-2 text-xs justify-center mb-1">
+                <i class="fa-regular fa-envelope text-TapCard-blue"></i>
+                <span class=" font-light select-none blur-sm"><%= @user.email %></span>
+            </div>
+            <% if @user.website.present? %>
+                <div class="flex items-center space-x-2 text-xs justify-center">
+                    <i class="fa-solid fa-globe text-TapCard-blue"></i>            
+                    <span class=" font-light"><%= @user.website %></span>
+                </div>
             <% end %>
-            <% if @user.linkedin.present? %>
-                <a href="https://<%= @user.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin"></i></a>               
-            <% end %>
-            <% if @user.facebook.present? %>
-                <a href="https://<%= @user.facebook %>" target="_blank"><i class="fa-brands fa-facebook"></i></a>                
-            <% end %>
-            <% if @user.instagram.present? %>
-                <a href="https://<%= @user.instagram %>" target="_blank"><i class="fa-brands fa-instagram"></i></a>   
-            <% end %>
-        </div>
-        <div class="flex justify-start">
-            <% if UsersContactGroup.exists? %>
-                <p class="px-5 py-2 mb-4 mx-auto text-xs  rounded outline outline-2 outline-green-500 text-green-500 font-semibold hover:bg-green-500 hover:text-TapCard-lightGray">Already added</p>
-            <% else %>
-                <%= button_to "Add to directory", add_to_directory_user_path(@user), class: "px-5 py-2 mb-4 mx-auto text-xs  rounded outline outline-2 outline-blue-500 text-blue-500 font-semibold hover:bg-blue-500 hover:text-TapCard-lightGray" %>
-            <% end %>
+            <div class="flex justify-evenly items-center mt-1">
+                <% if @user.twitter.present? %>
+                    <a href="https://<%= @user.twitter %>" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <% end %>
+                <% if @user.linkedin.present? %>
+                    <a href="https://<%= @user.linkedin %>" target="_blank"><i class="fa-brands fa-linkedin"></i></a>               
+                <% end %>
+                <% if @user.facebook.present? %>
+                    <a href="https://<%= @user.facebook %>" target="_blank"><i class="fa-brands fa-facebook"></i></a>                
+                <% end %>
+                <% if @user.instagram.present? %>
+                    <a href="https://<%= @user.instagram %>" target="_blank"><i class="fa-brands fa-instagram"></i></a>   
+                <% end %>
+            </div>
+            <div class="flex justify-start">
+                <% everyone_group = current_user.repertoire.contact_groups.find_by(name: 'Everyone') %>
+                <% if everyone_group && UsersContactGroup.exists?(contact_group: everyone_group, user: @user) %>
+                    <p class="px-5 py-2 mb-4 mx-auto text-xs rounded outline outline-2 outline-green-500 text-green-500 font-semibold hover:bg-green-500 hover:text-TapCard-lightGray">Already added</p>
+                <% else %>
+                    <%= button_to "Add to directory", add_to_directory_user_path(@user), method: :post, class: "px-5 py-2 mb-4 mx-auto text-xs rounded outline outline-2 outline-blue-500 text-blue-500 font-semibold hover:bg-blue-500 hover:text-TapCard-lightGray" %>
+                <% end %>
+            </div>
         </div>
     </div>
-</div>
-<div class="border border-TapCard-teal mt-3"></div>
-<div class="m-3">
-    <h5 class=" text-TapCard-charcoal font-semibold"><%= @user.job %></h5>
-    <p class="text-TapCard-gray font-light text-sm"><%= User.industries[@user.industry] %></p>
-    <% if @user.employee_relationships? %>
-        <%= link_to entreprise_path(@employee) do %>
-            <h6 class="text-TapCard-teal"><%= @employee.name %></h6>
+    <div class="border border-TapCard-teal mt-3"></div>
+    <div class="m-3">
+        <h5 class=" text-TapCard-charcoal font-semibold"><%= @user.job %></h5>
+        <p class="text-TapCard-gray font-light text-sm"><%= User.industries[@user.industry] %></p>
+        <% if @user.employee_relationships? %>
+            <%= link_to entreprise_path(@employee) do %>
+                <h6 class="text-TapCard-teal"><%= @employee.name %></h6>
+            <% end %>
+        <% elsif @user.entrepreneurs? %>
+            <%= link_to entreprise_path(@entreprise) do %>
+                <h6 class="text-TapCard-teal"><%= @entreprise.name %></h6>
+            <% end %>
         <% end %>
-    <% elsif @user.entrepreneurs? %>
-        <%= link_to entreprise_path(@entreprise) do %>
-            <h6 class="text-TapCard-teal"><%= @entreprise.name %></h6>
-        <% end %>
-    <% end %>
-    <p class="text-TapCard-charcoal text-sm font-light"><%= @user.biography %></p>
-</div>
+        <p class="text-TapCard-charcoal text-sm font-light"><%= @user.biography %></p>
+    </div>
+<% end %>
+
 

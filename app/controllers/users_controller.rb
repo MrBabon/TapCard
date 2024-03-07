@@ -16,6 +16,10 @@ class UsersController < ApplicationController
         elsif @user.employee_relationships?
             @employee = @user.entreprises_as_employee.first
         end
+        if params[:from_contact_group]
+            # Logique spécifique ou variable pour ajuster le rendu
+            @from_contact_group = true
+        end
     end
     
     def profil
