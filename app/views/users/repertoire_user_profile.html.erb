@@ -1,0 +1,64 @@
+<div class="w-full fixed">
+    <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
+    <%= link_to :back, class: "ml-2" do %>
+            <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+    <% end %>
+    <div class="flex-1 text-center ml-2">
+        <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Contact</h2>
+    </div>
+    <%# Link à changer quand la chatroom sera mis en place %>
+    <%= link_to user_path(current_user) do %>
+        <%= image_tag "send.svg", alt: "avion", class: "w-5" %>
+    <% end %>
+    </div>
+</div>
+<div class=" pt-20"></div>
+    <div class="flex justify-center ">
+        <% if @user.avatar.attached? %>
+            <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-full object-cover object-center w-20 h-20 border shadow-md" %>
+        <% else %>    
+            <%= image_tag("avatar.svg", class: "rounded-full w-20 h-20 bg-cover bg-center border shadow-md") %>
+        <% end %>
+    </div>
+    <div class="flex justify-center">
+        <div class="block justify-center">
+            <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></h2>
+            <div class="flex items-center space-x-2 text-xs justify-center mb-1">
+                <i class="fa-solid fa-phone text-TapCard-blue"></i>
+                <span class=" font-light select-none"><%= @user.phone %></span>
+            </div>
+            <div class="flex items-center space-x-2 text-xs justify-center mb-1">
+                <i class="fa-regular fa-envelope text-TapCard-blue"></i>
+                <span class=" font-light select-none"><%= @user.email %></span>
+            </div>
+            <% if @user.website.present? %>
+                <div class="flex items-center space-x-2 text-xs justify-center">
+                    <i class="fa-solid fa-globe text-TapCard-blue"></i>            
+                    <span class=" font-light"><%= @user.website %></span>
+                </div>
+            <% end %>
+            <%= render "social" %>
+        </div>
+    </div>
+    <%= render "bio" %>
+    <%# mettre le bloc note ici %>
+    <div class="fixed bottom-0 pb-8  w-full text-TapCard-charcoal">
+        <%= simple_form_for([@user, @users_contact_group]) do |f| %>
+            <%= f.error_notification %>
+
+            <div class="form-inputs">
+                <%= f.input :personal_note, label: 'Personal Note' %>
+            </div>
+
+            <div class="form-actions">
+                <%= f.button :submit, 'Update Note' %>
+            </div>
+        <% end %>
+
+        <div class="flex justify-center items-center border-t border-TapCard-yellow bg-TapCard-lightGray pb-[23px] z-50 lg:hidden relative">
+            <button class="flex flex-col justify-center items-center">
+                <div class="border-2 border-TapCard-gray w-14 mt-3 mb-1 rounded-lg"></div>
+                <span>Add a personalized note</span>
+            </button>
+        </div>
+    </div>

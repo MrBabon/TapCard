@@ -25,7 +25,7 @@
 <% end %>
 <ul>
   <% @users.each do |user| %>
-    <%= link_to user_path(user, from_contact_group: true) do %>
+    <%= link_to repertoire_user_profile_user_path(user) do %>
       <li class="flex justify-between items-center p-4 border-b">
         <p><%= user.first_name %> <%= user.last_name %></p>
         <div>

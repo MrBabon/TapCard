@@ -35,17 +35,18 @@
     <% if @users.any? %>
         <ul class="capitalize border-y px-6 py-4 text-lg">
             <% @users.each do |user| %>
-                <li class="flex justify-between items-center">
-                    <p><%= user.first_name %> <%= user.last_name %></p>
-                    <div>
-                        <% if user.avatar.attached? %>
-                            <%= cl_image_tag user.avatar.key, alt: "Avatar to #{user.first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
-                        <% else %>    
-                            <%= image_tag("avatar.svg", class: "rounded-full w-12 h-12 bg-cover bg-center border shadow-md") %>
-                        <% end %>
-                    </div>
-                    
-                </li>
+                <%= link_to repertoire_user_profile_user_path(user) do %>
+                    <li class="flex justify-between items-center">
+                        <p><%= user.first_name %> <%= user.last_name %></p>
+                        <div>
+                            <% if user.avatar.attached? %>
+                                <%= cl_image_tag user.avatar.key, alt: "Avatar to #{user.first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
+                            <% else %>    
+                                <%= image_tag("avatar.svg", class: "rounded-full w-12 h-12 bg-cover bg-center border shadow-md") %>
+                            <% end %>
+                        </div> 
+                    </li>
+                <% end %>
             <% end %>
         </ul>
     <% else %>

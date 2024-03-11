@@ -16,10 +16,7 @@ class UsersController < ApplicationController
         elsif @user.employee_relationships?
             @employee = @user.entreprises_as_employee.first
         end
-        if params[:from_contact_group]
-            # Logique spécifique ou variable pour ajuster le rendu
-            @from_contact_group = true
-        end
+        @from_contact_group = session.delete(:from_contact_group)
     end
     
     def profil
@@ -50,7 +47,23 @@ class UsersController < ApplicationController
           @search_active = false
         end
         render 'repertoires/show'
-      end
+    end
+
+    def repertoire_user_profile
+        @user = User.find(params[:id])
+        user_in_repertoire = current_user.repertoire.contact_groups.any? do |group|
+            group.users.exists?(@user.id)
+        end
+        if @user.entrepreneurs?
+            @entreprise = @user.entreprises_as_owner.first
+        elsif @user.employee_relationships?
+            @employee = @user.entreprises_as_employee.first
+        end
+        unless user_in_repertoire
+            redirect_to(root_path, alert: "Access denied because this user is not in your directory.")
+            return
+        end
+    end
     
     def settings
         @user = current_user

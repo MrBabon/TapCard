@@ -1,0 +1,15 @@
+<div class="border border-TapCard-teal mt-3"></div>
+<div class="m-3">
+    <h5 class=" text-TapCard-charcoal font-semibold"><%= @user.job %></h5>
+    <p class="text-TapCard-gray font-light text-sm"><%= User.industries[@user.industry] %></p>
+    <% if @user.employee_relationships? %>
+        <%= link_to entreprise_path(@employee) do %>
+            <h6 class="text-TapCard-teal"><%= @employee.name %></h6>
+        <% end %>
+    <% elsif @user.entrepreneurs? %>
+        <%= link_to entreprise_path(@entreprise) do %>
+            <h6 class="text-TapCard-teal"><%= @entreprise.name %></h6>
+        <% end %>
+    <% end %>
+    <p class="text-TapCard-charcoal text-sm font-light"><%= @user.biography %></p>
+</div>

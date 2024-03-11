@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get 'qr_code'
       get 'repertoire'
       post 'add_to_directory'
+      get 'repertoire_user_profile'
     end
   end
   resources :contact_groups, only: [:show]

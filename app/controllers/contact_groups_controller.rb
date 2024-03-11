@@ -14,4 +14,7 @@ class ContactGroupsController < ApplicationController
       redirect_to(root_path, alert: "Access denied or Contact Group not found.")
     end
   end
+
+
+
 end
