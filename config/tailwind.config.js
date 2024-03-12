@@ -29,7 +29,17 @@ module.exports = {
       },
       backgroundImage: {
         'banner-home': "linear-gradient(rgba(255,255,255,0.45),rgba(255,255,255,0.45)),url('https://res.cloudinary.com/dilp6xqmb/image/upload/v1706191668/home-TapCard_jzn1wp.jpg')",
+        'lined-textarea': "linear-gradient(to bottom, rgba(255, 255, 255, 0) 95%, rgba(51, 51, 51, 0.5) 95%)",
       },
+      backgroundSize: {
+        'lined-size': '100% 1.5rem',
+      },
+      backgroundPosition: {
+        'lined-position': '0 0.375rem',
+      },
+      lineHeight: {
+        'lined': '1.5rem',
+      }
     },
   },
   plugins: [

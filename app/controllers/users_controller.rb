@@ -51,6 +51,10 @@ class UsersController < ApplicationController
 
     def repertoire_user_profile
         @user = User.find(params[:id])
+        @users_contact_group = current_user.repertoire.contact_groups
+        .map(&:users_contact_groups)
+        .flatten
+        .find { |ucg| ucg.user_id == @user.id }
         user_in_repertoire = current_user.repertoire.contact_groups.any? do |group|
             group.users.exists?(@user.id)
         end

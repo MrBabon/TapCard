@@ -13,52 +13,56 @@
     </div>
 </div>
 <div class=" pt-20"></div>
-    <div class="flex justify-center ">
-        <% if @user.avatar.attached? %>
-            <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-full object-cover object-center w-20 h-20 border shadow-md" %>
-        <% else %>    
-            <%= image_tag("avatar.svg", class: "rounded-full w-20 h-20 bg-cover bg-center border shadow-md") %>
+<div class="flex justify-center ">
+    <% if @user.avatar.attached? %>
+        <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-full object-cover object-center w-20 h-20 border shadow-md" %>
+    <% else %>    
+        <%= image_tag("avatar.svg", class: "rounded-full w-20 h-20 bg-cover bg-center border shadow-md") %>
+    <% end %>
+</div>
+<div class="flex justify-center">
+    <div class="block justify-center">
+        <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></h2>
+        <div class="flex items-center space-x-2 text-xs justify-center mb-1">
+            <i class="fa-solid fa-phone text-TapCard-blue"></i>
+            <span class=" font-light select-none"><%= @user.phone %></span>
+        </div>
+        <div class="flex items-center space-x-2 text-xs justify-center mb-1">
+            <i class="fa-regular fa-envelope text-TapCard-blue"></i>
+            <span class=" font-light select-none"><%= @user.email %></span>
+        </div>
+        <% if @user.website.present? %>
+            <div class="flex items-center space-x-2 text-xs justify-center">
+                <i class="fa-solid fa-globe text-TapCard-blue"></i>            
+                <span class=" font-light"><%= @user.website %></span>
+            </div>
         <% end %>
+        <%= render "social" %>
     </div>
-    <div class="flex justify-center">
-        <div class="block justify-center">
-            <h2 class="font-jost text-TapCard-silver text-center text-xl mb-1"><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></h2>
-            <div class="flex items-center space-x-2 text-xs justify-center mb-1">
-                <i class="fa-solid fa-phone text-TapCard-blue"></i>
-                <span class=" font-light select-none"><%= @user.phone %></span>
-            </div>
-            <div class="flex items-center space-x-2 text-xs justify-center mb-1">
-                <i class="fa-regular fa-envelope text-TapCard-blue"></i>
-                <span class=" font-light select-none"><%= @user.email %></span>
-            </div>
-            <% if @user.website.present? %>
-                <div class="flex items-center space-x-2 text-xs justify-center">
-                    <i class="fa-solid fa-globe text-TapCard-blue"></i>            
-                    <span class=" font-light"><%= @user.website %></span>
+</div>
+<%= render "bio" %>
+<%# mettre le bloc note ici %>
+<div class="fixed inset-x-0 bottom-0 pb-28 w-full " data-controller="note-toggle">
+    <div data-note-toggle-target="container"  class="transition-transform duration-300 ease-in-out transform translate-y-full">
+        <button data-action="click->note-toggle#toggle" class="flex flex-col justify-center items-center w-full border-t border-TapCard-yellow bg-TapCard-lightGray pb-4 z-50 lg:hidden relative">
+            <div class="border-2 border-TapCard-gray w-14 mt-3 mb-1 rounded-lg"></div>
+            <span class="text-black">Personal note</span>
+        </button>
+        <div id="note-form" class="flex-col justify-center bg-TapCard-lightGray h-[70vh] pt-4 px-1 space-y-2  hidden z-20" data-note-toggle-target="form">
+            <%= simple_form_for([@user, @users_contact_group], url: user_users_contact_group_path(@user, @users_contact_group)) do |f| %>
+                <%= f.error_notification %>
+
+                <div class="form-inputs w-full ">
+                    <%= f.input :personal_note,
+                                placeholder: "Add a personalized note ...",
+                                input_html: { class: "bg-lined-textarea bg-lined-size bg-lined-position line-lined bg-TapCard-lightGray text-TapCard-charcoal border-none w-full h-[55vh] resize-none focus:outline-none focus:border-none" },
+                                label_html: { class: "hidden" } %>
+                </div>
+
+                <div class="form-actions flex justify-center">
+                    <%= f.button :submit, 'Update Note', class: "bg-TapCard-navy text-white px-2 py-1 rounded-sm" %>
                 </div>
             <% end %>
-            <%= render "social" %>
         </div>
     </div>
-    <%= render "bio" %>
-    <%# mettre le bloc note ici %>
-    <div class="fixed bottom-0 pb-8  w-full text-TapCard-charcoal">
-        <%= simple_form_for([@user, @users_contact_group]) do |f| %>
-            <%= f.error_notification %>
-
-            <div class="form-inputs">
-                <%= f.input :personal_note, label: 'Personal Note' %>
-            </div>
-
-            <div class="form-actions">
-                <%= f.button :submit, 'Update Note' %>
-            </div>
-        <% end %>
-
-        <div class="flex justify-center items-center border-t border-TapCard-yellow bg-TapCard-lightGray pb-[23px] z-50 lg:hidden relative">
-            <button class="flex flex-col justify-center items-center">
-                <div class="border-2 border-TapCard-gray w-14 mt-3 mb-1 rounded-lg"></div>
-                <span>Add a personalized note</span>
-            </button>
-        </div>
-    </div>
+</div>
