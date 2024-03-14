@@ -1,6 +1,6 @@
 <div class="w-full fixed">
-    <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
-    <%= link_to :back, class: "ml-2" do %>
+    <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal z-50">
+    <%= link_to repertoire_user_path(current_user), class: "ml-2" do %>
             <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
     <% end %>
     <div class="flex-1 text-center ml-2">
@@ -11,8 +11,27 @@
         <%= image_tag "send.svg", alt: "avion", class: "w-5" %>
     <% end %>
     </div>
+    <%# EN TRAVAUX %>
+    <div data-controller="group" class="z-10">
+        <div class="flex justify-center items-center bg-TapCard-yellow py-1">
+            <button data-action="click->group#toggle" class="flex items-center font-medium  space-x-2 text-TapCard-gray z-50">
+                <span>Group</span>
+                <i class="fa-solid fa-chevron-down text-sm h-3"  data-group-target="icon"></i>
+            </button>
+        </div>
+        <div data-group-target="form" class="flex-col justify-center items-center bg-TapCard-yellow space-y-2 p-1 transition-translate duration-150 transform translate-y-[-100%] hidden relative z-[-1]">
+            <div class="text-center bg-TapCard-lightGray m-1 space-y-1 py-2">
+                <% @contact_groups.each do |group| %>
+                    <% if group.deletable %>
+                        <p class="capitalize text-TapCard-gray"><%= group.name %></p>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <%# FIN DE TRAVAUX %>
 </div>
-<div class=" pt-20"></div>
+<div class=" pt-32"></div>
 <div class="flex justify-center ">
     <% if @user.avatar.attached? %>
         <%= cl_image_tag @user.avatar.key, alt: "Avatar to #{@user.first_name}", class: "rounded-full object-cover object-center w-20 h-20 border shadow-md" %>
@@ -48,14 +67,14 @@
             <div class="border-2 border-TapCard-gray w-14 mt-3 mb-1 rounded-lg"></div>
             <span class="text-black">Personal note</span>
         </button>
-        <div id="note-form" class="flex-col justify-center bg-TapCard-lightGray h-[70vh] pt-4 px-1 space-y-2  hidden z-20" data-note-toggle-target="form">
+        <div id="note-form" class="flex-col justify-center bg-TapCard-lightGray h-[60vh] pt-4 px-1 space-y-2  hidden z-20" data-note-toggle-target="form">
             <%= simple_form_for([@user, @users_contact_group], url: user_users_contact_group_path(@user, @users_contact_group)) do |f| %>
                 <%= f.error_notification %>
 
                 <div class="form-inputs w-full ">
                     <%= f.input :personal_note,
                                 placeholder: "Add a personalized note ...",
-                                input_html: { class: "bg-lined-textarea bg-lined-size bg-lined-position line-lined bg-TapCard-lightGray text-TapCard-charcoal border-none w-full h-[55vh] resize-none focus:outline-none focus:border-none" },
+                                input_html: { class: "bg-TapCard-lightGray text-TapCard-charcoal border-none w-full h-[45vh] resize-none focus:outline-none focus:border-none" },
                                 label_html: { class: "hidden" } %>
                 </div>
 

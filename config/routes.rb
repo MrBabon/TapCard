@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
   resources :users, only: [:show, :update, :index] do
     resources :users_contact_groups, only: [:update]
+    resource :repertoire, only: [] do
+      resources :contact_groups, only: [:create, :new, :edit]
+    end
     member do
       get 'profil'
       get 'settings'  # crée la route /users/:id/settings
@@ -19,7 +22,7 @@ Rails.application.routes.draw do
       get 'repertoire_user_profile'
     end
   end
-  resources :contact_groups, only: [:show]
+  resources :contact_groups, only: [:show, :destroy]
   
 
 

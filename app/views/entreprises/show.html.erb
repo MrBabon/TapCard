@@ -33,7 +33,7 @@
                     </button>
                 </div>
                 <div class="mb-3 text-left">
-                    <%= simple_form_for [@entreprise, @contact_entreprise], url: entreprise_contact_entreprises_path(@entreprise), method: :post, data: { turbo_frame: "_top" } do |f| %>
+                    <%= simple_form_for[@entreprise, @contact_entreprise], url: entreprise_contact_entreprises_path(@entreprise), method: :post, data: { turbo_frame: "_top" } do |f| %>
                         <div class="mb-3 text-left">
                             <p class="text-xs">What are you interested in?</p>
                             <%= f.input :category, 

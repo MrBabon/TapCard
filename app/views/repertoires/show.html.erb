@@ -1,15 +1,28 @@
 <div class="w-full fixed">
     <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
-    <%= link_to :back, class: "ml-2" do %>
-            <%= image_tag "plus-circle.svg", alt: "chevron", class: "w-5" %>
-    <% end %>
-    <div class="flex-1 text-center ml-2">
-        <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Groups</h2>
-    </div>
-    <%# Link à changer quand la chatroom sera mis en place %>
-    <%= link_to user_path(current_user) do %>
-        <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
-    <% end %>
+        <div data-controller="overlay" class="ml-2">
+            <button data-action="click->overlay#toggle" ><%= image_tag "plus-circle.svg", alt: "chevron", class: "w-5" %></button>
+            <div data-overlay-target="overlay" class="hidden fixed top-0 inset-x-0 w-full h-full bg-rgba justify-center items-center text-white z-[9999]">
+                <div data-overlay-target="modal" class="hidden mx-2 relative w-72 h-auto justify-center  p-4 text-center rounded-xl content-between">
+                    <div class="flex justify-center items-center">
+                        <%= simple_form_for @contact_group, url: user_repertoire_contact_groups_path(current_user), method: :post do |f| %>
+                            <%= f.input :name,
+                                        input_html: { value: "", class: "placeholder:text-slate-400 text-TapCard-charcoal text-xl text-center rounded-xl px-10 py-3", placeholder: "NAME OF GROUP" },
+                                        label_html: { class: "hidden"},
+                                        label: '' %>
+                            <%= f.button :submit, '', class: "hidden" %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-1 text-center ml-2">
+            <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Groups</h2>
+        </div>
+        <%# Link à changer quand la chatroom sera mis en place %>
+        <%= link_to user_path(current_user) do %>
+            <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
+        <% end %>
     </div>
     <div class="flex justify-around bg-white px-4 py-3">
         <%= link_to repertoire_user_path(current_user) do %>
@@ -27,8 +40,10 @@
             class: "form-control text-black font-light h-full mx-9 h-7 rounded border-none",
             placeholder: "Search Contacts"
         %>
-        <div class="flex justify-center pt-1 pb-2 ">
-            <%= submit_tag "Search", name: "", class: "bg-TapCard-blue rounded-2xl px-4 py-1 text-TapCard-lightGray" %>
+        <div class="flex justify-center pt-1 pb-2">
+            <%= button_tag(type: 'submit') do %> 
+                <%= image_tag "search.svg", alt: 'search', class: "w-8" %>
+            <% end %>
         </div>
 <% end %>
 <% if @search_active %>
@@ -53,12 +68,12 @@
         <p class="px-6">No users found.</p>
     <% end %>
 <% else %>
-    <ul class="capitalize border-y px-6 py-4 text-lg">
+    <ul class="capitalize text-lg">
         <% @contact_groups.each do |group| %>
             <%= link_to contact_group_path(group) do %>
-                <li class="flex justify-between">
+                <li class="flex justify-between border-y px-6 py-4">
                     <p><%= group.name %></p>
-                    <p><%= group.users_contact_groups.count %></p>
+                    <p class=" text-TapCard-silver"><%= group.users_contact_groups.count %></p>
                 </li>
             <% end %>
         <% end %>    

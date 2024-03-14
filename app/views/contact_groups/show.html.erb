@@ -1,15 +1,23 @@
 <div class="w-full fixed">
     <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
-    <%= link_to repertoire_user_path(current_user), class: "ml-2" do %>
-            <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
-    <% end %>
-    <div class="flex-1 text-center ml-2">
-        <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost"><%= @contact_group.name %></h2>
-    </div>
-    <%# Link à changer quand la chatroom sera mis en place %>
-    <%= link_to user_path(current_user) do %>
-        <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
-    <% end %>
+      <%= link_to repertoire_user_path(current_user), class: "ml-2" do %>
+              <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+      <% end %>
+      <%# Peut-être modifiable ici ? %>
+      <div class="flex-1 text-center ml-2">
+          <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost"><%= @contact_group.name %></h2>
+      </div>
+      <% if @contact_group.deletable == true %>
+        <%= form_with(url: contact_group_path(@contact_group), method: :delete, data: { confirm: "Are you sure?", turbo_confirm: "Are your sure?" }) do %>
+          <%= button_tag(type: 'submit') do %>
+            <%= image_tag "trash-fill.svg", alt: "poubelle", class: "w-5" %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= link_to user_path(current_user) do %>
+          <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
+        <% end %>
+      <% end %>
     </div>
 </div>
 <div class=" pt-16"></div>
@@ -20,22 +28,29 @@
             placeholder: "Search Contacts"
         %>
         <div class="flex justify-center pt-1 pb-2 ">
-            <%= submit_tag "Search", name: "", class: "bg-TapCard-blue rounded-2xl px-4 py-1 text-TapCard-lightGray" %>
+            <%= button_tag(type: 'submit') do %> 
+              <%= image_tag "search.svg", alt: 'search', class: "w-8" %>
+            <% end %>
         </div>
 <% end %>
 <ul>
-  <% @users.each do |user| %>
-    <%= link_to repertoire_user_profile_user_path(user) do %>
-      <li class="flex justify-between items-center p-4 border-b">
-        <p><%= user.first_name %> <%= user.last_name %></p>
-        <div>
-          <% if user.avatar.attached? %>
-              <%= cl_image_tag user.avatar.key, alt: "Avatar to #{user.first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
-          <% else %>    
+  <% @users.group_by { |user| user.created_at.beginning_of_month }.sort.each do |month, users| %>
+    <h3 class=" bg-TapCard-lightGray px-4 border-b shadow-md text-sm font-light"><%= month.strftime("%B %Y") %></h3>
+    <% users.sort_by(&:first_name).each do |user| %>
+      <%= link_to repertoire_user_profile_user_path(user) do %>
+        <li class="flex justify-between items-center p-4 border-b">
+          <div>
+            <p><%= user.first_name %> <%= user.last_name %></p>
+          </div>
+          <div>
+            <% if user.avatar.attached? %>
+              <%= cl_image_tag user.avatar.key, alt: "Avatar of #{user.first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
+            <% else %>
               <%= image_tag("avatar.svg", class: "rounded-full w-12 h-12 bg-cover bg-center border shadow-md") %>
-          <% end %>
-        </div>
-      </li>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
     <% end %>
   <% end %>
 </ul>
