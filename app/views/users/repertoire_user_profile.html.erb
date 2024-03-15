@@ -6,12 +6,10 @@
     <div class="flex-1 text-center ml-2">
         <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Contact</h2>
     </div>
-    <%# Link à changer quand la chatroom sera mis en place %>
-    <%= link_to user_path(current_user) do %>
+    <%= button_to chatrooms_path(other_user_id: @user.id), method: :post, form: { data: { turbo_frame: "_top" }} do %>
         <%= image_tag "send.svg", alt: "avion", class: "w-5" %>
     <% end %>
     </div>
-    <%# EN TRAVAUX %>
     <div data-controller="group" class="z-10">
         <div class="flex justify-center items-center bg-TapCard-yellow py-1">
             <button data-action="click->group#toggle" class="flex items-center font-medium  space-x-2 text-TapCard-gray z-50">
@@ -29,7 +27,6 @@
             </div>
         </div>
     </div>
-    <%# FIN DE TRAVAUX %>
 </div>
 <div class=" pt-32"></div>
 <div class="flex justify-center ">

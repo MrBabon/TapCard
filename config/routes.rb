@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'contact_groups/show'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   root to: "pages#home"
@@ -24,6 +23,9 @@ Rails.application.routes.draw do
   end
   resources :contact_groups, only: [:show, :destroy]
   
+  resources :chatrooms, only: [:show, :index, :create, :destroy] do
+    resources :messages, only: :create
+  end
 
 
   resources :associations_requests do

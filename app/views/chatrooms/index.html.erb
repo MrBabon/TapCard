@@ -1,0 +1,11 @@
+<h1>Vos conversations</h1>
+
+<div class="chatrooms-list">
+  <% @chatrooms.each do |chatroom| %>
+    <div class="chatroom">
+      <%= link_to chatroom_path(chatroom) do %>
+        <h1>Conversation avec <%= chatroom.other_user(current_user).first_name %></h1>
+      <% end %>
+    </div>
+  <% end %>
+</div>

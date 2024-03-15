@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   # REPERTOIRE
   has_one :repertoire, dependent: :destroy
+  # CHATROOM & MESSAGE
+  has_many :messages, dependent: :destroy
   # USERS_CONTACT_GROUPS
   has_many :users_contact_groups
   has_many :contact_groups, through: :users_contact_groups
@@ -80,7 +82,10 @@ class User < ApplicationRecord
       tsearch: { prefix: true } 
     }
    
-
+  def chatrooms
+    Chatroom.where("user1_id = ? OR user2_id = ?", self.id, self.id)
+  end
+  
   def full_name
     "#{first_name} #{last_name}"
   end

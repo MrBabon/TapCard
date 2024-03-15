@@ -19,8 +19,7 @@
         <div class="flex-1 text-center ml-2">
             <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Groups</h2>
         </div>
-        <%# Link à changer quand la chatroom sera mis en place %>
-        <%= link_to user_path(current_user) do %>
+        <%= link_to chatrooms_path(current_user) do %>
             <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
         <% end %>
     </div>

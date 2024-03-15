@@ -1,0 +1,6 @@
+<div id="message-<%= message.id %>" class="grid" >
+  <p class="break-all self-stretch"><%= message.content %></p>
+  <div class="grid justify-items-stretch">
+    <span class="text-xs justify-self-end"><%= message.created_at.strftime("%H:%M") %></span>
+  </div>
+</div>

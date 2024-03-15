@@ -1,0 +1,45 @@
+import { Controller } from "@hotwired/stimulus"
+import { createConsumer } from "@rails/actioncable"
+
+
+export default class extends Controller {
+  static values = { chatroomId: Number, currentUserId: Number }
+  static targets = ["messages"]
+  
+  connect() {
+    this.channel = createConsumer().subscriptions.create(
+      { channel: "ChatroomChannel", id: this.chatroomIdValue },
+      { received: data => this.insertMessageAndScrollDown(data) }
+    )
+    console.log(`Subscribed to the chatroom with the id ${this.chatroomIdValue}.`)
+  }
+
+  insertMessageAndScrollDown(data) {
+
+    const messageHTML = data.message;
+    const currentUserIsSender = this.currentUserIdValue === data.sender_id
+    const messageElement = this.buildMessageElement(currentUserIsSender, messageHTML)
+    this.messagesTarget.insertAdjacentHTML("beforeend", messageElement);
+    requestAnimationFrame(() => {
+      this.messagesTarget.scrollTop = this.messagesTarget.scrollHeight;
+    });
+  }
+  
+  buildMessageElement(currentUserIsSender, message) {
+    return `
+      <div class="mb-2 p-2 flex ${this.justifyClass(currentUserIsSender)}">
+        <div class="w-auto max-w-[70%] rounded-3xl  px-3 py-1 ${this.userStyleClass(currentUserIsSender)}">
+          ${message}
+        </div>
+      </div>
+    `
+  }
+  justifyClass(currentUserIsSender) {
+    return currentUserIsSender ? "justify-end" : "justify-start"
+  }
+  
+  userStyleClass(currentUserIsSender) {
+    return currentUserIsSender ? "bg-TapCard-teal text-TapCard-lightGray" : "bg-TapCard-lightGray"
+  }
+}
+

@@ -14,7 +14,7 @@
           <% end %>
         <% end %>
       <% else %>
-        <%= link_to user_path(current_user) do %>
+        <%= link_to chatrooms_path(current_user) do %>
           <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
         <% end %>
       <% end %>

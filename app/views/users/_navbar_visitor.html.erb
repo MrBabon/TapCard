@@ -7,9 +7,8 @@
             <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Meet contacts</h2>
         </div>
         <%# Link à changer quand la chatroom sera mis en place %>
-        <%= link_to user_path(current_user) do %>
+        <%= button_to chatrooms_path(other_user_id: @user.id), method: :post, form: { data: { turbo_frame: "_top" }} do %>
             <%= image_tag "send.svg", alt: "avion", class: "w-5" %>
         <% end %>
-        </div>
     </div>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_14_135611) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_15_081008) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_135611) do
     t.datetime "updated_at", null: false
     t.index ["entreprise_id"], name: "index_association_requests_on_entreprise_id"
     t.index ["user_id"], name: "index_association_requests_on_user_id"
+  end
+
+  create_table "chatrooms", force: :cascade do |t|
+    t.bigint "user1_id", null: false
+    t.bigint "user2_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user1_id"], name: "index_chatrooms_on_user1_id"
+    t.index ["user2_id"], name: "index_chatrooms_on_user2_id"
   end
 
   create_table "contact_entreprises", force: :cascade do |t|
@@ -165,6 +174,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_135611) do
     t.index ["following_id"], name: "index_follows_on_following_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.bigint "chatroom_id", null: false
+    t.bigint "user_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -243,6 +262,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_135611) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "association_requests", "entreprises"
   add_foreign_key "association_requests", "users"
+  add_foreign_key "chatrooms", "users", column: "user1_id"
+  add_foreign_key "chatrooms", "users", column: "user2_id"
   add_foreign_key "contact_entreprises", "entreprises"
   add_foreign_key "contact_entreprises", "events"
   add_foreign_key "contact_entreprises", "users"
@@ -256,6 +277,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_135611) do
   add_foreign_key "events", "organizations"
   add_foreign_key "exhibitors", "entreprises"
   add_foreign_key "exhibitors", "events"
+  add_foreign_key "messages", "chatrooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
   add_foreign_key "repertoires", "users"
