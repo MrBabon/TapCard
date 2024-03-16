@@ -1,4 +1,4 @@
-<div class="w-full fixed">
+<header class="w-full fixed">
     <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
       <%= link_to repertoire_user_path(current_user), class: "ml-2" do %>
               <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
@@ -19,7 +19,7 @@
         <% end %>
       <% end %>
     </div>
-</div>
+</header>
 <div class=" pt-16"></div>
 <%= form_with url: contact_group_path(@contact_group), method: :get, class: "flex justify-around items-center space-y-2 py-2 border-y" do %>
     <%= text_field_tag :search,

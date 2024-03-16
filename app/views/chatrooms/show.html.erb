@@ -1,4 +1,4 @@
-<div class="w-full fixed">
+<header class="w-full fixed">
     <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
       <%= link_to repertoire_user_path(current_user), class: "ml-2" do %>
               <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
@@ -12,7 +12,7 @@
           <% end %>
         <% end %>
     </div>
-</div>
+</header>
 <div class=" pt-20"></div>
 <div class="flex items-center space-x-4 mx-8">
     <% if @chatroom.other_user(current_user).avatar.attached? %>
@@ -25,15 +25,16 @@
         <p class="text-sm text-TapCard-silver"><%= truncate(@chatroom.other_user(current_user).job, length: 22) %></p>
     </div>
 </div>
-<div class="container chatroom" data-controller="chatroom-subscription"  data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>" data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
-    <div class="max-h-[65vh] overflow-y-scroll" data-chatroom-subscription-target="messages">
-    <% @chatroom.messages.each do |message| %>
-        <div class="mb-2 p-2 flex <%= message.sender?(current_user) ? 'justify-end' : 'justify-start' %>">
-            <div class=" max-w-[70%] rounded-xl px-4 py-2 <%= message.sender?(current_user) ? 'bg-TapCard-teal text-TapCard-lightGray' : 'bg-TapCard-lightGray' %>">
-                <%= render "messages/message", message: message %>
+<div data-controller="chatroom-subscription"  data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>" data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
+    <div class="max-h-[65vh] overflow-y-scroll p-4" data-chatroom-subscription-target="messages">
+        <% @chatroom.messages.each do |message| %>
+            <div class="mb-4 flex flex-col <%= message.sender?(current_user) ? 'items-end' : 'items-start' %>">
+                <div class="max-w-[70%] rounded-xl px-4 py-2 <%= message.sender?(current_user) ? 'bg-TapCard-teal text-TapCard-lightGray' : 'bg-TapCard-lightGray' %>">
+                    <%= render "messages/message", message: message %>
+                </div>
+                <span class="text-xs w-10 text-right"><%= message.created_at.strftime("%H:%M") %></span>
             </div>
-        </div>
-    <% end %>
+        <% end %>
     </div>
 </div>
 

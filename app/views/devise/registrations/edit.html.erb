@@ -1,4 +1,4 @@
-<div class="bg-TapCard-teal h-full pb-6">
+<div class="bg-TapCard-teal h-auto pb-6">
   <div class="flex w-full justify-between font-jost font-semibold items-center pt-8 pb-8 px-3">
     <%= link_to :back do %>
         <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
@@ -125,7 +125,6 @@
                   label_html: { class: "block text-left mx-3 mt-1" } %>
           <%= f.input :current_password,
                   required: true,
-                  autofocus: true,
                   input_html: { autocomplete: "current-password", class: "rounded w-[89%] mx-3" },
                   label: "Current password",
                   label_html: { class: "block text-left mx-3 mt-1" } %>
@@ -134,7 +133,7 @@
       </div>
 
       <div class="form-actions flex items-center justify-center">
-        <%= f.button :submit, "Update", class: "my-6 py-1 px-5 bg-TapCard-blue rounded-full text-TapCard-lightGray" %>
+        <%= f.button :submit, "Save", class: "my-6 py-1 px-5 bg-TapCard-blue rounded-full text-TapCard-lightGray" %>
       </div>
     <% end %>
     <%# <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete</div> %>

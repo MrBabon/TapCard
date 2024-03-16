@@ -1,4 +1,4 @@
-<div class="flex fixed w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal z-50">
+<header class="flex fixed w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal z-50">
     <%= link_to :back, class: "ml-2" do %>
             <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
     <% end %>
@@ -8,7 +8,7 @@
     <%= link_to chatrooms_path(current_user) do %>
         <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
     <% end %>
-</div>
+</header>
 <div class="pt-16"></div>
 <div>
     <% if @entreprise.banner.attached? %>
@@ -33,7 +33,7 @@
                     </button>
                 </div>
                 <div class="mb-3 text-left">
-                    <%= simple_form_for[@entreprise, @contact_entreprise], url: entreprise_contact_entreprises_path(@entreprise), method: :post, data: { turbo_frame: "_top" } do |f| %>
+                    <%= simple_form_for([@entreprise, @contact_entreprise], url: entreprise_contact_entreprises_path(@entreprise), method: :post, data: { turbo_frame: "_top" }) do |f| %>
                         <div class="mb-3 text-left">
                             <p class="text-xs">What are you interested in?</p>
                             <%= f.input :category, 
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                     <% end %>
-                <p class="text-[11px] font-extralight text-center">By submitting, you consent the company TechPop to have access to your profil. </p>
+                    <p class="text-[11px] font-extralight text-center">By submitting, you consent the company TechPop to have access to your profil. </p>
                 </div>
             </div>
         </div>

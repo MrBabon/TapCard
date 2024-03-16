@@ -8,3 +8,11 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+:root {
+    --safe-area-top: env(safe-area-inset-top);
+  }
+  
+  body {
+    padding-top: var(--safe-area-top);
+  }
