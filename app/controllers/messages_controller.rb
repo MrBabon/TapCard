@@ -9,7 +9,8 @@ class MessagesController < ApplicationController
             ChatroomChannel.broadcast_to(
                 @chatroom,
                 message: render_to_string(partial: "message", locals: {message: @message}),
-                sender_id: @message.user.id
+                sender_id: @message.user.id,
+                message_date: @message.created_at.to_date == Date.today ? "Today" : I18n.l(@message.created_at.to_date, format: :long)
             )
             head :ok
         else

@@ -11,7 +11,11 @@ export default class extends Controller {
       { channel: "ChatroomChannel", id: this.chatroomIdValue },
       { received: data => this.insertMessageAndScrollDown(data) }
     )
-    console.log(`Subscribed to the chatroom with the id ${this.chatroomIdValue}.`)
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    this.messagesTarget.scrollTop = this.messagesTarget.scrollHeight;
   }
 
   insertMessageAndScrollDown(data) {

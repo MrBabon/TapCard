@@ -1,4 +1,4 @@
-<header class="w-full fixed">
+<header class="w-full fixed h-20 flex-shrink-0">
     <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
       <%= link_to repertoire_user_path(current_user), class: "ml-2" do %>
               <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
@@ -12,41 +12,54 @@
           <% end %>
         <% end %>
     </div>
-</header>
-<div class=" pt-20"></div>
-<div class="flex items-center space-x-4 mx-8">
-    <% if @chatroom.other_user(current_user).avatar.attached? %>
-        <%= cl_image_tag @chatroom.other_user(current_user).avatar.key, alt: "Avatar to #{@chatroom.other_user(current_user).first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
-    <% else %>    
-        <%= image_tag("avatar.svg", class: "rounded-full w-12 h-12 bg-cover bg-center border shadow-md") %>
-    <% end %>
-    <div>
-        <h2 class=" text-TapCard-charcoal"><%= @chatroom.other_user(current_user).full_name %></h2>
-        <p class="text-sm text-TapCard-silver"><%= truncate(@chatroom.other_user(current_user).job, length: 22) %></p>
+    <div class="flex items-center space-x-4 px-8 py-2 bg-white w-full">
+        <% if @chatroom.other_user(current_user).avatar.attached? %>
+            <%= cl_image_tag @chatroom.other_user(current_user).avatar.key, alt: "Avatar to #{@chatroom.other_user(current_user).first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
+        <% else %>    
+            <%= image_tag("avatar.svg", class: "rounded-full w-12 h-12 bg-cover bg-center border shadow-md") %>
+        <% end %>
+        <div>
+            <h2 class=" text-TapCard-charcoal"><%= @chatroom.other_user(current_user).full_name %></h2>
+            <p class="text-sm text-TapCard-silver"><%= truncate(@chatroom.other_user(current_user).job, length: 22) %></p>
+        </div>
     </div>
-</div>
-<div data-controller="chatroom-subscription"  data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>" data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
-    <div class="max-h-[65vh] overflow-y-scroll p-4" data-chatroom-subscription-target="messages">
-        <% @chatroom.messages.each do |message| %>
-            <div class="mb-4 flex flex-col <%= message.sender?(current_user) ? 'items-end' : 'items-start' %>">
-                <div class="max-w-[70%] rounded-xl px-4 py-2 <%= message.sender?(current_user) ? 'bg-TapCard-teal text-TapCard-lightGray' : 'bg-TapCard-lightGray' %>">
+</header>
+
+<div class="px-4 pb-24 pt-32">
+    <div data-controller="chatroom-subscription"  data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>" data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
+        <div class=" overflow-y-scroll hide-scrollbar" data-chatroom-subscription-target="messages"   style="height: calc(100vh - 8rem - 4rem - 5rem);">
+            <% previous_date = nil %>
+            <% @chatroom.messages.each do |message| %>
+                <% message_date = message.created_at.to_date %>
+                <% if previous_date != message_date %>
+                    <div class="date-separator text-center py-3">
+                        <% if message_date == Date.today %>
+                            <span>Today</span>
+                        <% else %>
+                            <span><%= l(message_date, format: :long) %></span>
+                        <% end %>
+                    </div>
+                <% end %>
+                <div class="mb-4 flex flex-col <%= message.sender?(current_user) ? 'items-end' : 'items-start' %>">
+                    <div class="max-w-[70%] rounded-xl px-4 py-2 <%= message.sender?(current_user) ? 'bg-TapCard-teal text-TapCard-lightGray' : 'bg-TapCard-lightGray' %>" >
                     <%= render "messages/message", message: message %>
+                    </div>
                 </div>
-                <span class="text-xs w-10 text-right"><%= message.created_at.strftime("%H:%M") %></span>
-            </div>
+                <% previous_date = message_date %>
+            <% end %>
+        </div>
+    </div>
+
+</div>
+    <div class="fixed bottom-0 pb-16 w-full px-4 pt-1 bg-white">
+        <%= simple_form_for [@chatroom, @message], html: {class: "flex items-center justify-center w-full", id: "new_message", "data-controller": "message-form", "data-message-form-target": "form" } do |f| %>
+            <%= f.input :content,
+                as: :text,
+                label: false,
+                input_html: { class: "h-10 w-full border-none rounded-lg bg-TapCard-lightGray resize-none", "data-action": "keydown->message-form#submitOnEnter", "data-message-form-target": "content" },
+                placeholder: "Aa",
+                wrapper_html: {class: "w-full"}
+            %>
+            <%= f.submit "Send", class: "mb-3 hidden" %>
         <% end %>
     </div>
-</div>
-
-<div class="fixed bottom-0 pb-16 w-full px-4">
-    <%= simple_form_for [@chatroom, @message], html: {class: "flex items-center justify-center w-full", id: "new_message", "data-controller": "message-form", "data-message-form-target": "form" } do |f| %>
-        <%= f.input :content,
-            as: :text,
-            label: false,
-            input_html: { class: "h-10 w-full border-none rounded-lg bg-TapCard-lightGray resize-none", "data-action": "keydown->message-form#submitOnEnter", "data-message-form-target": "content" },
-            placeholder: "Aa",
-            wrapper_html: {class: "w-full"}
-        %>
-        <%= f.submit "Send", class: "mb-3 hidden" %>
-    <% end %>
-</div>

@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="w-60 mb-4 h-auto bg-TapCard-clair mx-auto rounded-xl shadow-sm">
+  <div class=" mb-4 h-auto bg-TapCard-clair mx-8 rounded-xl shadow-sm">
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, data: { controller: "flash" } }) do |f| %>
         <div data-flash-target="alert">
                 <%= f.error_notification %>
