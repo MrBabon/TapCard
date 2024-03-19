@@ -11,7 +11,7 @@
             <%= simple_form_for(@contact_group, method: :put, html: { "data-controller": "editable", "data-action": "ajax:success->editable#updateName" }) do |f| %>
               <%= f.input :name,
                           label_html: { class: "hidden"},
-                          input_html: { placeholder: @contact_group.name, value: "", class: "text-TapCard-lightGray text-center uppercase placeholder:text-gray-200 placeholder:uppercase placeholder:text-center bg-transparent border-none focus:ring-transparent", "data-editable_target": "input", "data-action": "blur->editable#blur" },
+                          input_html: { placeholder: @contact_group.name, value: "", class: "h-2 text-TapCard-lightGray text-center uppercase placeholder:text-gray-200 placeholder:uppercase placeholder:text-center bg-transparent border-none focus:ring-transparent caret-TapCard-yellow", "data-editable_target": "input", "data-action": "blur->editable#blur" },
                           autofocus: true %>
               <%= f.button :submit, class: "hidden" %>
             <% end %>

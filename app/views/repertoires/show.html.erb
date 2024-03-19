@@ -7,7 +7,7 @@
                     <div class="flex justify-center items-center">
                         <%= simple_form_for @contact_group, url: user_repertoire_contact_groups_path(current_user), method: :post do |f| %>
                             <%= f.input :name,
-                                        input_html: { value: "", class: "placeholder:text-slate-400 text-TapCard-charcoal text-xl text-center rounded-xl px-10 py-3", placeholder: "NAME OF GROUP" },
+                                        input_html: { value: "", class: "placeholder:text-slate-400 text-TapCard-charcoal text-xl text-center rounded-xl px-10 py-3 focus:ring-transparent caret-gray-400", placeholder: "NAME OF GROUP" },
                                         label_html: { class: "hidden"},
                                         label: '' %>
                             <%= f.button :submit, '', class: "hidden" %>
@@ -36,7 +36,7 @@
 <%= form_with url: repertoire_user_path, method: :get, class: "flex justify-around items-center space-y-2 mt-2 py-2 border-t" do %>
     <%= text_field_tag :search,
             params[:search],
-            class: "form-control text-black font-light h-full mx-9 h-7 rounded border-none",
+            class: "form-control text-black font-light h-full mx-9 h-7 rounded border-none focus:ring-transparent caret-gray-400",
             placeholder: "Search Contacts"
         %>
         <div class="flex justify-center pt-1 pb-2">
