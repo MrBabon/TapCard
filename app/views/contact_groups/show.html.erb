@@ -4,8 +4,19 @@
               <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
       <% end %>
       <%# Peut-être modifiable ici ? %>
-      <div class="flex-1 text-center ml-2">
-          <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost"><%= @contact_group.name %></h2>
+      <div class="flex-1 text-center ml-2" data-controller="editable" data-action="click->editable#edit">
+        <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">
+          <span data-editable-target="name"><%= @contact_group.name %></span>
+          <div data-editable-target="form" class="hidden ">
+            <%= simple_form_for(@contact_group, method: :put, html: { "data-controller": "editable", "data-action": "ajax:success->editable#updateName" }) do |f| %>
+              <%= f.input :name,
+                          label_html: { class: "hidden"},
+                          input_html: { placeholder: @contact_group.name, value: "", class: "text-TapCard-lightGray text-center uppercase placeholder:text-gray-200 placeholder:uppercase placeholder:text-center bg-transparent border-none focus:ring-transparent", "data-editable_target": "input", "data-action": "blur->editable#blur" },
+                          autofocus: true %>
+              <%= f.button :submit, class: "hidden" %>
+            <% end %>
+          </div>
+        </h2>
       </div>
       <% if @contact_group.deletable == true %>
         <%= form_with(url: contact_group_path(@contact_group), method: :delete, data: { confirm: "Are you sure?", turbo_confirm: "Are your sure?" }) do %>
@@ -24,7 +35,7 @@
 <%= form_with url: contact_group_path(@contact_group), method: :get, class: "flex justify-around items-center space-y-2 py-2 border-y" do %>
     <%= text_field_tag :search,
             params[:search],
-            class: "form-control text-black font-light h-full mx-9 h-7 rounded border-none",
+            class: "form-control text-black font-light h-full mx-9 h-7 rounded border-none focus:ring-transparent caret-gray-400",
             placeholder: "Search Contacts"
         %>
         <div class="flex justify-center pt-1 pb-2 ">

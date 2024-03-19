@@ -43,6 +43,8 @@ class User < ApplicationRecord
   validate :must_not_be_employee_and_entrepreneur
 
   enum industry: {
+    agriculture: "Agriculture",
+    art_design: "Art & Design",
     technology: "Technology",
     engineering: "Engineering",
     health: "Healthcare",
@@ -53,7 +55,6 @@ class User < ApplicationRecord
     transportation: "Transportation",
     real_estate: "Real Estate",
     tourism: "Tourism",
-    agriculture: "Agriculture",
     media: "Media",
     professional_services: "Professional Services",
     energy: "Energy",
@@ -62,7 +63,6 @@ class User < ApplicationRecord
     human_resources: "Human Resources",
     science: "Science",
     environment: "Environment",
-    art_design: "Art & Design"
   }
 
   validates :industry, inclusion: { in: industries.keys, message: "Industry invalid" }, allow_blank: true

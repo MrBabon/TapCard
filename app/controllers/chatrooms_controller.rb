@@ -4,6 +4,7 @@ class ChatroomsController < ApplicationController
         begin
             @chatroom = Chatroom.find(params[:id])
             @message = Message.new
+            @messages = @chatroom.messages.order(created_at: :asc)
         rescue ActiveRecord::RecordNotFound
             redirect_to chatrooms_path, alert: "La conversation a été supprimée ou n'existe pas."
         end

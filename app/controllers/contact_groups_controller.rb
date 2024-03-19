@@ -26,7 +26,15 @@ class ContactGroupsController < ApplicationController
       # Si le groupe n'est pas enregistré, il faudra gérer l'erreur. Par exemple, réafficher le formulaire:
       render 'users/repertoire'
     end
+  end
 
+  def update
+    @contact_group = ContactGroup.find(params[:id])
+    if @contact_group.update(contact_group_params)
+      redirect_to contact_group_path(@contact_group), notice: 'Nom mis à jour avec succès.'
+    else
+      redirect_to contact_group_path(@contact_group), alert: "Marche pas"
+    end
   end
 
   def destroy

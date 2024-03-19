@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
     member do
       get 'profil'
-      get 'settings'  # crée la route /users/:id/settings
+      get 'settings'
       get 'my_events'
       post :follow
       post :unfollow
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       get 'repertoire_user_profile'
     end
   end
-  resources :contact_groups, only: [:show, :destroy]
+  resources :contact_groups, only: [:show, :destroy, :update]
   
   resources :chatrooms, only: [:show, :index, :create, :destroy] do
     resources :messages, only: :create
@@ -44,8 +44,10 @@ Rails.application.routes.draw do
     resources :participations, only: [:create, :destroy]
   end
   resources :participations, only: [:update]
+  
   resources :exhibitors, only: [:show]
   resources :representatives, only: [:destroy]
+
   resources :entreprises, only: [:edit, :update, :show, :new, :create] do
     resources :employees, only: [:destroy]
     resources :contact_entreprises, only: :create

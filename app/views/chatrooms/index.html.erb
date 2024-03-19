@@ -24,18 +24,20 @@
         </div>
         <div class="flex-grow ml-4 leading-6">
           <div class="flex justify-between">
-            <h2 class="text-lg font-semibold text-gray-900"><%= chatroom.other_user(current_user).full_name %></h2>
+            <h2 class="text-lg font-semibold text-TapCard-charcoal"><%= chatroom.other_user(current_user).full_name %></h2>
             <span class="text-sm text-gray-500"><%= chatroom.messages.last.created_at.strftime("%b %d") %></span>
           </div>
-          <div class="text-sm text-gray-700">
-            <p><%= truncate(chatroom.other_user(current_user).job, length: 22) %></p>
+          <div class="text-sm ">
+            <p class=" text-TapCard-charcoal"><%= truncate(chatroom.other_user(current_user).job, length: 22) %></p>
             <% last_message = chatroom.messages.last %>
-            <% if last_message.user == current_user %>
-              <span>You: </span>
-            <% else %>
-              <span><%= last_message.user.first_name %>: </span>
-            <% end %>
-            <%= truncate(last_message.content, length: 30) %>
+            <p class=" text-TapCard-silver">
+              <% if last_message.user == current_user %>
+                <span>You: </span>
+              <% else %>
+                <span><%= last_message.user.first_name %>: </span>
+              <% end %>
+              <%= truncate(last_message.content, length: 30) %>
+            </p>
           </div>
         </div>
       </div>
