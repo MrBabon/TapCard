@@ -52,7 +52,22 @@ jeux = Event.create(
     organization: festival
 )
 
+play = Event.create(
+    title: "Festival des jeux",
+    address: "1 Bd de la Croisette",
+    city: "Cannes",
+    country: "France",
+    link: "www.cannesticket.com/fr",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    start_time: "2024-05-23",
+    end_time: "2024-05-25",
+    registration_code: "QWERTY",
+    organization: festival
+)
+
 Exhibitor.create(entreprise: dannacode, event: jeux)
 Exhibitor.create(entreprise: maelcorp, event: jeux)
+Exhibitor.create(entreprise: dannacode, event: play)
+Exhibitor.create(entreprise: maelcorp, event: play)
 
 puts "finish"

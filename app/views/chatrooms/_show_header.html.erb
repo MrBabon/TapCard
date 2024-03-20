@@ -1,0 +1,26 @@
+<header class="w-full fixed h-20 flex-shrink-0">
+    <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
+      <%= link_to chatrooms_path(current_user), class: "ml-2" do %>
+              <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+      <% end %>
+      <div class="flex-1 text-center ml-2">
+          <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Chats</h2>
+      </div>
+        <%= form_with(url: chatroom_path(@chatroom), method: :delete, data: { confirm: "Are you sure?", turbo_confirm: "Are your sure?" }) do %>
+          <%= button_tag(type: 'submit') do %>
+            <%= image_tag "trash-fill.svg", alt: "poubelle", class: "w-5" %>
+          <% end %>
+        <% end %>
+    </div>
+    <div class="flex items-center space-x-4 px-8 py-2 bg-white w-full">
+        <% if chatroom.other_user(current_user).avatar.attached? %>
+            <%= cl_image_tag chatroom.other_user(current_user).avatar.key, alt: "Avatar to #{@chatroom.other_user(current_user).first_name}", class: "rounded-full object-cover object-center w-12 h-12 border shadow-md" %>
+        <% else %>    
+            <%= image_tag("avatar.svg", class: "rounded-full w-12 h-12 bg-cover bg-center border shadow-md") %>
+        <% end %>
+        <div>
+            <h2 class=" text-TapCard-charcoal"><%= chatroom.other_user(current_user).full_name %></h2>
+            <p class="text-sm text-TapCard-silver"><%= truncate(chatroom.other_user(current_user).job, length: 22) %></p>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,14 @@
+
+<header class="w-full fixed h-20 flex-shrink-0 z-50">
+    <div class="flex w-full justify-between items-center pt-8 pb-3 px-4  bg-teal-600">
+      <%= link_to settings_user_path(current_user), class: "" do %>
+              <i class="fa-sharp fa-solid fa-gear fa-lg text-TapCard-lightGray/50"></i>
+      <% end %>
+      <div class="flex-1 text-center ml-2">
+          <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Your account</h2>
+      </div>
+      <%= link_to chatrooms_path(current_user) do %>
+              <%= image_tag "envelope.svg", alt: "envelope", class: "w-7" %>
+      <% end %>
+    </div> 
+</header>

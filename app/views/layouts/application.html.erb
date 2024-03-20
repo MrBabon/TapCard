@@ -9,8 +9,9 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="<%= user_profile_background_class %> flex flex-col min-h-screen"> 
-    <main class="pb-12 md:pb-0 overflow-y-auto bg-white flex-1">
+  <body class="">
+    <%= yield :header %>
+    <main class="bg-white">
       <%= yield %>
     </main>
     <%= render "shared/flashes" %>

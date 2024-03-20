@@ -1,0 +1,13 @@
+<header class="w-full fixed h-20 flex-shrink-0">
+    <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
+      <%= link_to repertoire_user_path(current_user), class: "ml-2" do %>
+              <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+      <% end %>
+      <div class="flex-1 text-center ml-2">
+          <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Chats</h2>
+      </div>
+      <%= link_to repertoire_user_path(current_user), class: "ml-2" do %>
+              <%= image_tag "edit.svg", alt: "edit", class: "w-5" %>
+      <% end %>
+    </div> 
+</header>

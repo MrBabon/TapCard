@@ -3,7 +3,6 @@
       <%= link_to repertoire_user_path(current_user), class: "ml-2" do %>
               <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
       <% end %>
-      <%# Peut-être modifiable ici ? %>
       <div class="flex-1 text-center ml-2" data-controller="editable" data-action="click->editable#edit">
         <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">
           <span data-editable-target="name"><%= @contact_group.name %></span>

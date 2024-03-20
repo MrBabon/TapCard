@@ -2,7 +2,7 @@ class EventsController < ApplicationController
 
     def index
         @events = Event.all
-        @events = Event.order(start_time: :asc)
+        @events = Event.where('end_time > ?', Time.zone.today - 1.day).order(start_time: :asc)
         @events_by_month = @events.group_by { |event| event.start_time.beginning_of_month }
         @events = @events.search_by_city(params[:city]) if params[:city].present?
         @events = @events.search_by_country(params[:country]) if params[:country].present?
