@@ -1,24 +1,7 @@
-<div class="w-full fixed">
-    <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
-        <%= link_to event_path(@event), class: "ml-2" do %>
-                <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
-        <% end %>
-        <div class="flex-1 text-center ml-2">
-            <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Meet contacts</h2>
-        </div>
-        <%= link_to chatrooms_path(current_user) do %>
-            <%= image_tag "envelope-regular.svg", alt: "envelope", class: "w-5" %>
-        <% end %>
-    </div>
-    <div class="flex justify-around bg-white px-4 py-3">
-        <%= link_to exposant_event_path(@event) do %>
-            <h6 class="text-xs font-semibold font-jost">Exhibitors</h6>
-        <% end %>
-        <%= link_to visitor_event_path(@event) do %>
-            <h6 class="text-xs font-semibold font-jost relative after:block after:h-0.5 after:w-1/2 after:absolute after:-bottom-1 after:left-1/4 after:origin-bottom-left after:transform after:ease-in-out after:duration-200 after:bg-TapCard-yellow">Professional Visitors</h6>
-        <% end %>
-    </div>
-</div>
+<% content_for :header do %>
+  <%= render 'visitor_header' %>
+<% end %>
+
 <div class=" pt-28"></div>
 <% if @visible_participations.present? %>
     <% @visible_participations.each do |participation| %>

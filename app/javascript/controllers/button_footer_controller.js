@@ -10,14 +10,14 @@ export default class extends Controller {
       const linkURL = icon.parentElement.href;
       if (linkURL === currentURL) {
         icon.classList.remove("text-TapCard-charcoal");
-        icon.classList.add("text-TapCard-navy");
+        icon.classList.add("text-TapCard-blue");
       }
     });
   }
 
   disconnect() {
     this.iconTargets.forEach((icon) => {
-      icon.classList.remove("text-TapCard-navy");
+      icon.classList.remove("text-TapCard-blue");
       icon.classList.add("text-TapCard-charcoal");
     });
   }

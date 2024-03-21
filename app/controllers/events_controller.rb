@@ -12,7 +12,6 @@ class EventsController < ApplicationController
         @events.each do |event|
           @participations[event.id] = Participation.participation_for(current_user, event)
         end
-          
     end
 
     def show

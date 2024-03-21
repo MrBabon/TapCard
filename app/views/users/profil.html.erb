@@ -2,7 +2,7 @@
   <%= render 'profil_header' %>
 <% end %>
 
-<div class="pt-32 bg-teal-600"></div>
+<div class="pt-32 bg-TapCard-charcoal"></div>
 <div class=" flex justify-center relative bottom-14">
     <% if current_user.avatar.attached? %>
         <%= cl_image_tag current_user.avatar.key, alt: "Avatar to #{current_user.first_name}", class: "rounded-full object-cover object-center w-28 h-28 border shadow-md" %>
@@ -59,9 +59,7 @@
             <%= link_to "Dashboard Organization", rails_admin_path, class: "px-2 py-2 mb-4 text-xs  rounded outline outline-2 outline-green-500 text-green-500 font-semibold hover:bg-green-500 hover:text-TapCard-lightGray" %>
         </div>
     <% end %>
-        <div class="flex justify-center ">
-            <%= link_to "Déconnexion", destroy_user_session_path, data: {turbo_method: :delete}, class: "px-2  mb-4 text-xs  rounded outline outline-2 outline-red-500 text-red-500 font-semibold hover:bg-red-500 hover:text-TapCard-lightGray" %>
-        </div>
+
 
 </div>
 <div class="border-2 border-TapCard-yellow"></div>

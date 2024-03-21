@@ -1,10 +1,11 @@
+
 <header class="w-full fixed h-20 flex-shrink-0 z-50">
     <div class="flex w-full justify-between items-center pt-8 pb-3 px-4 bg-TapCard-charcoal">
-      <%= link_to profil_user_path(current_user) do %>
+      <%= link_to settings_user_path(current_user) do %>
               <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-6" %>
       <% end %>
       <div class="flex-1 text-center">
-          <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Settings</h2>
+          <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Edit profil</h2>
       </div>
       <%= link_to settings_user_path(current_user) do %>
               <i class="fa-sharp fa-solid fa-gear fa-lg text-TapCard-lightGray/50"></i>

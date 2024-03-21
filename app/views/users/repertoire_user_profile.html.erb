@@ -1,33 +1,33 @@
 <div class="w-full fixed">
     <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal z-50">
-    <%= link_to repertoire_user_path(current_user), class: "ml-2" do %>
-            <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
-    <% end %>
-    <div class="flex-1 text-center ml-2">
-        <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Contact</h2>
-    </div>
-    <%= button_to chatrooms_path(other_user_id: @user.id), method: :post, form: { data: { turbo_frame: "_top" }} do %>
-        <%= image_tag "send.svg", alt: "avion", class: "w-5" %>
-    <% end %>
-    </div>
-    <div data-controller="group" class="z-10">
-        <div class="flex justify-center items-center bg-TapCard-yellow py-1">
-            <button data-action="click->group#toggle" class="flex items-center font-medium  space-x-2 text-TapCard-gray z-50">
-                <span>Group</span>
-                <i class="fa-solid fa-chevron-down text-sm h-3"  data-group-target="icon"></i>
-            </button>
+        <%= link_to repertoire_user_path(current_user), class: "ml-2" do %>
+                <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
+        <% end %>
+        <div class="flex-1 text-center ml-2">
+            <h2 class="mx-auto text-TapCard-lightGray uppercase font-semibold font-jost">Contact</h2>
         </div>
-        <div data-group-target="form" class="flex-col justify-center items-center bg-TapCard-yellow space-y-2 p-1 transition-translate duration-150 transform translate-y-[-100%] hidden relative z-[-1]">
-            <div class="text-center bg-TapCard-lightGray m-1 space-y-1 py-2">
-                <% @contact_groups.each do |group| %>
-                    <% if group.deletable %>
-                        <p class="capitalize text-TapCard-gray"><%= group.name %></p>
+        <%= button_to chatrooms_path(other_user_id: @user.id), method: :post, form: { data: { turbo_frame: "_top" }} do %>
+            <%= image_tag "send.svg", alt: "avion", class: "w-5" %>
+        <% end %>
+        </div>
+        <div data-controller="group" class="z-10">
+            <div class="flex justify-center items-center bg-TapCard-yellow py-1">
+                <button data-action="click->group#toggle" class="flex items-center font-medium  space-x-2 text-TapCard-gray z-50">
+                    <span>Group</span>
+                    <i class="fa-solid fa-chevron-down text-sm h-3"  data-group-target="icon"></i>
+                </button>
+            </div>
+            <div data-group-target="form" class="flex-col justify-center items-center bg-TapCard-yellow space-y-2 p-1 transition-translate duration-150 transform translate-y-[-100%] hidden relative z-[-1]">
+                <div class="text-center bg-TapCard-lightGray m-1 space-y-1 py-2">
+                    <% @contact_groups.each do |group| %>
+                        <% if group.deletable %>
+                            <p class="capitalize text-TapCard-gray"><%= group.name %></p>
+                        <% end %>
                     <% end %>
-                <% end %>
+                </div>
             </div>
         </div>
     </div>
-</div>
 <div class=" pt-32"></div>
 <div class="flex justify-center ">
     <% if @user.avatar.attached? %>

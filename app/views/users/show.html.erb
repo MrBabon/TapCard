@@ -1,4 +1,7 @@
-<%= render 'navbar_visitor' %> 
+<% content_for :header do %>
+  <%= render 'show_header' %>
+<% end %>
+
 <div class=" pt-20"></div>
 <div class="flex justify-center ">
     <% if @user.avatar.attached? %>

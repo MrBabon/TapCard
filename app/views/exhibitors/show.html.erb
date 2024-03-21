@@ -1,4 +1,4 @@
-<div class="w-full fixed">
+<header class="w-full fixed">
     <div class="flex w-full justify-between items-center pt-8 pb-3 pr-3  bg-TapCard-charcoal">
         <%= link_to exposant_event_path(@event), class: "ml-2" do %>
                 <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
@@ -61,7 +61,7 @@
             </div>
         <% end %>
     </div>
-</div>
+</header>
 <div class=" pt-32"></div>
 <div class="flex items-center justify-around mx-7 my-4">
     <% if @exhibitor.entreprise.logo.attached? %>

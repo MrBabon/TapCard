@@ -28,15 +28,11 @@ class User < ApplicationRecord
   has_many :association_requests, dependent: :destroy
   # CONTACT ENTREPRISE
   has_many :contact_entreprises, dependent: :destroy
-  # FOLLOW
-  has_many :follower_relationships, foreign_key: :following_id, class_name: 'Follow'
-  has_many :followers, through: :follower_relationships, source: :follower
-  has_many :following_relationships, foreign_key: :follower_id, class_name: 'Follow'
-  has_many :following, through: :following_relationships, source: :following
+ 
 
   # Validation
   has_one_attached :avatar
-  validates :first_name, presence: true, length: { maximum: 25 }, format: { without: /\s/ }
+  validates :first_name, presence: true, length: { maximum: 17 }, format: { without: /\s/ }
   validates :last_name, presence: true, length: { maximum: 20 }, format: { without: /\s/ }
   validates :phone, presence: true, length: { maximum: 20 }
   validates :biography, length: { maximum: 1000 }
@@ -45,24 +41,24 @@ class User < ApplicationRecord
   enum industry: {
     agriculture: "Agriculture",
     art_design: "Art & Design",
-    technology: "Technology",
-    engineering: "Engineering",
-    health: "Healthcare",
-    finance: "Finance",
     education: "Education",
-    retail: "Retail",
+    energy: "Energy",
+    engineering: "Engineering",
+    environment: "Environment",
+    finance: "Finance",
+    health: "Healthcare",
+    human_resources: "Human Resources",
     manufacturing: "Manufacturing",
-    transportation: "Transportation",
-    real_estate: "Real Estate",
-    tourism: "Tourism",
     media: "Media",
     professional_services: "Professional Services",
-    energy: "Energy",
     public_administration: "Public Administration",
-    telecommunications: "Telecommunications",
-    human_resources: "Human Resources",
+    real_estate: "Real Estate",
+    retail: "Retail",
     science: "Science",
-    environment: "Environment",
+    technology: "Technology",
+    telecommunications: "Telecommunications",
+    tourism: "Tourism",
+    transportation: "Transportation",
   }
 
   validates :industry, inclusion: { in: industries.keys, message: "Industry invalid" }, allow_blank: true
@@ -87,7 +83,7 @@ class User < ApplicationRecord
   end
   
   def full_name
-    "#{first_name} #{last_name}"
+    "#{first_name.capitalize} #{last_name.capitalize}"
   end
 
   def industry_form_value
@@ -135,18 +131,6 @@ class User < ApplicationRecord
     UsersContactGroup.find_or_create_by(user: self, contact_group: everyone_group)
   end
   
-  def follow(user_id)
-    following_relationships.create(following_id: user_id)
-  end
-
-  def unfollow(user_id)
-    following_relationships.find_by(following_id: user_id).destroy
-  end
-
-  def is_following?(user_id)
-    relationship = Follow.find_by(follower_id: id, following_id: user_id)
-    return true if relationship
-  end
 
   private
 

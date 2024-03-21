@@ -2,9 +2,8 @@
   <%= render 'settings_header' %>
 <% end %>
 
-<div class="bg-teal-600 pt-20 pb-10">
-
-    <div class=" mx-8 mb-10 h-auto bg-TapCard-clair  rounded-xl shadow-sm">
+<div class="h-auto bg-TapCard-charcoal pt-20 pb-10">
+    <div class=" mx-8 mb-10 h-auto bg-TapCard-lightGray rounded-xl shadow-sm">
         <div class="h-10 pt-2 flex justify-center items-center">
             <h1><%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %></h1>
         </div>
@@ -84,5 +83,8 @@
                 <i class="fa-solid fa-xmark text-red-600 w-4"></i>
             </li>
         </ul>
+        <div class="flex justify-center py-5">
+            <%= link_to "LOG OUT", destroy_user_session_path, data: {turbo_method: :delete}, class: "my-6 py-1 px-7 bg-white rounded shadow-xl uppercase text-TapCard-charcoal" %>
+        </div>
     </div>
 </div>

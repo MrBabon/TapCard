@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_user, only: [:follow, :unfollow, :show]
+    before_action :set_user, only: [:show]
 
 
     def index
@@ -89,27 +89,12 @@ class UsersController < ApplicationController
         end
     end
     
-    def follow
-        if current_user.follow(@user.id)
-            respond_to do |format|
-            format.html { redirect_to profil_user_path }
-            format.js
-            end
-        end
-    end
-    
-    def unfollow
-        if current_user.unfollow(@user.id)
-            respond_to do |format|
-            format.html { redirect_to profil_user_path }
-            format.js { render action: :follow }
-            end
-        end
-    end
+
 
     def my_events
         @user = current_user
-        @participating_events = @user.events
+        @participating_events = @user.events.where('end_time > ?', Time.zone.today - 1.day).order(start_time: :asc)
+        @participating_events_by_month = @participating_events.group_by { |event| event.start_time.beginning_of_month }
         @participating_events = @participating_events.search_by_city(params[:city]) if params[:city].present?
         @participating_events = @participating_events.search_by_country(params[:country]) if params[:country].present?
         @participating_events = @participating_events.search_by_title(params[:title]) if params[:title].present?

@@ -25,7 +25,7 @@ class ParticipationsController < ApplicationController
             if @participation.previous_changes.present?
                 flash[notice] = "La participation a été mise à jour avec succès."
             end
-            redirect_to my_events_user_path(current_user)
+            redirect_to visitor_event_path(@participation.event)
         else
           flash[:alert] = "Erreur lors de la mise à jour de la participation."
           render :edit

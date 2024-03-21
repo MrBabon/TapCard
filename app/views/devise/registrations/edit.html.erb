@@ -1,144 +1,135 @@
-<div class="bg-TapCard-teal h-auto pb-6">
-  <div class="flex w-full justify-between font-jost font-semibold items-center pt-8 pb-8 px-3">
-    <%= link_to :back do %>
-        <%= image_tag "chevron-left.svg", alt: "chevron", class: "w-5" %>
-    <% end %>
-    <div class="flex-1 text-center mr-3">
-        <h2 class="mx-auto text-TapCard-lightGray uppercase">Edit profil</h2>
-    </div>
-    <div class="">
-        <%= link_to settings_user_path(current_user) do %>
-            <i class="fa-sharp fa-solid fa-gear text-TapCard-lightGray/50"></i>
-        <% end %>
-    </div>
-  </div>
+<% content_for :header do %>
+  <%= render 'edit_header' %>
+<% end %>
 
-  <div class=" mb-4 h-auto bg-TapCard-clair mx-8 rounded-xl shadow-sm">
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, data: { controller: "flash" } }) do |f| %>
-        <div data-flash-target="alert">
-                <%= f.error_notification %>
-        </div>
-        <div class=" pt-2 flex flex-col justify-center items-center relative bottom-8">
-            <% if current_user.avatar.attached? %>
-                <%= cl_image_tag current_user.avatar.key, alt: "Avatar to #{current_user.first_name.capitalize}", class: "rounded-full object-cover object-center w-20 h-20 shadow-md", id: "user-avatar" %>
-            <% else %>
-                <%= image_tag("avatar.svg", class: "rounded-full w-20 h-20 object-cover object-center shadow-md", alt: "Avatar par défaut", id: "user-avatar") %>
-            <% end %>
-            <label for="<%= f.object_name %>_avatar" class="cursor-pointer w-5 h-5 bg-TapCard-teal rounded-full relative bottom-6 left-7 flex items-center justify-center">
-                <%= image_tag("pen-solid.svg", class: "h-3 fill-TapCard-yellow") %>
-                <%= f.input :avatar, as: :file, label: false, wrapper: false, input_html: { class: "hidden", data: { controller: "preview-image", action: "change->preview-image#previewImage" } } %>
-            </label>
-            <div id="image-preview-container"></div>
-        </div>
-        <div class="pb-3 px-3 text-sm font-light">
-            <p class=" text-TapCard-silver">Personal informations</p>
-        </div>
-      <div class="form-inputs">
-        <%= f.input :first_name,
-                required: true,
-                input_html: { autocomplete: "first name", class: "rounded w-[89%] mx-3" },
-                label: "First Name",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <%= f.input :last_name,
-                required: true,
-                input_html: { autocomplete: "last name", class: "rounded w-[89%] mx-3" },
-                label: "Last Name",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <%= f.input :phone,
-                required: true,
-                input_html: { autocomplete: "phone", class: "rounded w-[89%] mx-3" },
-                label: "Phone Number",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <%= f.input :email, 
-                required: true,
-                input_html: { autocomplete: "email", class: "rounded w-[89%] mx-3" },
-                label: "Email",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <%= f.input :job, 
-                required: false,
-                input_html: { autocomplete: "job", class: "rounded w-[89%] mx-3" },
-                label: "Job Title",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <%= f.input :biography, 
-                required: false,
-                input_html: { autocomplete: "biography", rows: 5, class: "rounded w-[89%] mx-3" },
-                label: "Biography",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <%= f.input :industry,
-                collection: User.industries.map { |key, value| [value, key] },
-                selected: f.object.industry,
-                include_blank: 'Please select',
-                required: false,
-                input_html: { autocomplete: "industry", class: "rounded w-[89%] mx-3" },
-                label: "Industry",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <div class="py-3 px-3 text-sm font-light space-y-3">
-            <p class=" text-TapCard-silver">Links</p>
-        </div>
-        <%= f.input :website, 
-                required: false,
-                input_html: { autocomplete: "website", class: "rounded w-[89%] mx-3" },
-                label: "Website",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <%= f.input :linkedin, 
-                required: false,
-                input_html: { autocomplete: "linkedin", class: "rounded w-[89%] mx-3" },
-                label: "Linkedin",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <%= f.input :instagram, 
-                required: false,
-                input_html: { autocomplete: "instagram", class: "rounded w-[89%] mx-3" },
-                label: "Instagram",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <%= f.input :facebook, 
-                required: false,
-                input_html: { autocomplete: "facebook", class: "rounded w-[89%] mx-3" },
-                label: "Facebook",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <%= f.input :twitter, 
-                required: false,
-                input_html: { autocomplete: "twitter", class: "rounded w-[89%] mx-3" },
-                label: "X",
-                label_html: { class: "block text-left mx-3 mt-1" } %>
-        <% if current_user.entreprises_as_employee.empty? && current_user.association_requests.empty? && current_user.entreprises_as_owner.empty? %>
-                <%= f.input :entreprise_code, 
-                        required: false,
-                        input_html: { autocomplete: "entreprise-code", class: "rounded w-[89%] mx-3" },
-                        label: "Company code",
-                        label_html: { class: "block text-left mx-3 mt-1" } %>
-        <% end %>
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-        <% end %>
-        <div>
-          <div class="py-3 px-3 text-sm font-light space-y-3">
-              <p class=" text-TapCard-silver">Change your password</p>
-          </div>
-          <%= f.input :password,
-                  required: false,
-                  input_html: { autocomplete: "new-password", class: "rounded w-[89%] mx-3" },
-                  label_html: { class: "block text-left mx-3 mt-1" } %>
-                
-          <%= f.input :password_confirmation,
-                  required: false,
-                  input_html: { autocomplete: "new-password", class: "rounded w-[89%] mx-3" },
-                  label_html: { class: "block text-left mx-3 mt-1" } %>
-          <%= f.input :current_password,
-                  required: true,
-                  input_html: { autocomplete: "current-password", class: "rounded w-[89%] mx-3" },
-                  label: "Current password",
-                  label_html: { class: "block text-left mx-3 mt-1" } %>
-          <p class="mx-3 text-xs">we need your current password to confirm your changes</p>
-        </div>
-      </div>
+<div class="h-auto bg-TapCard-charcoal pt-28 pb-10">
+        <div class="mx-8 mb-10 h-auto bg-TapCard-lightGray rounded-xl shadow-sm">
+                <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, data: { controller: "flash" } }) do |f| %>
+                        <div data-flash-target="alert">
+                                <%= f.error_notification %>
+                        </div>
+                        <div class="  flex flex-col justify-center items-center relative bottom-8">
+                        <% if current_user.avatar.attached? %>
+                                <%= cl_image_tag current_user.avatar.key, alt: "Avatar to #{current_user.first_name.capitalize}", class: "rounded-full object-cover object-center w-24 h-24 shadow-md", id: "user-avatar" %>
+                        <% else %>
+                                <%= image_tag("avatar.svg", class: "rounded-full w-24 h-24 object-cover object-center shadow-md", alt: "Avatar par défaut", id: "user-avatar") %>
+                        <% end %>
+                        <label for="<%= f.object_name %>_avatar" class="cursor-pointer w-5 h-5 bg-TapCard-teal rounded-full relative bottom-6 left-7 flex items-center justify-center">
+                                <%= image_tag("pen-solid.svg", class: "h-3 fill-TapCard-yellow") %>
+                                <%= f.input :avatar, as: :file, label: false, wrapper: false, input_html: { class: "hidden", data: { controller: "preview-image", action: "change->preview-image#previewImage" } } %>
+                        </label>
+                        <div id="image-preview-container"></div>
+                        </div>
+                        <div class="pb-3 px-4 text-sm font-light">
+                        <p class=" text-TapCard-silver">Personal informations</p>
+                        </div>
+                        <div class="form-inputs px-1">
+                                <%= f.input :first_name,
+                                        required: true,
+                                        input_html: { autocomplete: "first name", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "First Name",
+                                        label_html: { class: "block text-left mx-3 mt-1 " } %>
+                                <%= f.input :last_name,
+                                        required: true,
+                                        input_html: { autocomplete: "last name", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "Last Name",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <%= f.input :phone,
+                                        required: true,
+                                        input_html: { autocomplete: "phone", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "Phone Number",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <%= f.input :email, 
+                                        required: true,
+                                        input_html: { autocomplete: "email", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "Email",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <%= f.input :job, 
+                                        required: false,
+                                        input_html: { autocomplete: "job", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "Job Title",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <%= f.input :biography, 
+                                        required: false,
+                                        input_html: { autocomplete: "biography", rows: 5, class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "Biography",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <%= f.input :industry,
+                                        collection: User.industries.map { |key, value| [value, key] },
+                                        selected: f.object.industry,
+                                        include_blank: 'Please select',
+                                        required: false,
+                                        input_html: { autocomplete: "industry", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "Industry",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <div class="py-3 px-3 text-sm font-light space-y-3">
+                                <p class=" text-TapCard-silver">Links</p>
+                                </div>
+                                <%= f.input :website, 
+                                        required: false,
+                                        input_html: { autocomplete: "website", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "Website",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <%= f.input :linkedin, 
+                                        required: false,
+                                        input_html: { autocomplete: "linkedin", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "Linkedin",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <%= f.input :instagram, 
+                                        required: false,
+                                        input_html: { autocomplete: "instagram", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "Instagram",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <%= f.input :facebook, 
+                                        required: false,
+                                        input_html: { autocomplete: "facebook", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "Facebook",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <%= f.input :twitter, 
+                                        required: false,
+                                        input_html: { autocomplete: "twitter", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "X",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <% if current_user.entreprises_as_employee.empty? && current_user.association_requests.empty? && current_user.entreprises_as_owner.empty? %>
+                                        <%= f.input :entreprise_code, 
+                                                required: false,
+                                                input_html: { autocomplete: "entreprise-code", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                                label: "Company code",
+                                                label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <% end %>
+                                <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                                <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+                                <% end %>
+                                <div>
+                                <div class="py-3 px-3 text-sm font-light space-y-3">
+                                <p class=" text-TapCard-silver">Change your password</p>
+                                </div>
+                                <%= f.input :password,
+                                        required: false,
+                                        input_html: { autocomplete: "new-password", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                        
+                                <%= f.input :password_confirmation,
+                                        required: false,
+                                        input_html: { autocomplete: "new-password", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <%= f.input :current_password,
+                                        required: true,
+                                        input_html: { autocomplete: "current-password", class: "rounded w-[92%] mx-3 border-none focus:ring-transparent caret-TapCard-yellow" },
+                                        label: "Current password",
+                                        label_html: { class: "block text-left mx-3 mt-1" } %>
+                                <p class="mx-3 text-xs">we need your current password to confirm your changes</p>
+                                </div>
+                        </div>
 
-      <div class="form-actions flex items-center justify-center">
-        <%= f.button :submit, "Save", class: "my-6 py-1 px-5 bg-TapCard-blue rounded-full text-TapCard-lightGray" %>
-      </div>
-    <% end %>
-    <%# <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete</div> %>
+                        <div class="form-actions flex items-center justify-center">
+                                <%= f.button :submit, "Save", class: "my-6 py-1 px-7 bg-white rounded shadow-xl uppercase text-TapCard-charcoal" %>
+                        </div>
+                <% end %>
+        <%# <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete</div> %>
 
-  </div>
+        </div>
+
 
 </div>
 

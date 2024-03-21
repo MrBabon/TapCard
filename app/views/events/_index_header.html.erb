@@ -1,0 +1,17 @@
+<header class="w-full fixed bg-TapCard-charcoal">
+    <div class="flex  justify-between items-center pt-8 pb-3 px-4">
+        <div class="flex justify-center w-7 ml-1"></div>
+        <h2 class="text-TapCard-lightGray uppercase font-bold font-jost">Events</h2>
+        <%= link_to chatrooms_path(current_user) do %>
+            <%= image_tag "envelope.svg", alt: "envelope", class: "w-7" %>
+        <% end %>
+    </div>
+    <div class="flex justify-around bg-white px-4 py-3">
+        <%= link_to events_path do %>
+            <h6 class="text-xs font-semibold font-jost relative after:block after:h-0.5 after:w-1/2 after:absolute after:-bottom-1 after:left-1/4 after:origin-bottom-left after:transform after:ease-in-out after:duration-200 after:bg-TapCard-yellow">All Upcoming Events</h6>
+        <% end %>
+        <%= link_to my_events_user_path(current_user) do %>
+            <h6 class="text-xs font-semibold font-jost">My Events</h6>
+        <% end %>
+    </div>
+</header>
